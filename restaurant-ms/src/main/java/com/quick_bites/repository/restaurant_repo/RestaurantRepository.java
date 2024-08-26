@@ -22,19 +22,29 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     Optional<Restaurant> findByRestaurantName(@Param("restaurantName") String restaurantName);
 
 
-    //Will give list of dishes by given category name
-    @Query("SELECT d FROM Dish d WHERE d.category.categoryName = :categoryName")
-    Page<Dish> findAllDishesByCategoryName(@Param("categoryName") String categoryName , Pageable pageable);
+    // Will give a list of dishes by given CATEGORY name
+    @Query("SELECT d FROM Dish d WHERE LOWER(d.category.categoryName) LIKE LOWER(CONCAT('%', :categoryName, '%'))")
+    Page<Dish> findAllDishesByCategoryName(@Param("categoryName") String categoryName, Pageable pageable);
 
 
 
-    //Will give list of dishes from SINGLE restaurant
-    @Query("SELECT d FROM Dish d LEFT JOIN FETCH d.dishReviews WHERE d.restaurant.restaurantName = :restaurantName")
+    // Will give a list of dishes by given RESTAURANT name
+    @Query("SELECT d FROM Dish d LEFT JOIN FETCH d.dishReviews WHERE LOWER(d.restaurant.restaurantName) LIKE LOWER(CONCAT('%', :restaurantName, '%'))")
     Page<Dish> findAllDishesByRestaurantName(@Param("restaurantName") String restaurantName, Pageable pageable);
 
 
 
+    // Will give a list of dishes by DISH name
+    @Query("SELECT d FROM Dish d WHERE LOWER(d.dishName) LIKE LOWER(CONCAT('%', :dishName, '%'))")
+    Page<Dish> findAllDishesByDishName(@Param("dishName") String dishName, Pageable pageable);
+
+
+
+    //Select reviews based on restaurant name
     @Query("SELECT r.restReviews FROM Restaurant r WHERE r.restaurantName = :restaurantName")
     Page<RestaurantReview> findAllReviewsByRestaurantName(@Param("restaurantName") String restaurantName, Pageable pageable);
+
+
+
 
 }

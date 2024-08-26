@@ -8,11 +8,9 @@ import java.util.List;
 
 public interface DishSortingAndFilterService {
 
-    public List<ResponseDishDto> getFilteredAndSortedDishes(
+    List<ResponseDishDto> getFilteredAndSortedDishes(
 
-            String category,
-            String name,
-            String restaurant,
+            String query,
             Double minPrice,
             Double maxPrice,
             Double minRating,

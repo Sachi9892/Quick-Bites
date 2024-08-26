@@ -4,9 +4,9 @@ import com.quick_bites.dto.dish_dto.ResponseDishDto;
 import com.quick_bites.entity.Dish;
 import com.quick_bites.entity.DishReview;
 import com.quick_bites.entity.DishType;
+import com.quick_bites.location_service.DistanceService;
 import com.quick_bites.mapper.DishMapper;
 import com.quick_bites.repository.dish_repo.DishRepository;
-import com.quick_bites.location_service.GeoCodingService;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
 import com.quick_bites.services.dishservice_public.DishSortingAndFilterService;
 import com.quick_bites.entity.User;
@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,14 +24,13 @@ import java.util.stream.Collectors;
 public class IDishSortingAndFilterService implements DishSortingAndFilterService {
 
     private final DishRepository dishRepository;
-    private final GeoCodingService geoCodingService;
     private final RestaurantRepository restaurantRepository;
+    private final DistanceService distanceService;
 
     @Override
     public List<ResponseDishDto> getFilteredAndSortedDishes(
-            String category,
-            String name,
-            String restaurant,
+
+            String query,
             Double minPrice,
             Double maxPrice,
             Double minRating,
@@ -47,54 +45,43 @@ public class IDishSortingAndFilterService implements DishSortingAndFilterService
 
         List<Dish> dishes;
 
-        // Fetch dishes based on dishType first
-        if (dishType != null) {
-            dishes = dishRepository.findAllByDishType(dishType, Pageable.unpaged()).getContent();
-        } else {
-            dishes = dishRepository.findAll(Pageable.unpaged()).getContent();
-        }
+       dishes = restaurantRepository.findAllDishesByDishName(query , Pageable.unpaged()).getContent();
 
-        // Further filter by name, category, or restaurant if provided
-        if (name != null) {
-            dishes = dishes.stream()
-                    .filter(dish -> dish.getDishName().equalsIgnoreCase(name))
-                    .collect(Collectors.toList());
-        } else if (category != null) {
-            dishes = dishes.stream()
-                    .filter(dish -> dish.getCategory().getCategoryName().equalsIgnoreCase(category))
-                    .collect(Collectors.toList());
-        } else if (restaurant != null) {
-            dishes = dishes.stream()
-                    .filter(dish -> dish.getRestaurant().getRestaurantName().equalsIgnoreCase(restaurant))
-                    .collect(Collectors.toList());
-        }
+       log.info("dishes by dish name : {} " , dishes);
+
+       if(dishes.isEmpty()) {
+           dishes = restaurantRepository.findAllDishesByRestaurantName(query , Pageable.unpaged()).getContent();
+           log.info("dishes by restaurant name : {} " , dishes);
+       }
 
         // Apply price filtering
         if (minPrice != null && maxPrice != null) {
-            dishes = dishes.stream()
-                    .filter(dish -> dish.getPrice() >= minPrice && dish.getPrice() <= maxPrice)
-                    .collect(Collectors.toList());
+            dishes = dishRepository.findAllByPriceBetween(minPrice , maxPrice);
+            log.info("dishes by price : {} " , dishes);
         }
 
         // Apply rating filtering
         if (minRating != null) {
-            dishes = dishes.stream()
-                    .filter(dish -> dish.getDishReviews().stream()
-                            .mapToDouble(DishReview::getRating)
-                            .average().orElse(0.0) >= minRating)
-                    .collect(Collectors.toList());
+            dishes = dishRepository.findAllByDishReviewsRatingGreaterThanEqual(minRating).stream().toList();
+            log.info("dishes by rating : {} " , dishes);
         }
+
+        if(dishType != null) {
+            dishes = dishRepository.findAllByDishType(dishType).stream().toList();
+            log.info("dishes by dish-type : {} " , dishes);
+        }
+
 
         // Handle distance filtering and sorting
         if (userLatitude != null && userLongitude != null && "distance".equals(sortBy)) {
-            // Use your custom sortDishesByDistance method
-            dishes = sortDishesByDistance(dishes, userLatitude, userLongitude);
+            // Use DistanceService for sorting by distance
+            dishes = distanceService.sortDishesByDistance(dishes, userLatitude, userLongitude);
 
             // Apply distance filtering
             if (minDistance != null || maxDistance != null) {
                 dishes = dishes.stream()
                         .filter(dish -> {
-                            double distance = calculateDistance(
+                            double distance = distanceService.calculateDistance(
                                     userLatitude, userLongitude,
                                     dish.getRestaurant().getLocation().getLatitude(),
                                     dish.getRestaurant().getLocation().getLongitude());
@@ -121,22 +108,4 @@ public class IDishSortingAndFilterService implements DishSortingAndFilterService
         return dishes.stream().map(DishMapper::mapToDto).toList();
     }
 
-    private List<Dish> sortDishesByDistance(List<Dish> dishes, double userLat, double userLon) {
-        return dishes.stream()
-                .sorted(Comparator.comparingDouble(dish -> calculateDistance(userLat, userLon,
-                        dish.getRestaurant().getLocation().getLatitude(),
-                        dish.getRestaurant().getLocation().getLongitude())))
-                .toList();
-    }
-
-    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        final int R = 6371;
-        double latDistance = Math.toRadians(lat2 - lat1);
-        double lonDistance = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                        Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c; // Distance in km
-    }
 }

@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface DishRepository extends JpaRepository<Dish, Integer> {
 
 
-    //Will be used when restaurant tries to add new dish ( prevent adding of same dish )
+    //Will be used when restaurant tries to add new dish ( prevent listing of same dish )
     @Query("SELECT COUNT(d) > 0 FROM Dish d WHERE d.dishName = :dishName AND d.restaurant = :restaurant AND d.category = :category")
     Boolean existsByDishNameAndRestaurantAndCategory(
             @Param("dishName") String dishName,
@@ -30,18 +30,13 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
     Optional<Dish> findByName(@Param("dishName") String dishName);
 
 
-
-    Page<Dish> findAllByDishName(String dishName , Pageable pageable);
-
-
     //Fetch dishes by dish type
     @Query("SELECT d FROM Dish d WHERE d.dishType = :dishType")
-    Page<Dish> findAllByDishType(@Param("dishType") DishType dishType , Pageable pageable);
-
+    List<Dish> findAllByDishType(@Param("dishType") DishType dishType);
 
 
     //Fetch dishes by rating
-    List<Dish> findAllByDishReviewsRatingGreaterThanEqual(double rating, Pageable pageable);
+    List<Dish> findAllByDishReviewsRatingGreaterThanEqual(double rating);
 
 
     //Fetch dishes by price
