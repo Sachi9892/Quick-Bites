@@ -5,14 +5,12 @@ import com.quick_bites.dto.LocationDto;
 import com.quick_bites.entity.Address;
 import com.quick_bites.entity.User;
 import com.quick_bites.repository.UserRepository;
-import com.quick_bites.service.managers.dish_rendering_manager.client.DishClient;
+import com.quick_bites.service.managers.dish_rendering_manager.feign_client.DishClient;
 import com.quick_bites.service.user_signup.CreateNewUser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
 
 @Service

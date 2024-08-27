@@ -28,11 +28,13 @@ public class DishesByDistanceController {
             @RequestParam(required = false, defaultValue = "0") Double minDistance,
             @RequestParam(required = false, defaultValue = "5") Double maxDistance) {
 
-        // Fetch all dishes (you might want to add some filtering here if needed)
+        // Fetch all dishes
         List<Dish> dishes = dishRepository.findAll();
+
 
         // Sort dishes by distance
         List<Dish> sortedDishes = distanceService.sortDishesByDistance(dishes, userLatitude, userLongitude);
+
 
         // Apply distance filtering
         if (minDistance != null || maxDistance != null) {

@@ -1,9 +1,8 @@
-package com.quick_bites.service.managers.dish_rendering_manager.client;
+package com.quick_bites.service.managers.dish_rendering_manager.feign_client;
 
 
 import com.quick_bites.dto.LocationDto;
 import com.quick_bites.dto.ResponseDishDto;
-import com.quick_bites.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

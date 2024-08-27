@@ -2,8 +2,7 @@ package com.quick_bites.service.managers.dish_rendering_manager.search;
 
 
 import com.quick_bites.dto.ResponseDishDto;
-import com.quick_bites.entity.User;
-import com.quick_bites.service.managers.dish_rendering_manager.client.DishClient;
+import com.quick_bites.service.managers.dish_rendering_manager.feign_client.DishClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
