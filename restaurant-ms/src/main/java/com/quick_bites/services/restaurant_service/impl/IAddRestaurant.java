@@ -1,5 +1,6 @@
 package com.quick_bites.services.restaurant_service.impl;
 
+import com.quick_bites.dto.location_dto.LocationDto;
 import com.quick_bites.dto.restaurant_dto.AddRestaurantDto;
 import com.quick_bites.entity.Location;
 import com.quick_bites.entity.Restaurant;
@@ -21,14 +22,14 @@ public class IAddRestaurant implements AddRestaurant {
     @Override
     public Restaurant addRestaurant(AddRestaurantDto addRestaurantDto) {
 
-        GeoCodingService.LatLng coordinates = geoCodingService.getCoordinates(addRestaurantDto.getAddress());
+        LocationDto coordinates = geoCodingService.getCoordinates(addRestaurantDto.getAddress());
 
         Restaurant restaurant = new Restaurant();
 
         restaurant.setRestaurantName(addRestaurantDto.getRestaurantName());
         restaurant.setMobileNumber(addRestaurantDto.getMobileNumber());
         restaurant.setRestPic(addRestaurantDto.getRestPic());
-        restaurant.setLocation(new Location(coordinates.getLat(), coordinates.getLng(), addRestaurantDto.getAddress()));
+        restaurant.setLocation(new Location(coordinates.getLatitude(), coordinates.getLongitude(), addRestaurantDto.getAddress()));
 
         return restaurantRepository.save(restaurant);
 

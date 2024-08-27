@@ -1,5 +1,6 @@
 package com.quick_bites.services.user_service;
 
+import com.quick_bites.dto.location_dto.LocationDto;
 import com.quick_bites.dto.user_dto.AddUserDto;
 import com.quick_bites.entity.Location;
 import com.quick_bites.entity.User;
@@ -17,13 +18,13 @@ public class UserService {
 
     public User addUser(AddUserDto addUserDto) {
 
-        GeoCodingService.LatLng coordinates = geoCodingService.getCoordinates(addUserDto.getAddress());
+        LocationDto coordinates = geoCodingService.getCoordinates(addUserDto.getAddress());
 
         User user = new User();
 
         user.setName(addUserDto.getName());
         user.setMobileNumber(addUserDto.getMobileNumber());
-        user.setLocation(new Location(coordinates.getLat(), coordinates.getLng(), addUserDto.getAddress()));
+        user.setLocation(new Location(coordinates.getLatitude(), coordinates.getLongitude(), addUserDto.getAddress()));
         return userRepository.save(user);
     }
 

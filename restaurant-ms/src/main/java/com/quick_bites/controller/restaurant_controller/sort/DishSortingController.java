@@ -32,19 +32,16 @@ public class DishSortingController {
             @RequestParam(value = "minPrice", required = false) Double minPrice,
             @RequestParam(value = "maxPrice", required = false) Double maxPrice,
             @RequestParam(value = "minRating", required = false) Double minRating,
-            @RequestParam(value = "minDistance", required = false) Double minDistance,
-            @RequestParam(value = "maxDistance", required = false) Double maxDistance,
+            @RequestParam(value = "minDistance", required = false , defaultValue = "0") Double minDistance,
+            @RequestParam(value = "maxDistance", required = false , defaultValue = "5") Double maxDistance,
+            @RequestParam(value = "userLatitude" , required = false) Double userLatitude,
+            @RequestParam(value = "userLongitude" , required = false) Double userLongitude,
             @RequestParam(value = "sortBy", required = false) String sortBy,
             @RequestParam(value = "dishType" , required = false) DishType dishType,
-            @RequestParam(value = "ascending", defaultValue = "true") boolean ascending,
-            @RequestParam(value = "userId") int userId)
+            @RequestParam(value = "ascending", defaultValue = "true") boolean ascending)
     {
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("No user"));
 
-        if (user == null || user.getLocation().getLatitude() == 0 || user.getLocation().getLongitude() == 0) {
-            throw new IllegalArgumentException("User location data is missing.");
-        }
 
         List<ResponseDishDto> filteredAndSortedDishes = filterService.getFilteredAndSortedDishes(
                 query,
@@ -53,10 +50,9 @@ public class DishSortingController {
                 minRating,
                 minDistance,
                 maxDistance,
-                user.getLocation().getLatitude(),
-                user.getLocation().getLongitude(),
+                userLatitude,
+                userLongitude,
                 dishType,
-                user,
                 sortBy,
                 ascending);
 

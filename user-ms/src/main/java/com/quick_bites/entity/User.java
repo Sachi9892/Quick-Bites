@@ -1,12 +1,11 @@
 package com.quick_bites.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity @Getter @Setter @Builder
 @AllArgsConstructor @NoArgsConstructor
@@ -14,7 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    private int userId;
 
     private String userName;
 
@@ -22,7 +21,9 @@ public class User {
 
     private String userMobileNumber;
 
-    private String userAddress;
+    @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     private LocalDateTime createdAt;
 

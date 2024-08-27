@@ -1,7 +1,6 @@
 package com.quick_bites.dto;
 
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddUserDto {
+public class LocationDto {
 
-    private String userName;
-    private String userEmail;
-    private String userMobileNumber;
+    private double latitude;
+    private double longitude;
     private String address;
 
 }

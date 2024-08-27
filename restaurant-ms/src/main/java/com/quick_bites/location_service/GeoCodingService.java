@@ -1,6 +1,6 @@
 package com.quick_bites.location_service;
 
-import com.quick_bites.constants.AppConstants;
+import com.quick_bites.dto.location_dto.LocationDto; // Import your LocationDto
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +34,7 @@ public class GeoCodingService {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
-    public LatLng getCoordinates(String address) {
+    public LocationDto getCoordinates(String address) {
         try {
             // Encode the address
             String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
@@ -56,7 +57,8 @@ public class GeoCodingService {
 
             // Process the response
             if (response != null && response.getResults() != null && !response.getResults().isEmpty()) {
-                return response.getResults().get(0).getGeometry().getLocation();
+                LatLng location = response.getResults().get(0).getGeometry().getLocation();
+                return new LocationDto(location.getLat(), location.getLng(), address);
             }
             throw new RuntimeException("Unable to get coordinates for address: " + address);
         } catch (Exception e) {
@@ -64,20 +66,6 @@ public class GeoCodingService {
             throw new RuntimeException("Error occurred while fetching coordinates", e);
         }
     }
-
-    public double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        final int R = 6371;
-
-        double latDistance = Math.toRadians(lat2 - lat1);
-        double lonDistance = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                        Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        return R * c;
-    }
-
 
     @Getter
     @Setter
