@@ -1,4 +1,4 @@
-package com.quick_bites.dto;
+package com.quick_bites.dto.dishdto;
 
 public enum DishType {
 

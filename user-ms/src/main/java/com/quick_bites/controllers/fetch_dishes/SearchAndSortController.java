@@ -1,7 +1,7 @@
 package com.quick_bites.controllers.fetch_dishes;
 
 
-import com.quick_bites.dto.ResponseDishDto;
+import com.quick_bites.dto.dishdto.ResponseDishDto;
 import com.quick_bites.service.managers.dish_rendering_manager.webclient.DishSortingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

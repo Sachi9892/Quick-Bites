@@ -44,4 +44,19 @@ public class Dish {
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<DishReview> dishReviews;
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "dishId=" + dishId +
+                ", dishName='" + dishName + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", dishType=" + dishType +
+                ", dishPic='" + dishPic + '\'' +
+                ", restaurant=" + restaurant +
+                ", category=" + category +
+                ", dishReviews=" + dishReviews +
+                '}';
+    }
 }

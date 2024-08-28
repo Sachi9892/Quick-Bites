@@ -1,4 +1,4 @@
-package com.quick_bites.dto;
+package com.quick_bites.dto.reviewdto;
 
 
 import lombok.AllArgsConstructor;

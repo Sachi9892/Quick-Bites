@@ -26,6 +26,6 @@ public class Location {
 
 
     @OneToOne(mappedBy = "location")
-    private User user;
+    private Restaurant restaurant;
 
 }

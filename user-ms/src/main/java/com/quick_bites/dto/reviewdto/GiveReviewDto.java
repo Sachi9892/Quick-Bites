@@ -1,13 +1,10 @@
-package com.quick_bites.dto.review_dto;
+package com.quick_bites.dto.reviewdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
 public class GiveReviewDto {
 
     private Double rating;

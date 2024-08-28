@@ -1,5 +1,6 @@
-package com.quick_bites.dto;
+package com.quick_bites.dto.dishdto;
 
+import com.quick_bites.dto.reviewdto.ResponseReviewDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

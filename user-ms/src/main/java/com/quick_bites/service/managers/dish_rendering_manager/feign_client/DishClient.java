@@ -2,9 +2,14 @@ package com.quick_bites.service.managers.dish_rendering_manager.feign_client;
 
 
 import com.quick_bites.dto.LocationDto;
-import com.quick_bites.dto.ResponseDishDto;
+import com.quick_bites.dto.dishdto.ResponseDishDto;
+import com.quick_bites.dto.reviewdto.GiveReviewDto;
+import com.quick_bites.dto.reviewdto.ResponseReviewDto;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -27,8 +32,21 @@ public interface DishClient {
             @RequestParam(value = "ascending", required = false) boolean ascending
     );
 
-
+    //For latitude and longitude
     @GetMapping("/api/geocoding/coordinates")
     LocationDto getCoordinates(@RequestParam("address") String address);
+
+
+    //Review dish
+    @PostMapping("/review/dish")
+    ResponseEntity<String> giveReview(@RequestBody GiveReviewDto reviewDto , @RequestParam int dishId);
+
+
+
+    //Review restaurant
+    @PostMapping("/review/rest")
+    ResponseEntity<String> reviewRest(@RequestBody GiveReviewDto reviewDto, @RequestParam int restId);
+
+
 
 }

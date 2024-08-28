@@ -25,8 +25,24 @@ public class RestaurantReview {
     private String comment;
     private LocalDateTime reviewTime;
 
+    //userId to map review with user
+    private Long userId;
+
+
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonIgnore
     private Restaurant restaurant;
+
+    @Override
+    public String toString() {
+        return "DishReview{" +
+                "reviewId=" + reviewId +
+                ", rating=" + rating +
+                ", comment='" + comment + '\'' +
+                ", reviewTime=" + reviewTime +
+                ", userId=" + userId +
+                '}';
+    }
+
 }

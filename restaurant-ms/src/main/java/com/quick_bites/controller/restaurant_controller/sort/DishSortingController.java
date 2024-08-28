@@ -3,9 +3,6 @@ package com.quick_bites.controller.restaurant_controller.sort;
 
 import com.quick_bites.dto.dish_dto.ResponseDishDto;
 import com.quick_bites.entity.DishType;
-import com.quick_bites.entity.User;
-import com.quick_bites.exception.ResourceNotFoundException;
-import com.quick_bites.repository.user_repo.UserRepository;
 import com.quick_bites.services.dishservice_public.DishSortingAndFilterService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +21,6 @@ import java.util.List;
 public class DishSortingController {
 
     private final DishSortingAndFilterService filterService;
-    private final UserRepository userRepository;
 
     @GetMapping("/sort")
     public ResponseEntity<List<ResponseDishDto>> sortDishes(

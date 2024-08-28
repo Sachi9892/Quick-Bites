@@ -1,6 +1,6 @@
 package com.quick_bites.service.managers.dish_rendering_manager.webclient;
 
-import com.quick_bites.dto.ResponseDishDto;
+import com.quick_bites.dto.dishdto.ResponseDishDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
