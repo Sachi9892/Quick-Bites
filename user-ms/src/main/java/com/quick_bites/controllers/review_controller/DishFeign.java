@@ -24,8 +24,8 @@ public class DishFeign {
     doRestReview(@RequestBody GiveReviewDto reviewDto ,
              @RequestParam int dishId) {
 
-        reviewDishService.dishReview(reviewDto, dishId);
+        String  mess = reviewDishService.dishReview(reviewDto, dishId);
 
-        return ResponseEntity.status(HttpStatus.OK).body("Thank you for the feign client review dish");
+        return ResponseEntity.status(HttpStatus.OK).body(mess);
     }
 }

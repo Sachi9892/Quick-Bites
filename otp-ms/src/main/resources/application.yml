@@ -1,0 +1,20 @@
+
+twilio:
+  account:
+    sid: AC8c962edc2a58b6a197d1d65fe30587f8
+  auth:
+    token: 6f8315614c59c92b01ea33357d35a61c
+  phone:
+    number: +15736976297
+
+spring:
+  application:
+    name: "otp-ms"
+  datasource:
+    url: jdbc:mysql://localhost:3306/otpdb
+    username: root
+    password: 1234
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update

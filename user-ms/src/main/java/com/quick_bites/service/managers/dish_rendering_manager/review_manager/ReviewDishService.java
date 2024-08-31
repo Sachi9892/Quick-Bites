@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
         private final UserRepository userRepository;
         private final ReviewRepository reviewRepository;
 
-        public ResponseEntity<String> dishReview(GiveReviewDto reviewDto , int dishId) {
+        public String dishReview(GiveReviewDto reviewDto , int dishId) {
 
             Review review = new Review();
 
@@ -41,5 +41,7 @@ import java.time.LocalDateTime;
 
 
             return dishClient.giveReview(reviewDto, dishId);
+
         }
-}
+
+    }

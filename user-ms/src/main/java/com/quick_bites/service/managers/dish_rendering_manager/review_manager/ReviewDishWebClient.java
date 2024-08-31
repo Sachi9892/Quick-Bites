@@ -58,6 +58,5 @@ public class ReviewDishWebClient {
                 .doOnSuccess(response -> log.info("Review sent successfully"))
                 .doOnError(error -> log.error("Error sending review: ", error))
                 .subscribe();
-
     }
 }

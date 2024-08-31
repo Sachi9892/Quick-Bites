@@ -4,9 +4,7 @@ package com.quick_bites.service.managers.dish_rendering_manager.feign_client;
 import com.quick_bites.dto.LocationDto;
 import com.quick_bites.dto.dishdto.ResponseDishDto;
 import com.quick_bites.dto.reviewdto.GiveReviewDto;
-import com.quick_bites.dto.reviewdto.ResponseReviewDto;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,14 +37,22 @@ public interface DishClient {
 
     //Review dish
     @PostMapping("/review/dish")
-    ResponseEntity<String> giveReview(@RequestBody GiveReviewDto reviewDto , @RequestParam int dishId);
+    String giveReview(@RequestBody GiveReviewDto reviewDto , @RequestParam int dishId);
 
 
 
     //Review restaurant
     @PostMapping("/review/rest")
-    ResponseEntity<String> reviewRest(@RequestBody GiveReviewDto reviewDto, @RequestParam int restId);
+    String reviewRest(@RequestBody GiveReviewDto reviewDto, @RequestParam int restId);
 
 
+
+    //Get dishes by distance
+    @GetMapping("/dishes/by-distance")
+     List<ResponseDishDto> getDishesByDistance(
+            @RequestParam Double userLatitude,
+            @RequestParam Double userLongitude,
+            @RequestParam(required = false, defaultValue = "0") Double minDistance,
+            @RequestParam(required = false, defaultValue = "5") Double maxDistance);
 
 }

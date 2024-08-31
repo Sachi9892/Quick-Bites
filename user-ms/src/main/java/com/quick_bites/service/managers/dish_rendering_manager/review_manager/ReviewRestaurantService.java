@@ -25,7 +25,7 @@ public class ReviewRestaurantService {
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
 
-    public ResponseEntity<String> restaurantReview(GiveReviewDto reviewDto , int restId) {
+    public String restaurantReview(GiveReviewDto reviewDto , int restId) {
 
         Review review = new Review();
 

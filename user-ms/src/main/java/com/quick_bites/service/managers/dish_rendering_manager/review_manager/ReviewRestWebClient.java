@@ -18,10 +18,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class ReviewRestWebClient {
 
-    private final WebClient webClient = WebClient.builder()
-            .baseUrl("http://RESTAURANT-MS")
-            .build();
-
+    private final WebClient.Builder webClientBuilder;
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
 
@@ -30,20 +27,21 @@ public class ReviewRestWebClient {
         // Create a new review
         Review review = new Review();
         review.setRating(reviewDto.getRating());
-        review.setComment(reviewDto.getComment());
+        review.setComment(review.getComment());
         review.setReviewTime(LocalDateTime.now());
-
 
         // Fetch user from the database
         User user = userRepository.findById(reviewDto.getUserId())
                 .orElseThrow(() -> new NoResourceFoundException("No user found"));
         review.setUser(user);
 
-
         // Save the review
         Review savedReview = reviewRepository.save(review);
         log.info("Review: {}", savedReview);
 
+        // Create WebClient instance using the builder
+        WebClient webClient = webClientBuilder.baseUrl("http://RESTAURANT-MS").build();
+        log.info("URL IS :->  {} " , webClient );
 
         // Send the review to the Dish service using WebClient
         webClient.post()

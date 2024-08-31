@@ -21,11 +21,9 @@ public class RestFeign {
     private final ReviewRestaurantService reviewDishService;
 
     @PostMapping("/review/feign/rest")
-    public ResponseEntity<ResponseEntity<String>>
-    doDishReview(@RequestBody GiveReviewDto reviewDto ,
-             @RequestParam int restId) {
+    public ResponseEntity<String> doDishReview(@RequestBody GiveReviewDto reviewDto , @RequestParam int restId) {
 
-        ResponseEntity<String> response = reviewDishService.restaurantReview(reviewDto, restId);
+        String response = reviewDishService.restaurantReview(reviewDto, restId);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
