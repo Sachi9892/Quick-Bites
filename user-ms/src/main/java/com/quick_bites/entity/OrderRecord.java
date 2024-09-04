@@ -1,7 +1,6 @@
 package com.quick_bites.entity;
 
 
-import com.quick_bites.dto.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -22,16 +22,27 @@ public class OrderRecord {
     private Long orderId;
 
     private Long userId;
+
     private Long restaurantId;
+
     private Double totalPrice;
+
+    private LocalDateTime orderDate;
+
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    private String paymentMethod;
+    @OneToMany()
+    private List<DeliveryAddresses> deliveryAddress;
 
-    private LocalDateTime orderDate;
+    @OneToOne
+    private Cart cart;
 
-    private String deliveryAddress;
+    @OneToOne
+    private PaymentDetails paymentDetails;
+
+    @OneToOne
+    private DeliveryInfo deliveryInfo;
 
 }
