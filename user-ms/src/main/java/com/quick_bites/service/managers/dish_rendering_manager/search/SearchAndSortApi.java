@@ -2,7 +2,7 @@ package com.quick_bites.service.managers.dish_rendering_manager.search;
 
 
 import com.quick_bites.dto.dishdto.ResponseDishDto;
-import com.quick_bites.service.managers.dish_rendering_manager.feign_client.DishClient;
+import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class SearchAndSortApi {
 
-    private final DishClient dishClient;
+    private final RestaurantClient restaurantClient;
 
     public List<ResponseDishDto> searchAndSortDishes(
             String query,
@@ -29,7 +29,7 @@ public class SearchAndSortApi {
             String sortBy,
             boolean ascending) {
 
-        List<ResponseDishDto> dishes = dishClient.getFilteredAndSortedDishes(
+        List<ResponseDishDto> dishes = restaurantClient.getFilteredAndSortedDishes(
                 query, minPrice, maxPrice, minRating, minDistance,
                 maxDistance, userLatitude, userLongitude, dishType , sortBy, ascending
         );

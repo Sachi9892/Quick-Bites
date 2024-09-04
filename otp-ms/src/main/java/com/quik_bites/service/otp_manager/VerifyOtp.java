@@ -4,6 +4,6 @@ import com.quik_bites.dto.OtpResponseDto;
 
 public interface VerifyOtp {
 
-    OtpResponseDto verifyOtp(String mobileNumber, String otp);
+    OtpResponseDto verifyOtp(String mobileNumber, String userOtp);
 
 }

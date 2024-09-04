@@ -23,7 +23,7 @@ public class IGiveReviewToDish implements GiveReviewToDish {
     private final DishReviewRepository dishReviewRepository;
 
     @Override
-    public void giveReview(GiveReviewDto reviewDto, int dishId) {
+    public void giveReview(GiveReviewDto reviewDto, Long dishId) {
 
         //get dish
         Dish dish = dishRepository.findById(dishId)

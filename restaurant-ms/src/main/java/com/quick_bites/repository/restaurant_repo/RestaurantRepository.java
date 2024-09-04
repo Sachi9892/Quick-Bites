@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
 
     //Will find restaurant by given restaurant name

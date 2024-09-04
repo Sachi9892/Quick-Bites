@@ -20,7 +20,7 @@ public class DishReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reviewId;
+    private Long reviewId;
 
     @Range(min = 1, max = 5)
     private Double rating;

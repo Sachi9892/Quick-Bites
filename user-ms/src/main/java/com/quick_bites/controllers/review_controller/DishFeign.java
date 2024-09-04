@@ -22,7 +22,7 @@ public class DishFeign {
     @PostMapping("/review/feign/dish")
     public ResponseEntity<String>
     doRestReview(@RequestBody GiveReviewDto reviewDto ,
-             @RequestParam int dishId) {
+             @RequestParam Long dishId) {
 
         String  mess = reviewDishService.dishReview(reviewDto, dishId);
 

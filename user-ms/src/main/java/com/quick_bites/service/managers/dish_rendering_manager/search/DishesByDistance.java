@@ -4,7 +4,7 @@ package com.quick_bites.service.managers.dish_rendering_manager.search;
 import com.quick_bites.dto.dishdto.ResponseDishDto;
 import com.quick_bites.entity.User;
 import com.quick_bites.repository.UserRepository;
-import com.quick_bites.service.managers.dish_rendering_manager.feign_client.DishClient;
+import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 public class DishesByDistance {
 
-    private final DishClient dishClient;
+    private final RestaurantClient restaurantClient;
     private final UserRepository userRepository;
 
     /**
@@ -36,7 +36,7 @@ public class DishesByDistance {
         Double userLatitude = user.getAddress().getLatitude();
         Double userLongitude = user.getAddress().getLongitude();
 
-        List<ResponseDishDto> dishes = dishClient.getDishesByDistance(
+        List<ResponseDishDto> dishes = restaurantClient.getDishesByDistance(
                 userLatitude,
                 userLongitude,
                 minDistance,

@@ -18,7 +18,7 @@ public class RestaurantReviewController {
     @PostMapping("/rest")
     public ResponseEntity<String> reviewRest(
             @RequestBody GiveReviewDto reviewDto
-            , @RequestParam int restId) {
+            , @RequestParam Long restId) {
 
         reviewToRestaurant.giveReviewToRestaurant(reviewDto , restId);
         return ResponseEntity.status(HttpStatus.OK).body("Thank you for giving review to restaurant");

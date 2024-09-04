@@ -13,7 +13,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface DishRepository extends JpaRepository<Dish, Integer> {
+public interface DishRepository extends JpaRepository<Dish, Long> {
 
 
     //Will be used when restaurant tries to add new dish ( prevent listing of same dish )
@@ -36,11 +36,15 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
 
 
     //Fetch dishes by rating
-    List<Dish> findAllByDishReviewsRatingGreaterThanEqual(double rating);
+    List<Dish> findAllByDishReviewsRatingGreaterThanEqual(Double rating);
 
 
     //Fetch dishes by price
-    List<Dish> findAllByPriceBetween(double minPrice, double maxPrice);
+    List<Dish> findAllByPriceBetween(Double minPrice, Double maxPrice);
 
+
+    //Find price by dish id
+    @Query(value = "SELECT d.price FROM Dish d WHERE d.dishId= :dishId")
+    Double findPriceByDishId(@Param("dishId") Long dishId);
 
 }

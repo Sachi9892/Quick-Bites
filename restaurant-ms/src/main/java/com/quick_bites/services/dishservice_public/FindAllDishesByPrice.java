@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FindAllDishesByPrice {
 
-    List<ResponseDishDto> dishesByPrice(double minPrice, double maxPrice);
+    List<ResponseDishDto> dishesByPrice(Double minPrice, Double maxPrice);
 
 }

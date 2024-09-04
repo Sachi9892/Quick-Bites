@@ -19,7 +19,7 @@ public class AddDishController {
     private final AddDishService addDishService;
 
     @PostMapping("/dish/{id}")
-    public ResponseEntity<String> addDish(@PathVariable int id , @RequestBody AddDishDto dishDto) {
+    public ResponseEntity<String> addDish(@PathVariable Long id , @RequestBody AddDishDto dishDto) {
 
         addDishService.addDish(id , dishDto);
 

@@ -1,10 +1,7 @@
 package com.quik_bites.controller;
 
 
-import com.quik_bites.dto.OtpCases;
-import com.quik_bites.dto.OtpResponseDto;
-import com.quik_bites.dto.OtpStatus;
-import com.quik_bites.dto.PasswordResetRequestDto;
+import com.quik_bites.dto.*;
 import com.quik_bites.service.TwilioOTPService;
 import com.quik_bites.service.otp_manager.SendOtp;
 import lombok.AllArgsConstructor;
@@ -28,11 +25,10 @@ public class SendOtpController {
 
     @PostMapping("/send")
 
-    public ResponseEntity<OtpResponseDto> sendOtp(
-            @RequestParam String mobileNumber,
-            @RequestParam OtpCases cases) {
+    public ResponseEntity<OtpResponseDto> sendOtp(@RequestBody RequestOtpDto requestOtpDto) {
 
-        OtpResponseDto response = sendOtpService.sendOtp(mobileNumber, cases);
+        OtpResponseDto response = sendOtpService.sendOtp(requestOtpDto.getMobileNumber(), requestOtpDto.getCases());
+
         HttpStatus status = response.getStatus() == OtpStatus.DELIVERED ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 
         log.info("Status {} " , status);

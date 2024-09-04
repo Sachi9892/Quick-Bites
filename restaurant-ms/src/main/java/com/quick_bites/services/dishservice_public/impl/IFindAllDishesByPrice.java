@@ -18,7 +18,7 @@ public class IFindAllDishesByPrice implements FindAllDishesByPrice {
     private final DishRepository dishRepository;
 
     @Override
-    public List<ResponseDishDto> dishesByPrice(double minPrice, double maxPrice) {
+    public List<ResponseDishDto> dishesByPrice(Double minPrice, Double maxPrice) {
         List<Dish> dishes = dishRepository.findAllByPriceBetween(minPrice, maxPrice);
         return dishes.stream().map(DishMapper::mapToDto).toList();
     }

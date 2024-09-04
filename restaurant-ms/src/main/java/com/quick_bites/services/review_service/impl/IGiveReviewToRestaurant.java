@@ -22,7 +22,7 @@ public class IGiveReviewToRestaurant implements GiveReviewToRestaurant {
     private final RestaurantRepository restaurantRepository;
 
     @Override
-    public void giveReviewToRestaurant(GiveReviewDto reviewDto, int restId) {
+    public void giveReviewToRestaurant(GiveReviewDto reviewDto, Long restId) {
 
         Restaurant restaurant = restaurantRepository.findById(restId).orElseThrow(() ->
                 new ResourceNotFoundException("No restaurant found with id : " + restId));

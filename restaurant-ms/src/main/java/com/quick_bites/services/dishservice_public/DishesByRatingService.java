@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface DishesByRatingService {
 
-    List<ResponseDishDto> dishesByReview(double rating );
+    List<ResponseDishDto> dishesByReview(Double rating );
 }

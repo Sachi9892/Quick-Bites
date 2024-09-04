@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.Set;
 
-public interface CategoryRepository extends JpaRepository<Category , Integer> {
+public interface CategoryRepository extends JpaRepository<Category , Long> {
 
     //Checks if category is there
     @Query("SELECT c FROM Category c WHERE c.categoryName = :name")

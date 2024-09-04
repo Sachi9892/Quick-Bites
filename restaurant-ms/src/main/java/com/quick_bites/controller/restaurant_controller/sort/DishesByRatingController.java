@@ -22,7 +22,7 @@ public class DishesByRatingController {
     private final DishesByRatingService ratingService;
 
     @GetMapping("/by-rating")
-    public ResponseEntity<List<ResponseDishDto>> dishesByRating(@RequestParam double minRating) {
+    public ResponseEntity<List<ResponseDishDto>> dishesByRating(@RequestParam Double minRating) {
 
         List<ResponseDishDto> dishes = ratingService.dishesByReview(minRating);
 

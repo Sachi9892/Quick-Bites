@@ -22,7 +22,7 @@ public class AllDishesByPriceController {
     private final FindAllDishesByPrice byPrice;
 
     @GetMapping("/price-range")
-    public ResponseEntity<List<ResponseDishDto>> dishesInPrice(@RequestParam double minPrice , @RequestParam double maxPrice) {
+    public ResponseEntity<List<ResponseDishDto>> dishesInPrice(@RequestParam Double minPrice , @RequestParam Double maxPrice) {
 
         List<ResponseDishDto> dishes = byPrice.dishesByPrice(minPrice, maxPrice);
         return ResponseEntity.status(HttpStatus.OK).body(dishes);

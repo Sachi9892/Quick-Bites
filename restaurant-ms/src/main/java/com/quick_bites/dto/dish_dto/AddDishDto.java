@@ -20,7 +20,7 @@ public class AddDishDto {
 
     private String description;
 
-    private float price;
+    private Double price;
 
     private DishType dishType;
 

@@ -16,7 +16,7 @@ public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int restId;
+    private Long restId;
 
     private String restaurantName;
     private String mobileNumber;

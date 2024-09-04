@@ -13,13 +13,15 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 public class ResponseDishDto {
 
+    private Long dishId;
+
     private String dishName;
 
     private String category;
 
     private String description;
 
-    private float price;
+    private Double price;
 
     private DishType dishType;
 
@@ -27,10 +29,9 @@ public class ResponseDishDto {
 
     private String restaurant;
 
-    private double avgReview;
+    private Double avgReview;
 
     private List<ResponseReviewDto> reviews;
-
 
 
 }

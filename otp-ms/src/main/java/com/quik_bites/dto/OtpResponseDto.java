@@ -7,9 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class OtpResponseDto {
 
-    private String mobileNumber;
     private OtpStatus status;
-    private String otp;
     private String message;
 
 }

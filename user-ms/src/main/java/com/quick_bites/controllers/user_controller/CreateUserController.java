@@ -1,8 +1,8 @@
-package com.quick_bites.controllers;
+package com.quick_bites.controllers.user_controller;
 
 
 import com.quick_bites.dto.AddUserDto;
-import com.quick_bites.service.user_signup.CreateNewUser;
+import com.quick_bites.service.user_profile.CreateNewUser;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class CreateUserController {
 
     private final CreateNewUser createNewUser;
 
-    @PostMapping("/new")
+    @PostMapping("/signup")
 
     public ResponseEntity<String> newUser(@RequestBody AddUserDto userDto) {
         String res = createNewUser.newUser(userDto);

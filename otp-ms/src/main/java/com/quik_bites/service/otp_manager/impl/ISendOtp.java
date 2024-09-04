@@ -42,8 +42,9 @@ public class ISendOtp implements SendOtp {
 
             LocalDateTime now = LocalDateTime.now();
 
-            // Expire in 10 minutes
-            LocalDateTime expiresAt = now.plusMinutes(10);
+            // Expire in 20 minutes
+            LocalDateTime expiresAt = now.plusMinutes(20);
+
 
             // Create obj of otp
             OtpRecord otpRecord = new OtpRecord(mobileNumber, otp, now, expiresAt, OtpStatus.PENDING, cases);
@@ -67,27 +68,15 @@ public class ISendOtp implements SendOtp {
             log.info("Message : {} " , message);
 
             // Return success response
-            return new OtpResponseDto(mobileNumber, OtpStatus.DELIVERED, otp ,"Otp sent!");
+            return new OtpResponseDto( OtpStatus.DELIVERED ,"Otp sent !");
 
         } catch (Exception e) {
             log.error("Failed to send OTP to {}: {}", mobileNumber, e.getMessage());
 
             // Return failure response
-            return new OtpResponseDto(mobileNumber, OtpStatus.FAILED, "", "Failed to send OTP: " + e.getMessage());
+            return new OtpResponseDto(OtpStatus.FAILED, "Failed to send OTP: " + e.getMessage());
         }
 
-    }
-
-
-    //To get otp
-    public String getOtp(String phoneNumber) {
-        return otpStore.get(phoneNumber);
-    }
-
-
-    //To remove
-    public void removeOtp(String phoneNumber) {
-        otpStore.remove(phoneNumber);
     }
 
 }

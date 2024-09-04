@@ -1,4 +1,4 @@
-package com.quick_bites.dto.user_dto;
+package com.quik_bites.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseUserDto {
-
-    private String name;
+public class RequestOtpDto {
 
     private String mobileNumber;
+    private OtpCases cases;
 
 }

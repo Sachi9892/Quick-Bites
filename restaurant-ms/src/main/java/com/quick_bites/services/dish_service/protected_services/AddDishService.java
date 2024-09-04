@@ -4,6 +4,6 @@ import com.quick_bites.dto.dish_dto.AddDishDto;
 
 public interface AddDishService {
 
-    public String addDish(int id , AddDishDto addDishDto);
+     String addDish(Long id , AddDishDto addDishDto);
 
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResponseReviewDto {
 
-    private double rating;
+    private Double rating;
     private String comment;
 
 }

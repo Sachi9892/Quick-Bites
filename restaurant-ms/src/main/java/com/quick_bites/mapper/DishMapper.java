@@ -13,13 +13,16 @@ public class DishMapper {
     }
 
     public static ResponseDishDto mapToDto(Dish dish) {
-        double averageRating = dish.getDishReviews().stream()
+
+        Double averageRating = dish.getDishReviews().stream()
                 .mapToDouble(DishReview::getRating)
                 .average()
                 .orElse(3.0);
 
 
         return new ResponseDishDto(
+
+                dish.getDishId(),
                 dish.getDishName(),
                 dish.getCategory().getCategoryName(),
                 dish.getDescription(),

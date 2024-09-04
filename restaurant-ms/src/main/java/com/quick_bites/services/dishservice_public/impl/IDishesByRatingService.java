@@ -20,7 +20,7 @@ public class IDishesByRatingService implements DishesByRatingService {
     private final DishRepository dishRepository;
 
     @Override
-    public List<ResponseDishDto> dishesByReview(double rating) {
+    public List<ResponseDishDto> dishesByReview(Double rating) {
 
         List<Dish> dishes = dishRepository.findAllByDishReviewsRatingGreaterThanEqual(rating);
 

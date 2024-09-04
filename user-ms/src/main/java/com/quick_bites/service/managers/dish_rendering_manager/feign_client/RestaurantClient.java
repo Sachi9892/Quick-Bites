@@ -5,6 +5,7 @@ import com.quick_bites.dto.LocationDto;
 import com.quick_bites.dto.dishdto.ResponseDishDto;
 import com.quick_bites.dto.reviewdto.GiveReviewDto;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @FeignClient(name = "RESTAURANT-MS")
-public interface DishClient {
+public interface RestaurantClient {
 
     @GetMapping("/dishes/sort")
     List<ResponseDishDto> getFilteredAndSortedDishes(
@@ -30,6 +31,7 @@ public interface DishClient {
             @RequestParam(value = "ascending", required = false) boolean ascending
     );
 
+
     //For latitude and longitude
     @GetMapping("/api/geocoding/coordinates")
     LocationDto getCoordinates(@RequestParam("address") String address);
@@ -37,13 +39,13 @@ public interface DishClient {
 
     //Review dish
     @PostMapping("/review/dish")
-    String giveReview(@RequestBody GiveReviewDto reviewDto , @RequestParam int dishId);
+    String giveReview(@RequestBody GiveReviewDto reviewDto , @RequestParam Long dishId);
 
 
 
     //Review restaurant
     @PostMapping("/review/rest")
-    String reviewRest(@RequestBody GiveReviewDto reviewDto, @RequestParam int restId);
+    String reviewRest(@RequestBody GiveReviewDto reviewDto, @RequestParam Long restId);
 
 
 
@@ -54,5 +56,11 @@ public interface DishClient {
             @RequestParam Double userLongitude,
             @RequestParam(required = false, defaultValue = "0") Double minDistance,
             @RequestParam(required = false, defaultValue = "5") Double maxDistance);
+
+
+    //Get price of dish
+    @GetMapping("/dish/price")
+     ResponseEntity<Double> findPrice(@RequestParam Long dishId);
+
 
 }

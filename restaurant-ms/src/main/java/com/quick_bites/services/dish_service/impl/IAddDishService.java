@@ -28,7 +28,7 @@ public class IAddDishService implements AddDishService {
 
     @Override
     @Transactional
-    public String addDish(int id , AddDishDto addDishDto) {
+    public String addDish(Long id , AddDishDto addDishDto) {
 
 
         //Extract restaurant first

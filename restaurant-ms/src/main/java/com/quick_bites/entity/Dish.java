@@ -18,11 +18,11 @@ public class Dish {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int dishId;
+    private Long dishId;
 
     private String dishName;
     private String description;
-    private float price;
+    private Double price;
 
     @Enumerated(EnumType.STRING)
     private DishType dishType;
@@ -59,4 +59,5 @@ public class Dish {
                 ", dishReviews=" + dishReviews +
                 '}';
     }
+
 }
