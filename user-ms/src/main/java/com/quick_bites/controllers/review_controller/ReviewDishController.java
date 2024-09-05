@@ -2,7 +2,6 @@ package com.quick_bites.controllers.review_controller;
 
 
 import com.quick_bites.dto.reviewdto.GiveReviewDto;
-import com.quick_bites.service.managers.dish_rendering_manager.review_manager.ReviewDishService;
 import com.quick_bites.service.managers.dish_rendering_manager.review_manager.ReviewDishWebClient;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

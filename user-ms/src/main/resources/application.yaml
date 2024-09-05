@@ -25,4 +25,8 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 
-
+razorpay:
+  api:
+    key: rzp_test_cWfbuLENrweRjB
+  secret:
+    key: TFT6Y0u3M619bQ1UOztqngsR

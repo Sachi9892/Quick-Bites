@@ -2,6 +2,7 @@ package com.quick_bites.entity;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class DeliveryInfo {
 
+    @Id
     private Long infoId;
 
     private DeliveryStatus deliveryStatus;
@@ -23,4 +25,5 @@ public class DeliveryInfo {
     private String riderName;
 
     private String riderMobileNumber;
+
 }

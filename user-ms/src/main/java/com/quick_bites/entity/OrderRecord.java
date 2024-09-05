@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -33,16 +32,27 @@ public class OrderRecord {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @OneToMany()
-    private List<DeliveryAddresses> deliveryAddress;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "delivery_address_id")
+    private DeliveryAddresses deliveryAddress;
+
+
+    // Each order has one cart
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id", referencedColumnName = "cartId")
     private Cart cart;
 
-    @OneToOne
+
+    // Each order has one payment
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id", referencedColumnName = "paymentId")
     private PaymentDetails paymentDetails;
 
-    @OneToOne
+
+    // Each order has one delivery info record
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "delivery_info_id", referencedColumnName = "infoId")
     private DeliveryInfo deliveryInfo;
 
 }
