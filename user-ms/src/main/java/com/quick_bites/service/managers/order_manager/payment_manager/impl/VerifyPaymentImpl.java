@@ -1,48 +1,46 @@
 package com.quick_bites.service.managers.order_manager.payment_manager.impl;
 
 
+import com.quick_bites.entity.PaymentDetails;
+import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
+import com.quick_bites.exceptions.NoPaymentFoundException;
 import com.razorpay.RazorpayException;
+import com.razorpay.Utils;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Formatter;
+
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class VerifyPaymentImpl implements IVerifyPayment {
 
+    private final PaymentDetailsRepository paymentDetailsRepository;
 
     @Override
-    public boolean verifyPaymentSignature(String orderId, String paymentId, String signature) throws RazorpayException {
+    public boolean verifyPaymentSignature(String paymentId, String signature) throws RazorpayException {
 
-        String data = orderId + "|" + paymentId;
+        PaymentDetails paymentDetails = paymentDetailsRepository.findByRazorpayPaymentId(paymentId);
 
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            digest.update(data.getBytes());
-
-            byte[] hash = digest.digest();
-            String expectedSignature = byteToHex(hash);
-
-            return expectedSignature.equals(signature);  // Compare signatures
-        } catch (NoSuchAlgorithmException e) {
-            throw new RazorpayException("Error while verifying payment signature", e);
+        if (paymentDetails == null) {
+            throw new NoPaymentFoundException("Payment details not found for paymentId: " + paymentId);
         }
+
+        String orderId = paymentDetails.getRazorpayOrderId();
+
+        JSONObject options = new JSONObject();
+        options.put("razorpay_order_id", orderId);
+        options.put("razorpay_payment_id", paymentId);
+        options.put("razorpay_signature", signature);
+
+        // Verify the signature using Razorpay secret key
+        return Utils.verifyPaymentSignature(options, "TFT6Y0u3M619bQ1UOztqngsR");
+
+
     }
-
-    private String byteToHex(final byte[] hash) {
-
-        try (Formatter formatter = new Formatter()) {
-
-            for (byte b : hash) {
-                formatter.format("%02x", b);
-            }
-            return formatter.toString();
-        }
-    }
-
 
 }

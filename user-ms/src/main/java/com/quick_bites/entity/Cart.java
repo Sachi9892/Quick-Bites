@@ -26,6 +26,8 @@ public class Cart {
 
     private Long userId;
 
+    private Long restId;
+
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL ,orphanRemoval = true)
     @JsonManagedReference
     private List<CartItem> cartItems = new ArrayList<>();
@@ -44,6 +46,7 @@ public class Cart {
         this.totalDishes = totalDishes;
         createdAt = now;
 
-
     }
+
+
 }

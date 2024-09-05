@@ -4,6 +4,6 @@ import com.razorpay.RazorpayException;
 
 public interface IVerifyPayment {
 
-    boolean verifyPaymentSignature(String orderId, String paymentId, String signature) throws RazorpayException;
+    boolean verifyPaymentSignature(String paymentId, String signature) throws RazorpayException;
 
 }

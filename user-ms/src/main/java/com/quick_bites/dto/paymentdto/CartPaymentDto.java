@@ -1,4 +1,4 @@
-package com.quick_bites.dto.paytmdto;
+package com.quick_bites.dto.paymentdto;
 
 
 import lombok.AllArgsConstructor;
@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentRequestDto {
+public class CartPaymentDto {
 
-    private Double amount;
-    private String receiptId;
+    private Long cartId;
 
 }

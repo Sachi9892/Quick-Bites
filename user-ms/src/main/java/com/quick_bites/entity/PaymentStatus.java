@@ -2,7 +2,7 @@ package com.quick_bites.entity;
 
 public enum PaymentStatus {
 
-    PENDING ,
+    CREATED ,
     SUCCESSFUL ,
-    FAILED
+    PAID
 }

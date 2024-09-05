@@ -1,4 +1,4 @@
-package com.quick_bites.dto.paytmdto;
+package com.quick_bites.dto.paymentdto;
 
 
 import lombok.AllArgsConstructor;
