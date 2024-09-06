@@ -21,11 +21,11 @@ public class CreatePaymentController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/user/order/place-order")
-    public ResponseEntity<String> createOrderMethod(@RequestBody CartPaymentDto orderRequest) {
+    public ResponseEntity<String> createOrderMethod(@RequestParam Long cartId) {
 
         try {
 
-            String razorpayOrder = createRazorOrder.createRazorpayOrder(orderRequest);
+            String razorpayOrder = createRazorOrder.createRazorpayOrder(cartId);
 
             return ResponseEntity.ok(razorpayOrder);
 

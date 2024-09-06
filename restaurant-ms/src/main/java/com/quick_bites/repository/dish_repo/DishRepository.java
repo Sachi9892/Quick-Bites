@@ -1,5 +1,6 @@
 package com.quick_bites.repository.dish_repo;
 
+import com.quick_bites.dto.restaurant_dto.RestIdAndDishPrice;
 import com.quick_bites.entity.Category;
 import com.quick_bites.entity.Dish;
 import com.quick_bites.entity.DishType;
@@ -44,7 +45,7 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
 
 
     //Find price by dish id
-    @Query(value = "SELECT d.price FROM Dish d WHERE d.dishId= :dishId")
+    @Query("SELECT d.price FROM Dish d WHERE d.dishId = :dishId")
     Double findPriceByDishId(@Param("dishId") Long dishId);
 
 }

@@ -36,17 +36,17 @@ public class Cart {
 
     private Double totalAmount;
 
-    //Can be used for cache
     private LocalDateTime createdAt;
 
-    public Cart(Long userId, List<CartItem> cartItems, int totalDishes, LocalDateTime now) {
-
+    public Cart(Long userId, Long restId, List<CartItem> cartItems, int totalDishes, Double totalAmount, LocalDateTime createdAt) {
         this.userId = userId;
+        this.restId = restId;
         this.cartItems = cartItems;
         this.totalDishes = totalDishes;
-        createdAt = now;
-
+        this.totalAmount = totalAmount;
+        this.createdAt = createdAt;
     }
+
 
 
 }

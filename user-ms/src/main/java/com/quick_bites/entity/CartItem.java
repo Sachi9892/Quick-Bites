@@ -23,6 +23,8 @@ public class CartItem {
 
     private Long userId;
 
+    private Long restId;
+
     private Integer quantity;
 
     private Double price;

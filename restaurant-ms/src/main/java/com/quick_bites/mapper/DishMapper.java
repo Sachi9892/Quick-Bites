@@ -29,7 +29,7 @@ public class DishMapper {
                 dish.getPrice(),
                 dish.getDishType(),
                 dish.getDishPic(),
-                dish.getRestaurant().getRestaurantName(),
+                dish.getRestaurant().getRestId(),
                 averageRating ,
                 dish.getDishReviews().stream()
                         .map(review -> new ResponseReviewDto( review.getRating(), review.getComment()))

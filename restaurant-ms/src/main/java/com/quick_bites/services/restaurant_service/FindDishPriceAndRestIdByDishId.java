@@ -1,6 +1,8 @@
 package com.quick_bites.services.restaurant_service;
 
-public interface FindDishPriceById {
+
+
+public interface FindDishPriceAndRestIdByDishId {
 
     Double getPrice(Long dishId);
 

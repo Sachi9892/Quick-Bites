@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,10 +42,6 @@ public class CreateRazorOrderImpl implements ICreateRazorOrder {
         JSONObject options = new JSONObject();
 
         options.put("amount", (int) ( cart.get().getTotalAmount() * 100));
-        options.put("User_Id" , cart.get().getUserId());
-        options.put("Restaurant_Id" , cart.get().getRestId());
-        options.put("Total_Amount" , cart.get().getTotalAmount());
-        options.put("Total_Dishes" , cart.get().getTotalDishes());
         options.put("currency", "INR");
         options.put("payment_capture", true);
 

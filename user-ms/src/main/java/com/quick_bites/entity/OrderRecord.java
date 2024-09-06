@@ -50,6 +50,7 @@ public class OrderRecord {
     private PaymentDetails paymentDetails;
 
 
+
     // Each order has one delivery info record
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_info_id", referencedColumnName = "infoId")

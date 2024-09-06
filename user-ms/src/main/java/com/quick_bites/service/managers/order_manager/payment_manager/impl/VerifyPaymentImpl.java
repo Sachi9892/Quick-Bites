@@ -1,17 +1,20 @@
 package com.quick_bites.service.managers.order_manager.payment_manager.impl;
 
 
+import com.quick_bites.constants.AppConstants;
 import com.quick_bites.entity.PaymentDetails;
+import com.quick_bites.entity.PaymentStatus;
 import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
 import com.quick_bites.exceptions.NoPaymentFoundException;
 import com.razorpay.RazorpayException;
-import com.razorpay.Utils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
 
 
 @Service
@@ -31,15 +34,51 @@ public class VerifyPaymentImpl implements IVerifyPayment {
         }
 
         String orderId = paymentDetails.getRazorpayOrderId();
+        String secret = AppConstants.RAZORPAY_SECRET_KEY;
 
-        JSONObject options = new JSONObject();
-        options.put("razorpay_order_id", orderId);
-        options.put("razorpay_payment_id", paymentId);
-        options.put("razorpay_signature", signature);
+        // Create the signature payload: order_id + "|" + razorpay_payment_id
+        String payload = orderId + "|" + paymentId;
 
-        // Verify the signature using Razorpay secret key
-        return Utils.verifyPaymentSignature(options, "TFT6Y0u3M619bQ1UOztqngsR");
+        try {
+            // Generate HMAC SHA-256 signature
+            Mac mac = Mac.getInstance(AppConstants.ALGORITHM);
+            SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes(), AppConstants.ALGORITHM);
+            mac.init(secretKey);
 
+            // Generate the hash
+            byte[] hash = mac.doFinal(payload.getBytes());
+
+            // Convert hash to base64 string
+            String generatedSignature = Base64.getEncoder().encodeToString(hash);
+
+
+            // Compare the generated signature with the received signature
+            if (generatedSignature.equals(signature)) {
+
+                // Update the payment details only after successful verification
+                paymentDetails.setRazorpayPaymentId(paymentId);
+
+                paymentDetails.setRazorpayOrderId(orderId);
+                paymentDetails.setRazorpaySignature(generatedSignature);
+                paymentDetails.setPaymentStatus(PaymentStatus.PAID);
+
+                String ans = paymentDetails.toString();
+                log.info(" Payment info {} " , ans);
+
+                // Save the updated payment details
+                paymentDetailsRepository.save(paymentDetails);
+
+                return true;
+
+            } else {
+                log.error("Payment signature verification failed for paymentId: {}", paymentId);
+                return false;
+            }
+
+        } catch (Exception e) {
+            log.error("Error generating HMAC SHA-256 signature: ", e);
+            return false;
+        }
 
     }
 

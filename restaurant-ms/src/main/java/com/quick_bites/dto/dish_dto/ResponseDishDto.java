@@ -27,7 +27,7 @@ public class ResponseDishDto {
 
     private String dishPic;
 
-    private String restaurant;
+    private Long restId;
 
     private Double avgReview;
 

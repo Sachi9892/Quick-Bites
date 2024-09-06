@@ -30,8 +30,10 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
         //Creating a map to store error and it's value
         Map<String, String> validationErrors = new HashMap<>();
 
+
         //Getting the list of the errors
         List<ObjectError> validationErrorList = ex.getBindingResult().getAllErrors();
+
 
         //Extracting each error key , value
         validationErrorList.forEach((error) -> {
@@ -74,7 +76,7 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
 //    }
 //
 //
-//    // Handle ResourceNotFoundException
+    // Handle ResourceNotFoundException
 //    @ExceptionHandler(ResourceNotFoundException.class)
 //    public ResponseEntity<ErrorResponseDto> handleResourceNotFoundExp( ResourceAlreadyPresent ex , WebRequest req ) {
 //
