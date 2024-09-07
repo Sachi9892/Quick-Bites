@@ -21,8 +21,10 @@ public class CreateUserController {
     @PostMapping("/signup")
 
     public ResponseEntity<String> newUser(@RequestBody AddUserDto userDto) {
+
         String res = createNewUser.newUser(userDto);
         return ResponseEntity.status(HttpStatus.OK).body(res);
+
     }
 
 }

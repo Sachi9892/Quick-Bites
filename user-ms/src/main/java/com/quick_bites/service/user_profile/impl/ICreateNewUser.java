@@ -36,11 +36,11 @@ public class ICreateNewUser implements CreateNewUser {
         }
 
         //Create object of send otp
-        RequestOtpDto sendOtpDto = new RequestOtpDto(addUserDto.getUserMobileNumber() , OtpCases.USER_SIGNUP);
+        //RequestOtpDto sendOtpDto = new RequestOtpDto(addUserDto.getUserMobileNumber() , OtpCases.USER_SIGNUP);
 
 
        //Send otp
-         otpClient.sendOtp(sendOtpDto);
+         //otpClient.sendOtp(sendOtpDto);
 
 
          //Check if otp got verified
@@ -66,6 +66,8 @@ public class ICreateNewUser implements CreateNewUser {
         address.setLatitude(coordinates.getLatitude());
         address.setLongitude(coordinates.getLongitude());
         address.setUserAddress(address.getUserAddress());
+
+        address.setUser(user);
 
         user.setDeliveryAddresses(List.of(address));
 

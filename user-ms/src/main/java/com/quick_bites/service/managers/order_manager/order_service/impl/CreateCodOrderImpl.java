@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Service
@@ -27,9 +26,7 @@ public class CreateCodOrderImpl implements ICreateOrderService {
     @Override
     public OrderRecord createOrder(OrderRequestDto orderRequestDto) {
 
-
         Long cartId = orderRequestDto.getCartId();
-
 
         DeliveryAddresses addresses = deliveryAddressRepository.findById(orderRequestDto.getDeliveryAddress())
                 .orElseThrow(() -> new NoResourceFoundException("No address found"));
@@ -37,11 +34,16 @@ public class CreateCodOrderImpl implements ICreateOrderService {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NoResourceFoundException("No cart"));
 
         OrderRecord newOrder = new OrderRecord();
+
         newOrder.setOrderType(OrderType.COD);
         newOrder.setOrderDate(LocalDateTime.now());
-        newOrder.setOrderStatus(OrderStatus.PENDING);
+        newOrder.setOrderStatus(OrderStatus.PLACED);
         newOrder.setCart(cart);
         newOrder.setDeliveryAddress(addresses);
+        newOrder.setCustomerId(cart.getUserId());
+        newOrder.setRestId(cart.getRestId());
+        newOrder.setTotalAmount(cart.getTotalAmount());
+
 
         log.info("Setting order status to: {}", newOrder.getOrderStatus());
 
@@ -69,7 +71,8 @@ public class CreateCodOrderImpl implements ICreateOrderService {
 
         savedOrder.setPaymentDetails(payment);
 
-        return savedOrder;
+        return orderRepository.save(newOrder);
+
 
     }
 }

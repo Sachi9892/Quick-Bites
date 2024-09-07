@@ -2,7 +2,6 @@ package com.quick_bites.controllers.order_controller;
 
 import com.quick_bites.dto.paymentdto.PaymentVerificationDto;
 import com.quick_bites.entity.PaymentDetails;
-import com.quick_bites.entity.PaymentStatus;
 import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
 import lombok.AllArgsConstructor;
@@ -31,9 +30,6 @@ public class VerifyPaymentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Payment details not found");
         }
 
-        paymentDetails.setRazorpayPaymentId(request.getPaymentId());
-        paymentDetails.setRazorpaySignature(request.getSignature());
-        paymentDetails.setPaymentStatus(PaymentStatus.PAID);
         paymentDetailsRepository.save(paymentDetails);
 
         // Call the verification service

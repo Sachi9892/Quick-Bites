@@ -18,9 +18,17 @@ import java.time.LocalDateTime;
 @Builder
 public class OrderRecord {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
+
+    private Long customerId;
+
+    private Long restId;
+
+    private Double totalAmount;
 
 
     @CreationTimestamp

@@ -9,13 +9,11 @@ import com.quick_bites.service.managers.order_manager.payment_manager.ICreateRaz
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 
 
 @Service
@@ -36,21 +34,30 @@ public class CreateOnlinePaymentOrderImpl implements ICreateOrderService {
 
 
         Long cartId = orderRequestDto.getCartId();
+
         DeliveryAddresses addresses = deliveryAddressRepository.findById(orderRequestDto.getDeliveryAddress())
                 .orElseThrow(() -> new NoResourceFoundException("No Address found"));
 
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NoResourceFoundException("No cart"));
 
         OrderRecord newOrder = new OrderRecord();
+
+
         newOrder.setOrderType(OrderType.ONLINE);
         newOrder.setOrderDate(LocalDateTime.now());
         newOrder.setOrderStatus(OrderStatus.PENDING);
         newOrder.setCart(cart);
         newOrder.setDeliveryAddress(addresses);
+        newOrder.setCustomerId(cart.getUserId());
+        newOrder.setRestId(cart.getRestId());
+        newOrder.setTotalAmount(cart.getTotalAmount());
+
+
 
         log.info("Order before saving user : {} " , newOrder);
 
         User user = userRepository.findById(cart.getUserId()).orElseThrow(() -> new NoResourceFoundException("No User "));
+
         newOrder.setUser(user);
 
         // Save the OrderRecord first
@@ -62,14 +69,20 @@ public class CreateOnlinePaymentOrderImpl implements ICreateOrderService {
 
             // Update PaymentDetails
             PaymentDetails payment = new PaymentDetails();
+
+            payment.setTransactionId(UUID.randomUUID().toString());
             payment.setPaymentStatus(PaymentStatus.CREATED);
+            payment.setModeOfPayment("ONLINE");
             payment.setOrderRecord(savedOrder);
             payment.setCartId(cartId);
             payment.setTotalAmount(cart.getTotalAmount());
             payment.setRazorpayOrderId(new JSONObject(razorpayOrderResponse).getString("id"));
 
+
             // Save the payment
             PaymentDetails savedPayment = paymentRepository.save(payment);
+
+            log.info("Payment info at online order {} " , savedPayment);
 
             savedOrder.setPaymentDetails(savedPayment);
 
@@ -78,7 +91,7 @@ public class CreateOnlinePaymentOrderImpl implements ICreateOrderService {
 
             log.info("Final order : {} " , save);
 
-            return savedOrder;
+            return save;
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to create Razorpay order", e);
