@@ -2,6 +2,7 @@ package com.quick_bites.service.managers.dish_rendering_manager.search;
 
 
 import com.quick_bites.dto.dishdto.ResponseDishDto;
+import com.quick_bites.entity.DeliveryAddresses;
 import com.quick_bites.entity.User;
 import com.quick_bites.repository.UserRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
@@ -33,8 +34,17 @@ public class DishesByDistance {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new NoResourceFoundException("No resource found : " + userId));
 
-        Double userLatitude = user.getAddress().getLatitude();
-        Double userLongitude = user.getAddress().getLongitude();
+        Double userLatitude = user.getDeliveryAddresses().stream()
+                .map(DeliveryAddresses::getLatitude)
+                .findFirst()
+                .orElse(null);
+
+
+        Double userLongitude = user.getDeliveryAddresses().stream()
+                .map(DeliveryAddresses::getLongitude)
+                .findFirst()
+                .orElse(null);
+
 
         List<ResponseDishDto> dishes = restaurantClient.getDishesByDistance(
                 userLatitude,

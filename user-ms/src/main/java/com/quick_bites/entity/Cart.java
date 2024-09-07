@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class Cart {
 
     private Double totalAmount;
 
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     public Cart(Long userId, Long restId, List<CartItem> cartItems, int totalDishes, Double totalAmount, LocalDateTime createdAt) {

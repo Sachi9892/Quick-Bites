@@ -22,10 +22,12 @@ public class IClearCartService implements ClearCart {
         cart.getCartItems().clear();
         cart.setTotalDishes(0);
         cart.setTotalAmount(0.0);
+        cart.setRestId(null);
+        cart.setUserId(null);
 
-        cartRepository.delete(cart);
+        cartRepository.save(cart);
 
-        return new Cart();
+        return cart;
 
     }
 

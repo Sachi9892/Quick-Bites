@@ -72,6 +72,7 @@ public class VerifyPaymentImpl implements IVerifyPayment {
 
             } else {
                 log.error("Payment signature verification failed for paymentId: {}", paymentId);
+
                 return false;
             }
 

@@ -1,13 +1,11 @@
 package com.quick_bites.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -24,17 +22,17 @@ public class PaymentDetails {
 
     private String transactionId;
 
-    private Long userId;
-
-    private Long restaurantId;
-
     private Long cartId;
 
+    @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
     private Double totalAmount;
 
     private String modeOfPayment;
+
+    @OneToOne(mappedBy = "paymentDetails")
+    private OrderRecord orderRecord;
 
 
     private String razorpayOrderId;    // To store the Razorpay order ID
@@ -42,5 +40,6 @@ public class PaymentDetails {
     private String razorpaySignature;  // To store the signature received from Razorpay
 
     // Add a timestamp for when the payment was created or verified
+    @CreationTimestamp
     private LocalDateTime paymentTime;
 }

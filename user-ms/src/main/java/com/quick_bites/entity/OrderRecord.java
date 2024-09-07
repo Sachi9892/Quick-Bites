@@ -1,11 +1,13 @@
 package com.quick_bites.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -20,13 +22,13 @@ public class OrderRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    private Long userId;
 
-    private Long restaurantId;
-
-    private Double totalPrice;
-
+    @CreationTimestamp
     private LocalDateTime orderDate;
+
+
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;
 
 
     @Enumerated(EnumType.STRING)
@@ -35,25 +37,32 @@ public class OrderRecord {
 
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
+    @JsonBackReference
     private DeliveryAddresses deliveryAddress;
 
 
-    // Each order has one cart
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
+
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "cartId")
     private Cart cart;
 
 
-    // Each order has one payment
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "paymentId")
     private PaymentDetails paymentDetails;
 
 
-
-    // Each order has one delivery info record
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "delivery_info_id", referencedColumnName = "infoId")
-    private DeliveryInfo deliveryInfo;
+    @Override
+    public String toString() {
+        return "OrderRecord{" +
+                "orderDate=" + orderDate +
+                ", orderId=" + orderId +
+                '}';
+    }
 
 }

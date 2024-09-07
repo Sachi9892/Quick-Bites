@@ -33,7 +33,7 @@ public class VerifyPaymentController {
 
         paymentDetails.setRazorpayPaymentId(request.getPaymentId());
         paymentDetails.setRazorpaySignature(request.getSignature());
-        paymentDetails.setPaymentStatus(PaymentStatus.SUCCESSFUL); // Update status to paid
+        paymentDetails.setPaymentStatus(PaymentStatus.PAID);
         paymentDetailsRepository.save(paymentDetails);
 
         // Call the verification service

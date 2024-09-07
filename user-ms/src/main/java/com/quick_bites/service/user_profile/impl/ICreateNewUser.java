@@ -4,7 +4,7 @@ import com.quick_bites.dto.AddUserDto;
 import com.quick_bites.dto.LocationDto;
 import com.quick_bites.dto.otpdto.OtpCases;
 import com.quick_bites.dto.otpdto.RequestOtpDto;
-import com.quick_bites.entity.Address;
+import com.quick_bites.entity.DeliveryAddresses;
 import com.quick_bites.entity.User;
 import com.quick_bites.repository.UserRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.OtpClient;
@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -60,9 +61,13 @@ public class ICreateNewUser implements CreateNewUser {
         //Convert address into latitude and longitude
         LocationDto coordinates = restaurantClient.getCoordinates(addUserDto.getAddress());
 
-        Address address = new Address(coordinates.getLatitude(), coordinates.getLongitude(), addUserDto.getAddress());
+        DeliveryAddresses address = new DeliveryAddresses();
 
-        user.setAddress(address);
+        address.setLatitude(coordinates.getLatitude());
+        address.setLongitude(coordinates.getLongitude());
+        address.setUserAddress(address.getUserAddress());
+
+        user.setDeliveryAddresses(List.of(address));
 
         userRepository.save(user);
 

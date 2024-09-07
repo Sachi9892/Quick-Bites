@@ -3,6 +3,8 @@ package com.quick_bites.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,21 +23,29 @@ public class User {
 
     private String userMobileNumber;
 
-    @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true)
-    @JoinColumn(name = "address_id")
-    private Address address;
-
-
-    @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true)
-    @JsonManagedReference
-    private List<Review> reviews;
-
-
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     private boolean isUserPremium = false;
 
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
+    @JsonManagedReference
+    private List<Review> reviews;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<OrderRecord> orders;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<DeliveryAddresses> deliveryAddresses;
+
+
+
 }

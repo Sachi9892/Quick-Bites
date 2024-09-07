@@ -2,7 +2,6 @@ package com.quick_bites.service.managers.dish_rendering_manager.feign_client;
 
 
 import com.quick_bites.dto.LocationDto;
-import com.quick_bites.dto.RestIdAndDishPrice;
 import com.quick_bites.dto.dishdto.ResponseDishDto;
 import com.quick_bites.dto.reviewdto.GiveReviewDto;
 import org.springframework.cloud.openfeign.FeignClient;

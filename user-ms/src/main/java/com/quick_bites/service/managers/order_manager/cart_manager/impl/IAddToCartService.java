@@ -4,6 +4,7 @@ import com.quick_bites.dto.RestIdAndDishPrice;
 import com.quick_bites.dto.cartdto.AddToCartDto;
 import com.quick_bites.entity.Cart;
 import com.quick_bites.entity.CartItem;
+import com.quick_bites.exceptions.MultipleRestaurantOrderException;
 import com.quick_bites.repository.CartRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
 import com.quick_bites.service.managers.order_manager.cart_manager.AddToCart;
@@ -44,13 +45,10 @@ public class IAddToCartService implements AddToCart {
                 .orElse(new Cart(userId , restId , new ArrayList<>() , 0 , 0.0 , LocalDateTime.now()));
 
 
-        // Check if the cart contains items from a different restaurant
-        if (!cart.getCartItems().isEmpty()) {
-            Long existingRestId = cart.getCartItems().get(0).getRestId();
-            if (!existingRestId.equals(restId)) {
-                throw new IllegalArgumentException("You cannot add dishes from multiple restaurants. Please place a separate order.");
-            }
+        if (cart.getRestId() != null && !cart.getRestId().equals(restId)) {
+            throw new MultipleRestaurantOrderException("You cannot add dishes from multiple restaurants. Please place a separate order.");
         }
+
 
         // Find if the dish already exists in the cart
         List<CartItem> existingItems = cart.getCartItems().stream()
