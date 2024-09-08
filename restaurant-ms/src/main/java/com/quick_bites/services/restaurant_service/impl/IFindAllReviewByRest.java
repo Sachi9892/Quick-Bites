@@ -2,7 +2,6 @@ package com.quick_bites.services.restaurant_service.impl;
 
 import com.quick_bites.dto.review_dto.ResponseReviewDto;
 import com.quick_bites.entity.Restaurant;
-import com.quick_bites.entity.DishReview;
 import com.quick_bites.entity.RestaurantReview;
 import com.quick_bites.exception.ResourceNotFoundException;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;

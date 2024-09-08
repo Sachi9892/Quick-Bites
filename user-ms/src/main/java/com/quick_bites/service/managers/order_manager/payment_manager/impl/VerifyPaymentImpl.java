@@ -36,6 +36,7 @@ public class VerifyPaymentImpl implements IVerifyPayment {
         // Generate the signature
         String generatedSignature = generateSignatureService.generateSignature(orderId, paymentId, secret);
 
+
         // Compare the generated signature with the received signature
         if (generatedSignature != null && generatedSignature.equals(signature)) {
             // Update the payment details only after successful verification
