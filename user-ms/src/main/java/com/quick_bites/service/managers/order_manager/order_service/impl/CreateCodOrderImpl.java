@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Service
@@ -57,6 +58,7 @@ public class CreateCodOrderImpl implements ICreateOrderService {
 
         PaymentDetails payment = new PaymentDetails();
 
+        payment.setTransactionId(UUID.randomUUID().toString());
         payment.setModeOfPayment("CASH_ON_DELIVERY");
         payment.setPaymentStatus(PaymentStatus.UNPAID);
         payment.setOrderRecord(savedOrder);

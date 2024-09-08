@@ -61,9 +61,11 @@ public class VerifyPaymentImpl implements IVerifyPayment {
             log.info("Is order record fetching ? {} " , orderRecord);
 
             if (orderRecord != null) {
+
                 // Update order status to PLACED after successful payment
                 orderRecord.setOrderStatus(OrderStatus.PLACED);
                 orderRepository.save(orderRecord);
+
             } else {
                 log.error("Order not found for paymentId: {}", paymentId);
                 return false;
