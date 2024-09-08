@@ -43,10 +43,12 @@ public class OrderRecord {
     private OrderStatus orderStatus;
 
 
+
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
     @JsonBackReference
     private DeliveryAddresses deliveryAddress;
+
 
 
     @ManyToOne
@@ -55,14 +57,17 @@ public class OrderRecord {
     private User user;
 
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "cartId")
     private Cart cart;
 
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "paymentId")
     private PaymentDetails paymentDetails;
+
 
 
     @Override

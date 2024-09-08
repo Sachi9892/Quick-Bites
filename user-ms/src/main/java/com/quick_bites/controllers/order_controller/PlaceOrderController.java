@@ -51,6 +51,7 @@ public class PlaceOrderController {
 
             } else if (orderRequest.getOrderType() == OrderType.COD) {
 
+
                 return ResponseEntity.ok("Order placed with Cash on Delivery.");
 
             }

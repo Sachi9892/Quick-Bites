@@ -2,8 +2,11 @@ package com.quick_bites.service.managers.order_manager.payment_manager.impl;
 
 
 import com.quick_bites.constants.AppConstants;
+import com.quick_bites.entity.OrderRecord;
+import com.quick_bites.entity.OrderStatus;
 import com.quick_bites.entity.PaymentDetails;
 import com.quick_bites.entity.PaymentStatus;
+import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
 import com.quick_bites.exceptions.NoPaymentFoundException;
@@ -20,13 +23,14 @@ public class VerifyPaymentImpl implements IVerifyPayment {
 
     private final PaymentDetailsRepository paymentDetailsRepository;
     private final GenerateSignatureServiceImpl generateSignatureService;
+    private final OrderRepository orderRepository;
 
     @Override
     public boolean verifyPaymentSignature(String paymentId, String signature) throws RazorpayException {
 
         PaymentDetails paymentDetails = paymentDetailsRepository.findByRazorpayPaymentId(paymentId);
 
-        if (paymentDetails == null) {
+        if ( paymentDetails == null ) {
             throw new NoPaymentFoundException("Payment details not found for paymentId: " + paymentId);
         }
 
@@ -51,10 +55,27 @@ public class VerifyPaymentImpl implements IVerifyPayment {
             // Save the updated payment details
             paymentDetailsRepository.save(paymentDetails);
 
+            // Fetch the order associated with this payment
+            OrderRecord orderRecord = orderRepository.findByPaymentDetails(paymentDetails);
+
+            log.info("Is order record fetching ? {} " , orderRecord);
+
+            if (orderRecord != null) {
+                // Update order status to PLACED after successful payment
+                orderRecord.setOrderStatus(OrderStatus.PLACED);
+                orderRepository.save(orderRecord);
+            } else {
+                log.error("Order not found for paymentId: {}", paymentId);
+                return false;
+            }
+
+            log.info("Payment and order status updated successfully for paymentId: {}", paymentId);
+
             return true;
 
         } else {
             log.error("Payment signature verification failed for paymentId: {}", paymentId);
+
             return false;
         }
 
