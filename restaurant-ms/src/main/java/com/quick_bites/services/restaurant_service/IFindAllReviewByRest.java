@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 
 
-public interface FindAllReviewByRest {
+public interface IFindAllReviewByRest {
 
     Page<ResponseReviewDto> findAllReview(String name , Pageable pageable);
 

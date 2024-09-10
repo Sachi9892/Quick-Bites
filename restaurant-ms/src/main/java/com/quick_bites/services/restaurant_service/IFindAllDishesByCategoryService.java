@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 
 
-public interface FindAllDishesByCategoryService {
+public interface IFindAllDishesByCategoryService {
 
     Page<ResponseDishDto> allDishesByCategory(String name , Pageable pageable);
 

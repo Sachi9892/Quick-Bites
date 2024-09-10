@@ -57,19 +57,20 @@ public class ICreateNewUser implements CreateNewUser {
         user.setUserMobileNumber(addUserDto.getUserMobileNumber());
         user.setCreatedAt(LocalDateTime.now());
 
+        String address = addUserDto.getAddress();
 
         //Convert address into latitude and longitude
-        LocationDto coordinates = restaurantClient.getCoordinates(addUserDto.getAddress());
+        LocationDto coordinates = restaurantClient.getCoordinates(address);
 
-        DeliveryAddresses address = new DeliveryAddresses();
+        DeliveryAddresses deliveryAddress = new DeliveryAddresses();
 
-        address.setLatitude(coordinates.getLatitude());
-        address.setLongitude(coordinates.getLongitude());
-        address.setUserAddress(address.getUserAddress());
+        deliveryAddress.setLatitude(coordinates.getLatitude());
+        deliveryAddress.setLongitude(coordinates.getLongitude());
+        deliveryAddress.setUserAddress(address);
 
-        address.setUser(user);
+        deliveryAddress.setUser(user);
 
-        user.setDeliveryAddresses(List.of(address));
+        user.setDeliveryAddresses(List.of(deliveryAddress));
 
         userRepository.save(user);
 

@@ -1,7 +1,7 @@
 package com.quick_bites.controller.restaurant_controller.restaurant_info;
 
 import com.quick_bites.dto.restaurant_dto.RestaurantOverViewDto;
-import com.quick_bites.services.restaurant_service.RestaurantOverview;
+import com.quick_bites.services.restaurant_service.IRestaurantOverview;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class OverviewOfRestaurant {
 
-    private final RestaurantOverview overview;
+    private final IRestaurantOverview overview;
 
     @GetMapping("/overview")
     public ResponseEntity<RestaurantOverViewDto> getOverview(

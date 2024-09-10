@@ -5,7 +5,7 @@ import com.quick_bites.entity.Restaurant;
 import com.quick_bites.entity.RestaurantReview;
 import com.quick_bites.exception.ResourceNotFoundException;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
-import com.quick_bites.services.restaurant_service.FindAllReviewByRest;
+import com.quick_bites.services.restaurant_service.IFindAllReviewByRest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class IFindAllReviewByRest implements FindAllReviewByRest {
+public class FindAllReviewByRestImpl implements IFindAllReviewByRest {
 
     private final RestaurantRepository restaurantRepository;
 

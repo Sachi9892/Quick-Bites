@@ -1,15 +1,14 @@
 package com.quick_bites.services.restaurant_service.impl;
 
-import com.quick_bites.dto.restaurant_dto.RestIdAndDishPrice;
 import com.quick_bites.repository.dish_repo.DishRepository;
-import com.quick_bites.services.restaurant_service.FindDishPriceAndRestIdByDishId;
+import com.quick_bites.services.restaurant_service.IFindDishPriceAndRestIdByDishId;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
 @Service
 @AllArgsConstructor
-public class IFindDishPriceById  implements FindDishPriceAndRestIdByDishId {
+public class FindDishPriceByIdImpl implements IFindDishPriceAndRestIdByDishId {
 
     private final DishRepository dishRepository;
 

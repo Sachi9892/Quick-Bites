@@ -14,6 +14,4 @@ public class AddToCartDto {
 
     private Long dishId;
 
-    private Long restId;
-
 }

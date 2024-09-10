@@ -6,7 +6,7 @@ import com.quick_bites.entity.Location;
 import com.quick_bites.entity.Restaurant;
 import com.quick_bites.location_service.GeoCodingService;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
-import com.quick_bites.services.restaurant_service.AddRestaurant;
+import com.quick_bites.services.restaurant_service.IAddRestaurant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class IAddRestaurant implements AddRestaurant {
+public class AddRestaurantImpl implements IAddRestaurant {
 
     private final RestaurantRepository restaurantRepository;
     private final GeoCodingService geoCodingService;

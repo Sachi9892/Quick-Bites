@@ -1,7 +1,7 @@
 package com.quick_bites.controller.restaurant_controller.restaurant_info;
 
 import com.quick_bites.dto.category_dto.ResponseCategoryDto;
-import com.quick_bites.services.restaurant_service.FindAllCategories;
+import com.quick_bites.services.restaurant_service.IFindAllCategories;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class FindAllCategoriesByRestName {
 
-    private final FindAllCategories findAllCategories;
+    private final IFindAllCategories findAllCategories;
 
     @GetMapping("/categories")
     public ResponseEntity<Set<ResponseCategoryDto>> findCategories(@RequestParam String name) {

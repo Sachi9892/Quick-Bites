@@ -2,7 +2,7 @@ package com.quick_bites.controller.restaurant_controller.restaurant_info;
 
 
 import com.quick_bites.dto.review_dto.ResponseReviewDto;
-import com.quick_bites.services.restaurant_service.FindAllReviewByRest;
+import com.quick_bites.services.restaurant_service.IFindAllReviewByRest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class AllReviewsByRestName {
 
-    private final FindAllReviewByRest reviews;
+    private final IFindAllReviewByRest reviews;
 
     @GetMapping("/reviews")
     public ResponseEntity<Page<ResponseReviewDto>> allReviews

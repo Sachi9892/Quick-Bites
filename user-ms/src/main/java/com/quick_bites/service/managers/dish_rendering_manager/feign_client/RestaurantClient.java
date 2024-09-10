@@ -3,6 +3,7 @@ package com.quick_bites.service.managers.dish_rendering_manager.feign_client;
 
 import com.quick_bites.dto.LocationDto;
 import com.quick_bites.dto.dishdto.ResponseDishDto;
+import com.quick_bites.dto.dishdto.SingleDishResponseDto;
 import com.quick_bites.dto.reviewdto.GiveReviewDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -58,9 +59,10 @@ public interface RestaurantClient {
             @RequestParam(required = false, defaultValue = "5") Double maxDistance);
 
 
-    //Get price of dish
+    //Get the price of dish
     @GetMapping("/dish/price")
     ResponseEntity<Double> findPrice(@RequestParam Long dishId);
 
-
+    @GetMapping("/dish")
+    ResponseEntity<SingleDishResponseDto> getSingleDishMethod(@RequestParam Long dishId);
 }

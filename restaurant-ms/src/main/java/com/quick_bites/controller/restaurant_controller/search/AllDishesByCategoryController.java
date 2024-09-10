@@ -2,7 +2,7 @@ package com.quick_bites.controller.restaurant_controller.search;
 
 
 import com.quick_bites.dto.dish_dto.ResponseDishDto;
-import com.quick_bites.services.restaurant_service.FindAllDishesByCategoryService;
+import com.quick_bites.services.restaurant_service.IFindAllDishesByCategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class AllDishesByCategoryController {
 
-    private final FindAllDishesByCategoryService dishes;
+    private final IFindAllDishesByCategoryService dishes;
 
     @GetMapping("/category-name")
     public ResponseEntity<Page<ResponseDishDto>> allDishes(

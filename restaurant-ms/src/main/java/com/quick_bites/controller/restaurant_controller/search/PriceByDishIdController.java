@@ -1,8 +1,7 @@
 package com.quick_bites.controller.restaurant_controller.search;
 
 
-import com.quick_bites.dto.restaurant_dto.RestIdAndDishPrice;
-import com.quick_bites.services.restaurant_service.FindDishPriceAndRestIdByDishId;
+import com.quick_bites.services.restaurant_service.IFindDishPriceAndRestIdByDishId;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class PriceByDishIdController {
 
-    private final FindDishPriceAndRestIdByDishId priceById;
+    private final IFindDishPriceAndRestIdByDishId priceById;
 
     @GetMapping("/price")
     public ResponseEntity<Double> findPrice(@RequestParam Long dishId) {

@@ -29,6 +29,7 @@ public class CartItem {
 
     private Double price;
 
+    private String dishName;
 
     @ManyToOne
     @JoinColumn(name = "cart_id")

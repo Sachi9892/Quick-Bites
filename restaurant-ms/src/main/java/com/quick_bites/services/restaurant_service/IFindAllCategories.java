@@ -6,7 +6,7 @@ import com.quick_bites.dto.dish_dto.ResponseDishDto;
 import java.util.List;
 import java.util.Set;
 
-public interface FindAllCategories {
+public interface IFindAllCategories {
 
     Set<ResponseCategoryDto> allCategories(String restName);
 

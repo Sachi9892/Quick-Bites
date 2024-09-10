@@ -4,31 +4,29 @@ import com.quick_bites.dto.category_dto.ResponseCategoryDto;
 import com.quick_bites.dto.dish_dto.ResponseDishDto;
 import com.quick_bites.dto.restaurant_dto.RestaurantOverViewDto;
 import com.quick_bites.dto.review_dto.ResponseReviewDto;
-import com.quick_bites.entity.Category;
 import com.quick_bites.entity.Restaurant;
 import com.quick_bites.exception.ResourceNotFoundException;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
-import com.quick_bites.services.restaurant_service.FindAllCategories;
-import com.quick_bites.services.restaurant_service.FindAllDishesByRestName;
-import com.quick_bites.services.restaurant_service.FindAllReviewByRest;
-import com.quick_bites.services.restaurant_service.RestaurantOverview;
+import com.quick_bites.services.restaurant_service.IFindAllCategories;
+import com.quick_bites.services.restaurant_service.IFindAllDishesByRestName;
+import com.quick_bites.services.restaurant_service.IFindAllReviewByRest;
+import com.quick_bites.services.restaurant_service.IRestaurantOverview;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 @AllArgsConstructor
-public class IRestaurantOverview implements RestaurantOverview {
+public class RestaurantOverviewImpl implements IRestaurantOverview {
 
     private final RestaurantRepository restaurantRepository;
-    private final FindAllCategories categories;
-    private final FindAllDishesByRestName dishes;
-    private final FindAllReviewByRest reviews;
+    private final IFindAllCategories categories;
+    private final IFindAllDishesByRestName dishes;
+    private final IFindAllReviewByRest reviews;
 
 
     @Override
