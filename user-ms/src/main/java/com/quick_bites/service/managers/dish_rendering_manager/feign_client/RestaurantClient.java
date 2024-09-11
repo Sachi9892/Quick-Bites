@@ -40,13 +40,13 @@ public interface RestaurantClient {
 
     //Review dish
     @PostMapping("/review/dish")
-    String giveReview(@RequestBody GiveReviewDto reviewDto , @RequestParam Long dishId);
+    String giveReview(@RequestBody GiveReviewDto reviewDto);
 
 
 
     //Review restaurant
     @PostMapping("/review/rest")
-    String reviewRest(@RequestBody GiveReviewDto reviewDto, @RequestParam Long restId);
+    String reviewRest(@RequestBody GiveReviewDto reviewDto);
 
 
 

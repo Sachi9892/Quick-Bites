@@ -20,6 +20,9 @@ public class DishMapper {
                 .orElse(3.0);
 
 
+        int totalReviews = dish.getDishReviews().size();
+
+
         return new ResponseDishDto(
 
                 dish.getDishId(),
@@ -31,8 +34,9 @@ public class DishMapper {
                 dish.getDishPic(),
                 dish.getRestaurant().getRestId(),
                 averageRating ,
+                totalReviews ,
                 dish.getDishReviews().stream()
-                        .map(review -> new ResponseReviewDto( review.getRating(), review.getComment()))
+                        .map(review -> new ResponseReviewDto(dish.getDishId(), review.getRating(), review.getComment()))
                         .toList()
         );
     }

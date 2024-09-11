@@ -33,6 +33,7 @@ public class FindAllReviewByRestImpl implements IFindAllReviewByRest {
 
         return reviews.map(
                 review -> new ResponseReviewDto(
+                        rest.get().getRestId(),
                         review.getRating(),
                         review.getComment()
                 )

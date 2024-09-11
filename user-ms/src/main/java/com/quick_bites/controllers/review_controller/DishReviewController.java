@@ -10,21 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user")
 @AllArgsConstructor
-public class DishFeign {
+public class DishReviewController {
 
     private final ReviewDishService reviewDishService;
 
-    @PostMapping("/review/feign/dish")
-    public ResponseEntity<String>
-    doRestReview(@RequestBody GiveReviewDto reviewDto ,
-             @RequestParam Long dishId) {
+    @PostMapping("/review/dish")
+    public ResponseEntity<String> doRestReview(@RequestBody GiveReviewDto reviewDto) {
 
-        String  mess = reviewDishService.dishReview(reviewDto, dishId);
+        String  mess = reviewDishService.dishReview(reviewDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(mess);
     }

@@ -34,16 +34,24 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
     @JsonManagedReference
-    private List<Review> reviews;
+    private List<UserDishReview> dishReviews;
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
+    @JsonManagedReference
+    private List<UserRestaurantReview> restaurantReviews;
+
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<OrderRecord> orders;
+
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<DeliveryAddresses> deliveryAddresses;
+
 
 }

@@ -25,7 +25,7 @@ public class SearchDishesController {
 
     private final SearchAndSortApi searchAndSortApi;
 
-    @GetMapping("/feign-client/search")
+    @GetMapping("/search")
     public ResponseEntity<List<ResponseDishDto>> getFilteredAndSortedDishes(
             @RequestParam("query") String query,
             @RequestParam(value = "minPrice", required = false , defaultValue = "0") Double minPrice,

@@ -23,6 +23,7 @@ public class AllReviewsByRestName {
 
     @GetMapping("/reviews")
     public ResponseEntity<Page<ResponseReviewDto>> allReviews
+
             (@RequestParam String name ,
              @RequestParam(defaultValue = "0") int page ,
              @RequestParam(defaultValue = "10") int size) {

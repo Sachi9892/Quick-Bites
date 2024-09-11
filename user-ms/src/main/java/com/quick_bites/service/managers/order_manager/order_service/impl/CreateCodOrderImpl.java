@@ -4,7 +4,6 @@ import com.quick_bites.dto.orderdto.OrderRequestDto;
 import com.quick_bites.entity.*;
 import com.quick_bites.repository.*;
 import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
-import com.quick_bites.service.user_profile.UserOrderHistory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,6 @@ public class CreateCodOrderImpl implements ICreateOrderService {
     private final DeliveryAddressRepository deliveryAddressRepository;
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
-    private final UserOrderHistory userOrderHistory;
 
 
     @Override
@@ -37,6 +35,8 @@ public class CreateCodOrderImpl implements ICreateOrderService {
 
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NoResourceFoundException("No cart"));
 
+        Long userId = cart.getUserId();
+
         OrderRecord newOrder = new OrderRecord();
 
         newOrder.setOrderType(OrderType.COD);
@@ -44,7 +44,7 @@ public class CreateCodOrderImpl implements ICreateOrderService {
         newOrder.setOrderStatus(OrderStatus.PLACED);
         newOrder.setCart(cart);
         newOrder.setDeliveryAddress(addresses);
-        newOrder.setCustomerId(cart.getUserId());
+        newOrder.setCustomerId(userId);
         newOrder.setRestId(cart.getRestId());
         newOrder.setTotalAmount(cart.getTotalAmount());
 
@@ -73,13 +73,11 @@ public class CreateCodOrderImpl implements ICreateOrderService {
         payment.setRazorpaySignature(null);
 
 
-
         paymentRepository.save(payment);
 
         savedOrder.setPaymentDetails(payment);
 
         return orderRepository.save(newOrder);
-
 
     }
 }

@@ -17,6 +17,7 @@ public class SearchAndSortApi {
     private final RestaurantClient restaurantClient;
 
     public List<ResponseDishDto> searchAndSortDishes(
+
             String query,
             Double minPrice,
             Double maxPrice,

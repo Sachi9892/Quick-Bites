@@ -2,7 +2,7 @@ package com.quick_bites.controllers.user_controller;
 
 
 import com.quick_bites.dto.AddUserDto;
-import com.quick_bites.service.user_profile.CreateNewUser;
+import com.quick_bites.service.user_profile.ICreateNewUser;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class CreateUserController {
 
-    private final CreateNewUser createNewUser;
+    private final ICreateNewUser createNewUser;
 
     @PostMapping("/signup")
 

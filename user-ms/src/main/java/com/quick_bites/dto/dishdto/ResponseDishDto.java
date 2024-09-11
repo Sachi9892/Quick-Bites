@@ -30,6 +30,8 @@ public class ResponseDishDto {
 
     private Double avgReview;
 
+    private int totalReviews;
+
     private List<ResponseReviewDto> reviews;
 
 

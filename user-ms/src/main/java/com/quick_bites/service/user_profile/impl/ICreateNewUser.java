@@ -2,14 +2,11 @@ package com.quick_bites.service.user_profile.impl;
 
 import com.quick_bites.dto.AddUserDto;
 import com.quick_bites.dto.LocationDto;
-import com.quick_bites.dto.otpdto.OtpCases;
-import com.quick_bites.dto.otpdto.RequestOtpDto;
 import com.quick_bites.entity.DeliveryAddresses;
 import com.quick_bites.entity.User;
 import com.quick_bites.repository.UserRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.OtpClient;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
-import com.quick_bites.service.user_profile.CreateNewUser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +16,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ICreateNewUser implements CreateNewUser {
+public class ICreateNewUser implements com.quick_bites.service.user_profile.ICreateNewUser {
 
     private final UserRepository userRepository;
     private final RestaurantClient restaurantClient;

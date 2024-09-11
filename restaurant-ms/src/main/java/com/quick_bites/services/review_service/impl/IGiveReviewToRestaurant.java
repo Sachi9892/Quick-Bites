@@ -22,7 +22,10 @@ public class IGiveReviewToRestaurant implements GiveReviewToRestaurant {
     private final RestaurantRepository restaurantRepository;
 
     @Override
-    public void giveReviewToRestaurant(GiveReviewDto reviewDto, Long restId) {
+    public void giveReviewToRestaurant(GiveReviewDto reviewDto) {
+
+
+        Long restId = reviewDto.getId();
 
         Restaurant restaurant = restaurantRepository.findById(restId).orElseThrow(() ->
                 new ResourceNotFoundException("No restaurant found with id : " + restId));
@@ -43,7 +46,6 @@ public class IGiveReviewToRestaurant implements GiveReviewToRestaurant {
         RestaurantReview save = reviewRepo.save(review);
 
         log.info("in rest-ms review rest {} " , save);
-
 
     }
 }

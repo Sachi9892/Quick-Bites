@@ -4,6 +4,6 @@ import com.quick_bites.dto.review_dto.GiveReviewDto;
 
 public interface GiveReviewToRestaurant {
 
-    void giveReviewToRestaurant(GiveReviewDto reviewDto , Long restId);
+    void giveReviewToRestaurant(GiveReviewDto reviewDto);
 
 }

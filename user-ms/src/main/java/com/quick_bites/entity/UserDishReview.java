@@ -13,11 +13,13 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class UserDishReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
+
+    private Long dishId;
 
     private Double rating;
     private String comment;
