@@ -1,7 +1,7 @@
 package com.quick_bites.service.managers.order_manager.cart_manager.impl;
 
-import com.quick_bites.dto.RestIdAndDishPrice;
 import com.quick_bites.dto.cartdto.AddToCartDto;
+import com.quick_bites.dto.dishdto.DishType;
 import com.quick_bites.dto.dishdto.SingleDishResponseDto;
 import com.quick_bites.entity.Cart;
 import com.quick_bites.entity.CartItem;
@@ -10,21 +10,19 @@ import com.quick_bites.exceptions.MultipleRestaurantOrderException;
 import com.quick_bites.repository.CartItemRepository;
 import com.quick_bites.repository.CartRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
-import com.quick_bites.service.managers.order_manager.cart_manager.AddToCart;
+import com.quick_bites.service.managers.order_manager.cart_manager.IAddToCart;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 @Service
 @AllArgsConstructor
-public class IAddToCartService implements AddToCart {
+public class AddToCartServiceImpl implements IAddToCart {
 
     private final CartRepository cartRepository;
     private final RestaurantClient restaurantClient;
@@ -44,9 +42,13 @@ public class IAddToCartService implements AddToCart {
         // Extract necessary data
         Long userId = addToCartDto.getUserId();
         Long dishId = addToCartDto.getDishId();
+
+
         Double price = dishDto.getPrice();
         Long restId = dishDto.getRestId();
         String dishName = dishDto.getDishName();
+        DishType dishType = dishDto.getDishType();
+        String dishPic = dishDto.getDishPic();
 
         // Fetch or create the user's cart
         Cart cart = cartRepository.findByUserId(userId)
@@ -57,10 +59,12 @@ public class IAddToCartService implements AddToCart {
             throw new MultipleRestaurantOrderException("You cannot add dishes from multiple restaurants.");
         }
 
-        // Save the cart if it's a new one before proceeding with items
+
+        // Save the cart if it's new before proceeding with items
         if (cart.getCartId() == null) {
             cart = cartRepository.save(cart);  // Persist the cart first
         }
+
 
         // Find existing items and update their quantities
         List<CartItem> existingItems = cart.getCartItems().stream()
@@ -79,11 +83,15 @@ public class IAddToCartService implements AddToCart {
                     .restId(restId)
                     .quantity(1)
                     .price(price)
+                    .dishPic(dishPic)
+                    .dishType(dishType)
                     .dishName(dishName)
                     .cart(cart)  // Associate with cart
                     .build();
 
             cart.getCartItems().add(newItem); // Add item to cart
+
+            cartItemRepository.save(newItem);
         }
 
         // Update total dishes and amount

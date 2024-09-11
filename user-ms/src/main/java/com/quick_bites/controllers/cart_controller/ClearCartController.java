@@ -1,7 +1,7 @@
 package com.quick_bites.controllers.cart_controller;
 
 
-import com.quick_bites.service.managers.order_manager.cart_manager.ClearCart;
+import com.quick_bites.service.managers.order_manager.cart_manager.IClearCart;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class ClearCartController {
 
-    private final ClearCart clearCart;
+    private final IClearCart clearCart;
 
     @DeleteMapping("/clear")
     public ResponseEntity<Void> clearCartMethod(@RequestParam Long userId) {

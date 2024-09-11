@@ -4,6 +4,7 @@ import com.quick_bites.dto.orderdto.OrderRequestDto;
 import com.quick_bites.entity.*;
 import com.quick_bites.repository.*;
 import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
+import com.quick_bites.service.user_profile.UserOrderHistory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class CreateCodOrderImpl implements ICreateOrderService {
     private final DeliveryAddressRepository deliveryAddressRepository;
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
+    private final UserOrderHistory userOrderHistory;
 
 
     @Override
@@ -69,6 +71,8 @@ public class CreateCodOrderImpl implements ICreateOrderService {
         payment.setRazorpayOrderId(null);
         payment.setRazorpayPaymentId(null);
         payment.setRazorpaySignature(null);
+
+
 
         paymentRepository.save(payment);
 

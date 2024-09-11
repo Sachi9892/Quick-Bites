@@ -29,7 +29,7 @@ public class Cart {
 
     private Long restId;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL ,orphanRemoval = true)
+    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER , cascade = CascadeType.ALL ,orphanRemoval = true)
     @JsonManagedReference
     private List<CartItem> cartItems = new ArrayList<>();
 

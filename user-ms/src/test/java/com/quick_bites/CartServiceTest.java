@@ -6,8 +6,7 @@ import com.quick_bites.dto.cartdto.AddToCartDto;
 import com.quick_bites.entity.Cart;
 import com.quick_bites.entity.CartItem;
 import com.quick_bites.repository.CartRepository;
-import com.quick_bites.service.managers.order_manager.cart_manager.AddToCart;
-import com.quick_bites.service.managers.order_manager.cart_manager.impl.IAddToCartService;
+import com.quick_bites.service.managers.order_manager.cart_manager.impl.AddToCartServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -29,7 +28,7 @@ class CartServiceTest {
     private CartRepository cartRepository;
 
     @InjectMocks
-    private IAddToCartService cartService;
+    private AddToCartServiceImpl cartService;
 
     @BeforeEach
     public void setup() {

@@ -3,14 +3,14 @@ package com.quick_bites.service.managers.order_manager.cart_manager.impl;
 import com.quick_bites.entity.Cart;
 import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.repository.CartRepository;
-import com.quick_bites.service.managers.order_manager.cart_manager.ClearCart;
+import com.quick_bites.service.managers.order_manager.cart_manager.IClearCart;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
 @Service
 @AllArgsConstructor
-public class IClearCartService implements ClearCart {
+public class ClearCartServiceImpl implements IClearCart {
 
     private final CartRepository cartRepository;
 

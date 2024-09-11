@@ -1,6 +1,7 @@
 package com.quick_bites.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.quick_bites.dto.dishdto.DishType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,10 @@ public class CartItem {
     private Double price;
 
     private String dishName;
+
+    private String dishPic;
+
+    private DishType dishType;
 
     @ManyToOne
     @JoinColumn(name = "cart_id")

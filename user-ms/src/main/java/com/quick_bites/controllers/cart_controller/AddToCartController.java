@@ -2,7 +2,7 @@ package com.quick_bites.controllers.cart_controller;
 
 
 import com.quick_bites.dto.cartdto.AddToCartDto;
-import com.quick_bites.service.managers.order_manager.cart_manager.AddToCart;
+import com.quick_bites.service.managers.order_manager.cart_manager.IAddToCart;
 import com.quick_bites.entity.Cart;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @AllArgsConstructor
 public class AddToCartController {
 
-    private final AddToCart addToCartService;
+    private final IAddToCart addToCartService;
 
     @PostMapping("/add")
     public ResponseEntity<Cart> addToCartMethod(@RequestBody AddToCartDto addToCartDto) {

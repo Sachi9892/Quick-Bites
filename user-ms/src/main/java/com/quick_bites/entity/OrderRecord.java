@@ -58,7 +58,7 @@ public class OrderRecord {
 
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id", referencedColumnName = "cartId")
     private Cart cart;
 

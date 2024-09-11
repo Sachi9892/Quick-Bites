@@ -1,6 +1,5 @@
 package com.quick_bites.service.managers.order_manager.cart_manager.impl;
 
-import com.quick_bites.dto.cartdto.AddToCartDto;
 import com.quick_bites.dto.cartdto.RemoveFromCartDto;
 import com.quick_bites.entity.Cart;
 import com.quick_bites.entity.CartItem;
@@ -8,15 +7,14 @@ import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.exceptions.DishNotFoundException;
 import com.quick_bites.repository.CartItemRepository;
 import com.quick_bites.repository.CartRepository;
-import com.quick_bites.service.managers.order_manager.cart_manager.RemoveFromCart;
+import com.quick_bites.service.managers.order_manager.cart_manager.IRemoveFromCart;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 
 @Service
 @AllArgsConstructor
-public class IRemoveFromCartService implements RemoveFromCart {
+public class RemoveFromCartServiceImpl implements IRemoveFromCart {
 
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
@@ -42,6 +40,7 @@ public class IRemoveFromCartService implements RemoveFromCart {
             existingItem.setQuantity(existingItem.getQuantity() - 1);
         } else {
             cart.getCartItems().remove(existingItem);
+            cartItemRepository.deleteById(existingItem.getId());
         }
 
 

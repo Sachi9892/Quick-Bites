@@ -1,10 +1,9 @@
 package com.quick_bites.controllers.cart_controller;
 
 
-import com.quick_bites.dto.cartdto.AddToCartDto;
 import com.quick_bites.dto.cartdto.RemoveFromCartDto;
 import com.quick_bites.entity.Cart;
-import com.quick_bites.service.managers.order_manager.cart_manager.RemoveFromCart;
+import com.quick_bites.service.managers.order_manager.cart_manager.IRemoveFromCart;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class RemoveFromCartController {
 
-    private final RemoveFromCart removeFromCart;
+    private final IRemoveFromCart removeFromCart;
 
     @DeleteMapping("/remove")
     public ResponseEntity<Cart> removeDishFromCart(@RequestBody RemoveFromCartDto fromCartDto) {

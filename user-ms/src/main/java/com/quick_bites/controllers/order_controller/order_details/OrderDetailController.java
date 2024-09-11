@@ -3,6 +3,7 @@ package com.quick_bites.controllers.order_controller.order_details;
 
 import com.quick_bites.dto.orderdto.OrderDetailsDto;
 import com.quick_bites.service.managers.order_manager.order_details.impl.CustomerOrderDetailsServiceImpl;
+import com.quick_bites.service.user_profile.UserOrderHistory;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,11 @@ public class OrderDetailController {
     private final CustomerOrderDetailsServiceImpl orderDetailsService;
 
     @GetMapping("/all-orders")
-    public ResponseEntity<List<OrderDetailsDto>> getOrdersByUserId(@RequestParam Long userId) {
+    public ResponseEntity<UserOrderHistory> getOrdersByUserId(@RequestParam Long userId) {
 
-        List<OrderDetailsDto> ordersDetailsById = orderDetailsService.getOrdersDetailsById(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(ordersDetailsById);
+        UserOrderHistory userOrderHistory = orderDetailsService.getUserOrderHistory(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userOrderHistory);
 
     }
 

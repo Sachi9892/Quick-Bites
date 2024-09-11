@@ -1,7 +1,7 @@
 package com.quick_bites.controllers.cart_controller;
 
 import com.quick_bites.entity.Cart;
-import com.quick_bites.service.managers.order_manager.cart_manager.ViewCart;
+import com.quick_bites.service.managers.order_manager.cart_manager.IViewCart;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class ViewCartController {
 
-    private final ViewCart viewCart;
+    private final IViewCart viewCart;
 
     @GetMapping("/view")
     public ResponseEntity<Cart> viewCartMethod(@RequestParam Long userId) {
