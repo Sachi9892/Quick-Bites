@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ICreateNewUser implements com.quick_bites.service.user_profile.ICreateNewUser {
+public class CreateNewUserImpl implements com.quick_bites.service.user_profile.ICreateNewUser {
 
     private final UserRepository userRepository;
     private final RestaurantClient restaurantClient;

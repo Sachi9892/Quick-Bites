@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 
@@ -77,7 +78,27 @@ public class CreateCodOrderImpl implements ICreateOrderService {
 
         savedOrder.setPaymentDetails(payment);
 
+        cart.setStatus(CartStatus.ORDERED);
+        cartRepository.save(cart);
+        createNewCartForUser(cart.getUserId());
+
         return orderRepository.save(newOrder);
 
     }
+
+
+    private void createNewCartForUser(Long userId) {
+
+        Cart newCart = new Cart();
+        newCart.setUserId(userId);
+        newCart.setRestId(null);
+        newCart.setCartItems(new ArrayList<>());
+        newCart.setTotalDishes(0);
+        newCart.setTotalAmount(0.0);
+        newCart.setStatus(CartStatus.ACTIVE);
+        cartRepository.save(newCart);
+
+    }
+
+
 }

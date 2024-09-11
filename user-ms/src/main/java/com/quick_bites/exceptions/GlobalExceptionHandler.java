@@ -8,14 +8,12 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,6 +115,33 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 
     }
+
+
+    @ExceptionHandler(RazorPayException.class)
+    public ResponseEntity<ErrorResponseMsg> handleRazorPayException(RazorPayException ex, WebRequest request) {
+
+        ErrorResponseMsg errorResponse = new ErrorResponseMsg(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+
+    @ExceptionHandler(PlaceOrderException.class)
+    public ResponseEntity<ErrorResponseMsg> handleOrderFailureException(PlaceOrderException ex, WebRequest request) {
+
+        ErrorResponseMsg errorResponse = new ErrorResponseMsg(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+
+
 
 
 }

@@ -40,13 +40,17 @@ public class Cart {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public Cart(Long userId, Long restId, List<CartItem> cartItems, int totalDishes, Double totalAmount, LocalDateTime createdAt) {
+    @Enumerated(EnumType.STRING)
+    private CartStatus status;
+
+    public Cart(Long userId, Long restId, List<CartItem> cartItems, int totalDishes, Double totalAmount, LocalDateTime createdAt , CartStatus cartStatus) {
         this.userId = userId;
         this.restId = restId;
         this.cartItems = cartItems;
         this.totalDishes = totalDishes;
         this.totalAmount = totalAmount;
         this.createdAt = createdAt;
+        this.status = cartStatus;
     }
 
 

@@ -3,9 +3,11 @@ package com.quick_bites.service.managers.order_manager.order_service.impl;
 
 import com.quick_bites.dto.orderdto.OrderRequestDto;
 import com.quick_bites.entity.*;
+import com.quick_bites.exceptions.RazorPayException;
 import com.quick_bites.repository.*;
 import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
 import com.quick_bites.service.managers.order_manager.payment_manager.ICreateRazorOrder;
+import com.razorpay.RazorpayException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 
@@ -30,7 +33,7 @@ public class CreateOnlinePaymentOrderImpl implements ICreateOrderService {
     private final ICreateRazorOrder createRazorOrder;
 
     @Override
-    public OrderRecord createOrder(OrderRequestDto orderRequestDto) {
+    public OrderRecord createOrder(OrderRequestDto orderRequestDto) throws RazorPayException {
 
 
         Long cartId = orderRequestDto.getCartId();
@@ -94,9 +97,10 @@ public class CreateOnlinePaymentOrderImpl implements ICreateOrderService {
 
             return save;
 
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to create Razorpay order", e);
+        }  catch (Exception e) {
+            throw new RazorPayException ("Razor is down currently !");
         }
 
     }
+
 }

@@ -3,6 +3,7 @@ package com.quick_bites.service.managers.order_manager.payment_manager.impl;
 
 
 import com.quick_bites.entity.Cart;
+import com.quick_bites.exceptions.RazorPayException;
 import com.quick_bites.repository.CartRepository;
 import com.quick_bites.service.managers.order_manager.payment_manager.ICreateRazorOrder;
 import com.razorpay.Order;
@@ -25,18 +26,23 @@ public class CreateRazorOrderImpl implements ICreateRazorOrder {
 
     public String createRazorpayOrder(Long cartId) throws RazorpayException {
 
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NoResourceFoundException("No cart"));
+        try {
+            Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NoResourceFoundException("No cart"));
 
-        JSONObject options = new JSONObject();
-        options.put("amount", (int) (cart.getTotalAmount() * 100));
-        options.put("currency", "INR");
-        options.put("payment_capture", 1);
+            JSONObject options = new JSONObject();
+            options.put("amount", (int) (cart.getTotalAmount() * 100));
+            options.put("currency", "INR");
+            options.put("payment_capture", 1);
 
 
-        Order order = razorpayClient.orders.create(options);
-        log.info("Order id - {} ", order);
+            Order order = razorpayClient.orders.create(options);
+            log.info("Order id - {} ", order);
 
-        return order.toString();
+            return order.toString();
+
+        } catch (Exception e) {
+            throw  new RazorPayException("Razor Pay Is Down !");
+        }
 
     }
 

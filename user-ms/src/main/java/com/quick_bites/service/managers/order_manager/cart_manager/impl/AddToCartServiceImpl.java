@@ -5,6 +5,7 @@ import com.quick_bites.dto.dishdto.DishType;
 import com.quick_bites.dto.dishdto.SingleDishResponseDto;
 import com.quick_bites.entity.Cart;
 import com.quick_bites.entity.CartItem;
+import com.quick_bites.entity.CartStatus;
 import com.quick_bites.exceptions.DishNotFoundException;
 import com.quick_bites.exceptions.MultipleRestaurantOrderException;
 import com.quick_bites.repository.CartItemRepository;
@@ -35,6 +36,7 @@ public class AddToCartServiceImpl implements IAddToCart {
         ResponseEntity<SingleDishResponseDto> response = restaurantClient.getSingleDishMethod(addToCartDto.getDishId());
 
         SingleDishResponseDto dishDto = response.getBody();
+
         if (dishDto == null) {
             throw new DishNotFoundException("Dish not found " + addToCartDto.getDishId());
         }
@@ -51,8 +53,13 @@ public class AddToCartServiceImpl implements IAddToCart {
         String dishPic = dishDto.getDishPic();
 
         // Fetch or create the user's cart
-        Cart cart = cartRepository.findByUserId(userId)
-                .orElse(new Cart(userId, restId, new ArrayList<>(), 0, 0.0, LocalDateTime.now()));
+        Cart cart = cartRepository.findByUserIdAndStatus(userId , CartStatus.ACTIVE)
+                .orElse(new Cart(userId, restId,
+                                new ArrayList<>(),
+                                0,
+                                0.0,
+                                LocalDateTime.now() ,
+                                CartStatus.ACTIVE));
 
         // Check if the cart already has items from a different restaurant
         if (cart.getRestId() != null && !cart.getRestId().equals(restId)) {
@@ -62,6 +69,7 @@ public class AddToCartServiceImpl implements IAddToCart {
 
         // Save the cart if it's new before proceeding with items
         if (cart.getCartId() == null) {
+            cart.setRestId(restId);
             cart = cartRepository.save(cart);  // Persist the cart first
         }
 
@@ -86,7 +94,7 @@ public class AddToCartServiceImpl implements IAddToCart {
                     .dishPic(dishPic)
                     .dishType(dishType)
                     .dishName(dishName)
-                    .cart(cart)  // Associate with cart
+                    .cart(cart)
                     .build();
 
             cart.getCartItems().add(newItem); // Add item to cart

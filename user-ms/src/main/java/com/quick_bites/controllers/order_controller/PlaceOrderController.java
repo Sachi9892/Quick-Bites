@@ -6,6 +6,7 @@ import com.quick_bites.dto.orderdto.OrderRequestDto;
 import com.quick_bites.entity.OrderRecord;
 import com.quick_bites.entity.OrderStatus;
 import com.quick_bites.entity.OrderType;
+import com.quick_bites.exceptions.PlaceOrderException;
 import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
@@ -51,21 +52,17 @@ public class PlaceOrderController {
 
             } else if (orderRequest.getOrderType() == OrderType.COD) {
 
-
                 return ResponseEntity.ok("Order placed with Cash on Delivery.");
 
             }
 
         } catch (Exception e) {
 
-            log.info("Inside catch bloc {} ");
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error placing order");
+            throw new PlaceOrderException("Failed to placed order ");
 
         }
 
-        log.info("outside catch bloc" );
-        return ResponseEntity.status(500).body("Not in method body placing order");
+        throw new PlaceOrderException("Failed to placed order ");
     }
 
 
