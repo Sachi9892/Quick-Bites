@@ -3,10 +3,10 @@ package com.quick_bites.controllers.order_controller;
 
 
 import com.quick_bites.dto.orderdto.OrderRequestDto;
-import com.quick_bites.entity.OrderRecord;
-import com.quick_bites.entity.OrderStatus;
-import com.quick_bites.entity.OrderType;
+import com.quick_bites.entity.*;
+import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.exceptions.PlaceOrderException;
+import com.quick_bites.repository.CartRepository;
 import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
@@ -29,7 +29,7 @@ public class PlaceOrderController {
     private final ICreateRazorOrder createRazorOrder;
     private final OrderServiceFactory orderServiceFactory;
     private final OrderRepository orderRepository;
-
+    private final CartRepository cartRepository;
 
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -43,11 +43,12 @@ public class PlaceOrderController {
             OrderRecord order = orderService.createOrder(orderRequest);
 
             if (orderRequest.getOrderType() == OrderType.ONLINE) {
-
                 createRazorOrder.createRazorpayOrder(orderRequest.getCartId());
 
+                Cart cart = cartRepository.findById(orderRequest.getCartId()).orElseThrow(() -> new CartNotFoundException("No cart update" + orderRequest.getCartId()));
+                cart.setStatus(CartStatus.ORDERED);
+                cartRepository.save(cart);
                 orderRepository.save(order);
-
                 return ResponseEntity.ok("Online payment order created successfully");
 
             } else if (orderRequest.getOrderType() == OrderType.COD) {

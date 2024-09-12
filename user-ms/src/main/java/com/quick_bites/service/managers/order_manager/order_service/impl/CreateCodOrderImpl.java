@@ -2,6 +2,7 @@ package com.quick_bites.service.managers.order_manager.order_service.impl;
 
 import com.quick_bites.dto.orderdto.OrderRequestDto;
 import com.quick_bites.entity.*;
+import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.repository.*;
 import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
 import lombok.AllArgsConstructor;
@@ -34,7 +35,7 @@ public class CreateCodOrderImpl implements ICreateOrderService {
         DeliveryAddresses addresses = deliveryAddressRepository.findById(orderRequestDto.getDeliveryAddress())
                 .orElseThrow(() -> new NoResourceFoundException("No address found"));
 
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NoResourceFoundException("No cart"));
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new CartNotFoundException("No cart"));
 
         Long userId = cart.getUserId();
 
@@ -80,25 +81,12 @@ public class CreateCodOrderImpl implements ICreateOrderService {
 
         cart.setStatus(CartStatus.ORDERED);
         cartRepository.save(cart);
-        createNewCartForUser(cart.getUserId());
+
 
         return orderRepository.save(newOrder);
 
     }
 
-
-    private void createNewCartForUser(Long userId) {
-
-        Cart newCart = new Cart();
-        newCart.setUserId(userId);
-        newCart.setRestId(null);
-        newCart.setCartItems(new ArrayList<>());
-        newCart.setTotalDishes(0);
-        newCart.setTotalAmount(0.0);
-        newCart.setStatus(CartStatus.ACTIVE);
-        cartRepository.save(newCart);
-
-    }
 
 
 }

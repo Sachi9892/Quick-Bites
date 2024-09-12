@@ -3,6 +3,7 @@ package com.quick_bites.service.managers.order_manager.cart_manager.impl;
 import com.quick_bites.dto.cartdto.RemoveFromCartDto;
 import com.quick_bites.entity.Cart;
 import com.quick_bites.entity.CartItem;
+import com.quick_bites.entity.CartStatus;
 import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.exceptions.DishNotFoundException;
 import com.quick_bites.repository.CartItemRepository;
@@ -24,7 +25,7 @@ public class RemoveFromCartServiceImpl implements IRemoveFromCart {
     public Cart removeFromCart(RemoveFromCartDto removeFromCartDto) {
 
         // Find the cart for the user
-        Cart cart = cartRepository.findByUserId(removeFromCartDto.getUserId())
+        Cart cart = cartRepository.findByUserIdAndStatus(removeFromCartDto.getUserId() , CartStatus.ACTIVE)
                 .orElseThrow(() -> new CartNotFoundException("Cart not found for user ID: " + removeFromCartDto.getUserId()));
 
 

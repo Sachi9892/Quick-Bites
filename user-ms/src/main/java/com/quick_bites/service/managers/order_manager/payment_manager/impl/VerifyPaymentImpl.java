@@ -6,6 +6,7 @@ import com.quick_bites.entity.OrderRecord;
 import com.quick_bites.entity.OrderStatus;
 import com.quick_bites.entity.PaymentDetails;
 import com.quick_bites.entity.PaymentStatus;
+import com.quick_bites.exceptions.RazorPayException;
 import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
@@ -77,8 +78,7 @@ public class VerifyPaymentImpl implements IVerifyPayment {
 
         } else {
             log.error("Payment signature verification failed for paymentId: {}", paymentId);
-
-            return false;
+            throw new RazorPayException("Razor Pay Is Down !");
         }
 
     }

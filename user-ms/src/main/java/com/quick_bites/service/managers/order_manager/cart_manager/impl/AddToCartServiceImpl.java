@@ -67,7 +67,7 @@ public class AddToCartServiceImpl implements IAddToCart {
         }
 
 
-        // Save the cart if it's new before proceeding with items
+        //Save the cart if it's new before proceeding with items
         if (cart.getCartId() == null) {
             cart.setRestId(restId);
             cart = cartRepository.save(cart);  // Persist the cart first

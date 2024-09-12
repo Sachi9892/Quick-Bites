@@ -6,11 +6,13 @@ import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.repository.CartRepository;
 import com.quick_bites.service.managers.order_manager.cart_manager.IClearCart;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ClearCartServiceImpl implements IClearCart {
 
     private final CartRepository cartRepository;
@@ -25,11 +27,12 @@ public class ClearCartServiceImpl implements IClearCart {
         cart.setTotalDishes(0);
         cart.setTotalAmount(0.0);
 
-        cart.setStatus(CartStatus.CLEARED);
+        //cart.setStatus(CartStatus.CLEARED);
 
-        cartRepository.save(cart);
+        Cart clearedCart = cartRepository.save(cart);
+        log.info("Clear cart : {} " , clearedCart);
 
-        return cart;
+        return clearedCart;
 
     }
 
