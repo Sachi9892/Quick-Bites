@@ -3,6 +3,7 @@ package com.quick_bites.services.restaurant_service.impl;
 
 import com.quick_bites.dto.dish_dto.SingleDishResponseDto;
 import com.quick_bites.entity.Dish;
+import com.quick_bites.exception.DishNotFoundException;
 import com.quick_bites.repository.dish_repo.DishRepository;
 import com.quick_bites.services.restaurant_service.IGetSingleDish;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ public class GetSingleDishImpl implements IGetSingleDish {
     @Override
     public SingleDishResponseDto getDish(Long id) {
 
-        Dish dish = dishRepository.findById(id).orElseThrow(() -> new NoResourceFoundException("No Dish With Id" + id));
+        Dish dish = dishRepository.findById(id).orElseThrow(() -> new DishNotFoundException("No Dish With Id" + id));
 
         return new SingleDishResponseDto(
 

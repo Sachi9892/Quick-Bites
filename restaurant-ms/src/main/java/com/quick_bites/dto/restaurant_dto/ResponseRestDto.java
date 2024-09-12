@@ -12,5 +12,6 @@ public class ResponseRestDto {
     private String restaurantName;
     private String mobileNumber;
     private Double avgReview;
+    private Integer totalRating;
 
 }

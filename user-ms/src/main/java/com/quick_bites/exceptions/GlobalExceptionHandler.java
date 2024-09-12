@@ -141,6 +141,17 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
     }
 
 
+    @ExceptionHandler(NoOrderHistoryFoundException.class)
+    public ResponseEntity<ErrorResponseMsg> handleOrderHistoryNotFoundException(NoOrderHistoryFoundException ex, WebRequest request) {
+
+        ErrorResponseMsg errorResponse = new ErrorResponseMsg(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+
+    }
+
 
 
 

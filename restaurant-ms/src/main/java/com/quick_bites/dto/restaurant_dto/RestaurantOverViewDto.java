@@ -24,5 +24,6 @@ public class RestaurantOverViewDto {
     private Page<ResponseDishDto> dishes;
     private Set<ResponseCategoryDto> categories;
     private Page<ResponseReviewDto> reviews;
+    private Integer totalReviews;
 
 }

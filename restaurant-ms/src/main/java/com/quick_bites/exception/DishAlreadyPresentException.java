@@ -5,13 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class ResourceAlreadyPresent extends RuntimeException {
+public class DishAlreadyPresentException extends RuntimeException {
 
-    public ResourceAlreadyPresent() {
+    public DishAlreadyPresentException() {
 
     }
 
-    public  ResourceAlreadyPresent(String message) {
+    public DishAlreadyPresentException(String message) {
         super(message);
     }
 

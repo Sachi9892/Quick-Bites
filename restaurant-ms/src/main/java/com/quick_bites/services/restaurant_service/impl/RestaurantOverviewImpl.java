@@ -6,6 +6,7 @@ import com.quick_bites.dto.restaurant_dto.RestaurantOverViewDto;
 import com.quick_bites.dto.review_dto.ResponseReviewDto;
 import com.quick_bites.entity.Restaurant;
 import com.quick_bites.exception.ResourceNotFoundException;
+import com.quick_bites.exception.RestaurantNotFoundException;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
 import com.quick_bites.services.restaurant_service.IFindAllCategories;
 import com.quick_bites.services.restaurant_service.IFindAllDishesByRestName;
@@ -32,14 +33,12 @@ public class RestaurantOverviewImpl implements IRestaurantOverview {
     @Override
     public RestaurantOverViewDto getOverView(String name, Pageable pageable) {
 
-        Optional<Restaurant> rest = restaurantRepository.findByRestaurantName(name);
+        Restaurant rest = restaurantRepository.findByRestaurantName(name)
+                .orElseThrow(() -> new RestaurantNotFoundException("No restaurant found : " + name));
 
-        if(rest.isEmpty()) {
-            throw new ResourceNotFoundException("No Restaurant found with name" + name);
-        }
 
-        String restName = rest.get().getRestaurantName();
-        String mob = rest.get().getMobileNumber();
+        String restName = rest.getRestaurantName();
+        String mob = rest.getMobileNumber();
 
         //First extract categories
         Set<ResponseCategoryDto> categoryDtos = categories.allCategories(restName);
@@ -49,16 +48,18 @@ public class RestaurantOverviewImpl implements IRestaurantOverview {
         Page<ResponseDishDto> dishesDtos = dishes.findAllDishesByRestaurantName(restName , pageable);
 
 
-        //Finally reviews
+        //Finally, reviews
         Page<ResponseReviewDto> reviewsDtos = reviews.findAllReview(restName , pageable);
 
+        Integer totalReviews = reviewsDtos.stream().toList().size();
 
         return new RestaurantOverViewDto(
                 restName ,
                 mob ,
                 dishesDtos ,
                 categoryDtos ,
-                reviewsDtos
+                reviewsDtos ,
+                totalReviews
         );
 
 

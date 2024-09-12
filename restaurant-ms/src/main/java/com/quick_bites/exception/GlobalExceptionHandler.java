@@ -46,48 +46,57 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
 
     //Handle any exception
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDto> handleGlobalException(Exception exception,
-                                                                  WebRequest webRequest) {
-        ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
-                webRequest.getDescription(false),
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                exception.getMessage(),
-                LocalDateTime.now()
-        );
-        return new ResponseEntity<>(errorResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ErrorResponseDto> handleGlobalException(Exception ex, WebRequest req) {
+
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                ex.getMessage(),
+                req.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+
     }
 
 
-    // Handle  ResourceAlreadyPresent
-    @ExceptionHandler(ResourceAlreadyPresent.class)
-    public ResponseEntity<ErrorResponseDto> handleResourceAlreadyPresentExp( ResourceAlreadyPresent ex , WebRequest req ) {
+    // Handle Dish Already Presently
+    @ExceptionHandler(DishAlreadyPresentException.class)
+    public ResponseEntity<ErrorResponseDto> handleResourceAlreadyPresentExp(DishAlreadyPresentException ex , WebRequest req ) {
 
-        ErrorResponseDto response = new ErrorResponseDto();
-
-        response.setApiPath(req.getDescription(false));
-        response.setStatus(HttpStatus.BAD_REQUEST);
-        response.setErrorMsg(ex.getMessage());
-        response.setTime(LocalDateTime.now());
-
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                req.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 
     }
 
 
     // Handle ResourceNotFoundException
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleResourceNotFoundExp( ResourceAlreadyPresent ex , WebRequest req ) {
+    public ResponseEntity<ErrorResponseDto> handleResourceNotFoundExp(ResourceNotFoundException ex , WebRequest req ) {
 
-        ErrorResponseDto response = new ErrorResponseDto();
-
-        response.setApiPath(req.getDescription(false));
-        response.setStatus(HttpStatus.BAD_REQUEST);
-        response.setErrorMsg(ex.getMessage());
-        response.setTime(LocalDateTime.now());
-
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                req.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 
     }
+
+
+
+    // Handle RestaurantNotFoundException
+    @ExceptionHandler(RestaurantNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleRestaurantNotFoundExp(RestaurantNotFoundException ex , WebRequest req ) {
+
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                req.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+
+    }
+
+
 
 
 

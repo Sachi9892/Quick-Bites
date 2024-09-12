@@ -13,17 +13,21 @@ public class RestaurantMapper {
 
     }
 
-    public static ResponseRestDto mapToDto(Optional<Restaurant> restaurant) {
+    public static ResponseRestDto mapToDto(Restaurant restaurant) {
 
-        double averageRating = restaurant.get().getRestReviews().stream()
+        Double averageRating = restaurant.getRestReviews().stream()
                 .mapToDouble(RestaurantReview::getRating)
                 .average()
                 .orElse(3.0);
 
+        Integer totalRating = restaurant.getRestReviews().size();
+
+
         return new ResponseRestDto(
-                restaurant.get().getRestaurantName() ,
-                restaurant.get().getMobileNumber() ,
-                averageRating
+                restaurant.getRestaurantName() ,
+                restaurant.getMobileNumber() ,
+                averageRating ,
+                totalRating
         );
 
     }

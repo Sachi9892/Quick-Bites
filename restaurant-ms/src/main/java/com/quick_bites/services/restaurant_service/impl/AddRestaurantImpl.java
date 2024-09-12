@@ -22,6 +22,7 @@ public class AddRestaurantImpl implements IAddRestaurant {
     @Override
     public Restaurant addRestaurant(AddRestaurantDto addRestaurantDto) {
 
+
         LocationDto coordinates = geoCodingService.getCoordinates(addRestaurantDto.getAddress());
 
         Restaurant restaurant = new Restaurant();

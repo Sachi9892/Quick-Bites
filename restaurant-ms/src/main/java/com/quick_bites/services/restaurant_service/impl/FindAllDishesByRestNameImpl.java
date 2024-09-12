@@ -4,6 +4,7 @@ import com.quick_bites.dto.dish_dto.ResponseDishDto;
 import com.quick_bites.entity.Dish;
 import com.quick_bites.entity.Restaurant;
 import com.quick_bites.exception.ResourceNotFoundException;
+import com.quick_bites.exception.RestaurantNotFoundException;
 import com.quick_bites.mapper.DishMapper;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
 import com.quick_bites.services.restaurant_service.IFindAllDishesByRestName;
@@ -23,7 +24,7 @@ public class FindAllDishesByRestNameImpl implements IFindAllDishesByRestName {
     public Page<ResponseDishDto> findAllDishesByRestaurantName(String name, Pageable pageable) {
 
         Restaurant restaurant = restaurantRepository.findByRestaurantName(name).orElseThrow(() ->
-                new ResourceNotFoundException("No restaurant found with name:" + name));
+                new RestaurantNotFoundException("No restaurant found with name:" + name));
 
         Page<Dish> dishes = restaurantRepository.findAllDishesByRestaurantName(restaurant.getRestaurantName(), pageable);
 

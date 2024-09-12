@@ -12,12 +12,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ErrorResponseDto {
 
-    private String apiPath;
+    private int status;
+    private String message;
+    private String path;
 
-    private HttpStatus status;
-
-    private String errorMsg;
-
-    private LocalDateTime time;
 
 }
