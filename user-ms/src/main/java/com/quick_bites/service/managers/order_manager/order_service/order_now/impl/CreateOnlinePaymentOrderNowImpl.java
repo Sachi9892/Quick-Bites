@@ -1,13 +1,12 @@
-package com.quick_bites.service.managers.order_manager.order_service.impl;
+package com.quick_bites.service.managers.order_manager.order_service.order_now.impl;
 
 
-import com.quick_bites.dto.orderdto.OrderRequestDto;
+import com.quick_bites.dto.orderdto.PlaceOrderRequestDto;
 import com.quick_bites.entity.*;
 import com.quick_bites.exceptions.RazorPayException;
 import com.quick_bites.repository.*;
-import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
+import com.quick_bites.service.managers.order_manager.order_service.order_now.ICreateOrderNowService;
 import com.quick_bites.service.managers.order_manager.payment_manager.ICreateRazorOrder;
-import com.razorpay.RazorpayException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -15,14 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.UUID;
 
 
 @Service
 @AllArgsConstructor
 @Slf4j
-public class CreateOnlinePaymentOrderImpl implements ICreateOrderService {
+public class CreateOnlinePaymentOrderNowImpl implements ICreateOrderNowService {
 
 
     private final OrderRepository orderRepository;
@@ -33,12 +31,12 @@ public class CreateOnlinePaymentOrderImpl implements ICreateOrderService {
     private final ICreateRazorOrder createRazorOrder;
 
     @Override
-    public OrderRecord createOrder(OrderRequestDto orderRequestDto) throws RazorPayException {
+    public OrderRecord createOrder(PlaceOrderRequestDto placeOrderRequestDto) throws RazorPayException {
 
 
-        Long cartId = orderRequestDto.getCartId();
+        Long cartId = placeOrderRequestDto.getCartId();
 
-        DeliveryAddresses addresses = deliveryAddressRepository.findById(orderRequestDto.getDeliveryAddress())
+        DeliveryAddresses addresses = deliveryAddressRepository.findById(placeOrderRequestDto.getDeliveryAddress())
                 .orElseThrow(() -> new NoResourceFoundException("No Address found"));
 
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NoResourceFoundException("No cart"));

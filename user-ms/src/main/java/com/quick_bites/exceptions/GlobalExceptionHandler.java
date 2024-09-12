@@ -2,6 +2,7 @@ package com.quick_bites.exceptions;
 
 
 import com.quick_bites.dto.error_response.ErrorResponseMsg;
+import com.quick_bites.mapper.AddressesMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -151,6 +152,34 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 
     }
+
+
+    @ExceptionHandler(SlotNotAvailableOrExpireException.class)
+    public ResponseEntity<ErrorResponseMsg> handleSlotServiceException(SlotNotAvailableOrExpireException ex, WebRequest request) {
+
+        ErrorResponseMsg errorResponse = new ErrorResponseMsg(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+
+    @ExceptionHandler(NoAddressFoundException.class)
+    public ResponseEntity<ErrorResponseMsg> handleAddressNotFoundException(NoAddressFoundException ex, WebRequest request) {
+
+        ErrorResponseMsg errorResponse = new ErrorResponseMsg(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+
+    }
+
+
+
+
 
 
 

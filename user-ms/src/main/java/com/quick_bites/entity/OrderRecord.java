@@ -41,6 +41,9 @@ public class OrderRecord {
     private OrderStatus orderStatus;
 
 
+    // For storing the scheduled time
+    private LocalDateTime scheduledTime;
+
 
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")

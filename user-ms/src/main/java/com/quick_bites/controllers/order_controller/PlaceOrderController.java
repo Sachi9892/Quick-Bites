@@ -2,15 +2,14 @@ package com.quick_bites.controllers.order_controller;
 
 
 
-import com.quick_bites.dto.orderdto.OrderRequestDto;
+import com.quick_bites.dto.orderdto.PlaceOrderRequestDto;
 import com.quick_bites.entity.*;
 import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.exceptions.PlaceOrderException;
 import com.quick_bites.repository.CartRepository;
 import com.quick_bites.repository.OrderRepository;
-import com.quick_bites.repository.PaymentDetailsRepository;
-import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
-import com.quick_bites.service.managers.order_manager.order_service.impl.OrderServiceFactory;
+import com.quick_bites.service.managers.order_manager.order_service.order_now.ICreateOrderNowService;
+import com.quick_bites.service.managers.order_manager.order_service.order_now.impl.OrderNowServiceFactory;
 import com.quick_bites.service.managers.order_manager.payment_manager.ICreateRazorOrder;
 
 
@@ -27,18 +26,18 @@ import org.springframework.web.bind.annotation.*;
 public class PlaceOrderController {
 
     private final ICreateRazorOrder createRazorOrder;
-    private final OrderServiceFactory orderServiceFactory;
+    private final OrderNowServiceFactory orderNowServiceFactory;
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
 
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/user/order/place-order")
-    public ResponseEntity<String> createOrderMethod(@RequestBody OrderRequestDto orderRequest) {
+    @PostMapping("/user/order/order-now")
+    public ResponseEntity<String> createOrderMethod(@RequestBody PlaceOrderRequestDto orderRequest) {
 
         try {
 
-            ICreateOrderService orderService = orderServiceFactory.getOrderService(orderRequest.getOrderType().name());
+            ICreateOrderNowService orderService = orderNowServiceFactory.getOrderNowService(orderRequest.getOrderType().name());
 
             OrderRecord order = orderService.createOrder(orderRequest);
 
@@ -46,6 +45,7 @@ public class PlaceOrderController {
                 createRazorOrder.createRazorpayOrder(orderRequest.getCartId());
 
                 Cart cart = cartRepository.findById(orderRequest.getCartId()).orElseThrow(() -> new CartNotFoundException("No cart update" + orderRequest.getCartId()));
+
                 cart.setStatus(CartStatus.ORDERED);
                 cartRepository.save(cart);
                 orderRepository.save(order);

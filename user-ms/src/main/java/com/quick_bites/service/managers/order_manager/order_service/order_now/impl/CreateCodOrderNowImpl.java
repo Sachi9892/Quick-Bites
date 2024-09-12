@@ -1,24 +1,23 @@
-package com.quick_bites.service.managers.order_manager.order_service.impl;
+package com.quick_bites.service.managers.order_manager.order_service.order_now.impl;
 
-import com.quick_bites.dto.orderdto.OrderRequestDto;
+import com.quick_bites.dto.orderdto.PlaceOrderRequestDto;
 import com.quick_bites.entity.*;
 import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.repository.*;
-import com.quick_bites.service.managers.order_manager.order_service.ICreateOrderService;
+import com.quick_bites.service.managers.order_manager.order_service.order_now.ICreateOrderNowService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.UUID;
 
 
 @Service
 @AllArgsConstructor
 @Slf4j
-public class CreateCodOrderImpl implements ICreateOrderService {
+public class CreateCodOrderNowImpl implements ICreateOrderNowService {
 
     private final OrderRepository orderRepository;
     private final PaymentDetailsRepository paymentRepository;
@@ -28,11 +27,11 @@ public class CreateCodOrderImpl implements ICreateOrderService {
 
 
     @Override
-    public OrderRecord createOrder(OrderRequestDto orderRequestDto) {
+    public OrderRecord createOrder(PlaceOrderRequestDto placeOrderRequestDto) {
 
-        Long cartId = orderRequestDto.getCartId();
+        Long cartId = placeOrderRequestDto.getCartId();
 
-        DeliveryAddresses addresses = deliveryAddressRepository.findById(orderRequestDto.getDeliveryAddress())
+        DeliveryAddresses addresses = deliveryAddressRepository.findById(placeOrderRequestDto.getDeliveryAddress())
                 .orElseThrow(() -> new NoResourceFoundException("No address found"));
 
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new CartNotFoundException("No cart"));
@@ -80,8 +79,8 @@ public class CreateCodOrderImpl implements ICreateOrderService {
         savedOrder.setPaymentDetails(payment);
 
         cart.setStatus(CartStatus.ORDERED);
-        cartRepository.save(cart);
 
+        cartRepository.save(cart);
 
         return orderRepository.save(newOrder);
 
