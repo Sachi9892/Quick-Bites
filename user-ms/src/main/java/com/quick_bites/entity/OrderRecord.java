@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 public class OrderRecord {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
@@ -76,6 +77,7 @@ public class OrderRecord {
         return "OrderRecord{" +
                 "orderDate=" + orderDate +
                 ", orderId=" + orderId +
+                ", cartId=" + cart.getCartId() +
                 '}';
     }
 

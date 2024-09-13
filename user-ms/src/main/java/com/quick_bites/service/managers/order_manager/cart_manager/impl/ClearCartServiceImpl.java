@@ -26,13 +26,14 @@ public class ClearCartServiceImpl implements IClearCart {
         cart.getCartItems().clear();
         cart.setTotalDishes(0);
         cart.setTotalAmount(0.0);
+        cart.setRestId(null);
 
-        //cart.setStatus(CartStatus.CLEARED);
 
         Cart clearedCart = cartRepository.save(cart);
         log.info("Clear cart : {} " , clearedCart);
 
         return clearedCart;
+
 
     }
 

@@ -1,9 +1,8 @@
-package com.quick_bites.controllers.order_controller;
+package com.quick_bites.controllers.order_controller.payment_controller;
 
 
 import com.quick_bites.constants.AppConstants;
 import com.quick_bites.service.managers.order_manager.payment_manager.impl.GenerateSignatureServiceImpl;
-import com.quick_bites.service.managers.order_manager.payment_manager.impl.VerifyPaymentImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

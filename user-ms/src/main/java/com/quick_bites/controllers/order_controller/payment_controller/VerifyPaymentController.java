@@ -1,4 +1,4 @@
-package com.quick_bites.controllers.order_controller;
+package com.quick_bites.controllers.order_controller.payment_controller;
 
 import com.quick_bites.dto.paymentdto.PaymentVerificationDto;
 import com.quick_bites.entity.PaymentDetails;

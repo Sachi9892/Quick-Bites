@@ -1,4 +1,4 @@
-package com.quick_bites.service.managers.order_manager.order_service.schedule_order.impl;
+package com.quick_bites.service.managers.order_manager.order_service.schedule_order;
 
 
 import com.quick_bites.dto.orderdto.PlaceOrderRequestDto;
@@ -6,40 +6,48 @@ import com.quick_bites.entity.*;
 import com.quick_bites.exceptions.RazorPayException;
 import com.quick_bites.exceptions.SlotNotAvailableOrExpireException;
 import com.quick_bites.repository.*;
+import com.quick_bites.service.managers.order_manager.order_service.IPlaceOrderFactory;
 import com.quick_bites.service.managers.order_manager.order_service.OrderBaseService;
-import com.quick_bites.service.managers.order_manager.order_service.schedule_order.ICreateScheduleOrder;
-import com.quick_bites.service.managers.order_manager.order_service.schedule_order.SlotTimingService;
 import com.quick_bites.service.managers.order_manager.payment_manager.ICreateRazorOrder;
+import com.razorpay.RazorpayException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 
 @Service
-public class OnlineScheduleOrderServiceImpl extends OrderBaseService implements ICreateScheduleOrder {
+@Qualifier("scheduleOnlineOrderService")
+public class OnlineScheduleOrderServiceImpl extends OrderBaseService implements IPlaceOrderFactory {
 
     private final ICreateRazorOrder createRazorOrder;
-    private final SlotTimingService slotTimingService;
 
-    public OnlineScheduleOrderServiceImpl(OrderRepository orderRepository, PaymentDetailsRepository paymentRepository, DeliveryAddressRepository deliveryAddressRepository, UserRepository userRepository, CartRepository cartRepository , SlotTimingService slotTimingService , ICreateRazorOrder createRazorOrder) {
+    private final TimeSlotVerificationService timeSlotVerificationService;
+
+    public OnlineScheduleOrderServiceImpl(OrderRepository orderRepository,
+                                          PaymentDetailsRepository paymentRepository,
+                                          DeliveryAddressRepository deliveryAddressRepository,
+                                          UserRepository userRepository, CartRepository cartRepository
+            , TimeSlotVerificationService timeSlotVerificationService , ICreateRazorOrder createRazorOrder) {
         super(orderRepository, paymentRepository, deliveryAddressRepository, userRepository, cartRepository);
         this.createRazorOrder = createRazorOrder;
-        this.slotTimingService = slotTimingService;
+        this.timeSlotVerificationService = timeSlotVerificationService;
 
     }
 
     @Override
-    public OrderRecord createScheduleOrder(PlaceOrderRequestDto scheduleOrderDto) throws RazorPayException {
+    public OrderRecord placeOrder(PlaceOrderRequestDto requestDto) throws RazorpayException {
 
 
-        if (!slotTimingService.isValidSlot(scheduleOrderDto.getScheduledTime())) {
-            throw new SlotNotAvailableOrExpireException("Slot Unavailable Or Expired!");
-        }
+        //Verify if order placed at least 30 minutes before
+        timeSlotVerificationService.validateOrderTiming(requestDto.getScheduledTime());
+
 
         // Create a new order
-        OrderRecord newOrder = createOrderBase(scheduleOrderDto);
-        newOrder.setScheduledTime(scheduleOrderDto.getScheduledTime());
+        OrderRecord newOrder = createOrderBase(requestDto);
+
+        newOrder.setScheduledTime(requestDto.getScheduledTime());
         newOrder.setOrderType(OrderType.SCHEDULE_ONLINE);
         newOrder.setOrderStatus(OrderStatus.PENDING);
 
@@ -48,15 +56,15 @@ public class OnlineScheduleOrderServiceImpl extends OrderBaseService implements 
 
         // Create Razorpay order and update PaymentDetails
         try {
-            String razorpayOrderResponse = createRazorOrder.createRazorpayOrder(scheduleOrderDto.getCartId());
+            String razorpayOrderResponse = createRazorOrder.createRazorpayOrder(requestDto.getCartId());
 
             // Update PaymentDetails
             PaymentDetails payment = new PaymentDetails();
             payment.setTransactionId(UUID.randomUUID().toString());
             payment.setPaymentStatus(PaymentStatus.CREATED);
-            payment.setModeOfPayment("ONLINE");
+            payment.setModeOfPayment(PaymentMode.SCHEDULE_ONLINE);
             payment.setOrderRecord(savedOrder);
-            payment.setCartId(scheduleOrderDto.getCartId());
+            payment.setCartId(requestDto.getCartId());
             payment.setTotalAmount(savedOrder.getTotalAmount());
             payment.setRazorpayOrderId(new JSONObject(razorpayOrderResponse).getString("id"));
 
@@ -71,5 +79,6 @@ public class OnlineScheduleOrderServiceImpl extends OrderBaseService implements 
             throw new RazorPayException("Razorpay is down currently!");
         }
     }
+
 
 }

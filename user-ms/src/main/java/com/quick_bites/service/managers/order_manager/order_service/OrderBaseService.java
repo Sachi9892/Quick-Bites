@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Service
 public class OrderBaseService {
 
+
     protected final OrderRepository orderRepository;
     protected final PaymentDetailsRepository paymentRepository;
     protected final DeliveryAddressRepository deliveryAddressRepository;
@@ -37,10 +38,10 @@ public class OrderBaseService {
 
         Long cartId = placeOrderRequestDto.getCartId();
 
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new CartNotFoundException("No cart"));
+
         DeliveryAddresses addresses = deliveryAddressRepository.findById(placeOrderRequestDto.getDeliveryAddress())
                 .orElseThrow(() -> new NoAddressFoundException(" No address found "));
-
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new CartNotFoundException("No cart"));
 
         Long userId = cart.getUserId();
 

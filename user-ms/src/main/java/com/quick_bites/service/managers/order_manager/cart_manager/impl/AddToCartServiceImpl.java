@@ -55,11 +55,11 @@ public class AddToCartServiceImpl implements IAddToCart {
         // Fetch or create the user's cart
         Cart cart = cartRepository.findByUserIdAndStatus(userId , CartStatus.ACTIVE)
                 .orElse(new Cart(userId, restId,
-                                new ArrayList<>(),
-                                0,
-                                0.0,
-                                LocalDateTime.now() ,
-                                CartStatus.ACTIVE));
+                        new ArrayList<>(),
+                        0,
+                        0.0,
+                        LocalDateTime.now() ,
+                        CartStatus.ACTIVE));
 
         // Check if the cart already has items from a different restaurant
         if (cart.getRestId() != null && !cart.getRestId().equals(restId)) {
@@ -68,7 +68,7 @@ public class AddToCartServiceImpl implements IAddToCart {
 
 
         //Save the cart if it's new before proceeding with items
-        if (cart.getCartId() == null) {
+        if (cart.getCartId() == null || cart.getRestId() == null) {
             cart.setRestId(restId);
             cart = cartRepository.save(cart);  // Persist the cart first
         }

@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PaymentDetails {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
@@ -29,7 +28,8 @@ public class PaymentDetails {
 
     private Double totalAmount;
 
-    private String modeOfPayment;
+    @Enumerated(EnumType.STRING)
+    private PaymentMode modeOfPayment;
 
     @OneToOne(mappedBy = "paymentDetails")
     private OrderRecord orderRecord;
