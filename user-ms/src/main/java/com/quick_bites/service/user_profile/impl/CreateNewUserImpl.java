@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -52,7 +53,8 @@ public class CreateNewUserImpl implements com.quick_bites.service.user_profile.I
         user.setUserName(addUserDto.getUserName());
         user.setUserEmail(addUserDto.getUserEmail());
         user.setUserMobileNumber(addUserDto.getUserMobileNumber());
-        user.setCreatedAt(LocalDateTime.now());
+
+        user.setCreatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 
         String address = addUserDto.getAddress();
 

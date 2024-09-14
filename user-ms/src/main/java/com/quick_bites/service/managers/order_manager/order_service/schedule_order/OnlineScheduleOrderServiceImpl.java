@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 
@@ -47,7 +48,8 @@ public class OnlineScheduleOrderServiceImpl extends OrderBaseService implements 
         // Create a new order
         OrderRecord newOrder = createOrderBase(requestDto);
 
-        newOrder.setScheduledTime(requestDto.getScheduledTime());
+        newOrder.setScheduledTime(requestDto.getScheduledTime().truncatedTo(ChronoUnit.SECONDS));
+
         newOrder.setOrderType(OrderType.SCHEDULE_ONLINE);
         newOrder.setOrderStatus(OrderStatus.PENDING);
 

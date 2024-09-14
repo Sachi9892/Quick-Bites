@@ -10,6 +10,7 @@ import com.quick_bites.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Service
 public class OrderBaseService {
@@ -46,7 +47,10 @@ public class OrderBaseService {
         Long userId = cart.getUserId();
 
         OrderRecord newOrder = new OrderRecord();
-        newOrder.setOrderDate(LocalDateTime.now());
+
+        //To remove nano seconds
+        newOrder.setOrderDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+
         newOrder.setCart(cart);
         newOrder.setDeliveryAddress(addresses);
         newOrder.setCustomerId(userId);

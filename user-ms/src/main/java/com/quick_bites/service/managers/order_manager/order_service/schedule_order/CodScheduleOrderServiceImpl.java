@@ -11,6 +11,7 @@ import com.razorpay.RazorpayException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Service
@@ -38,7 +39,8 @@ public class CodScheduleOrderServiceImpl extends OrderBaseService implements IPl
 
         OrderRecord newOrder = createOrderBase(requestDto);
 
-        newOrder.setScheduledTime(requestDto.getScheduledTime());
+        newOrder.setScheduledTime(requestDto.getScheduledTime().truncatedTo(ChronoUnit.SECONDS));
+
         newOrder.setOrderType(OrderType.SCHEDULE_COD);
         newOrder.setOrderStatus(OrderStatus.PLACED);
 

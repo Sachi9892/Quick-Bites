@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class AddToCartServiceImpl implements IAddToCart {
                         new ArrayList<>(),
                         0,
                         0.0,
-                        LocalDateTime.now() ,
+                        LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),
                         CartStatus.ACTIVE));
 
         // Check if the cart already has items from a different restaurant
