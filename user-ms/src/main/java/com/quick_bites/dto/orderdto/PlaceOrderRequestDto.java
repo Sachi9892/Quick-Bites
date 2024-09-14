@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +17,6 @@ public class PlaceOrderRequestDto {
     private Long cartId;
     private Long deliveryAddress;
     private OrderType orderType;
-    private LocalDateTime scheduledTime;
+    private LocalTime scheduledTime;
 
 }

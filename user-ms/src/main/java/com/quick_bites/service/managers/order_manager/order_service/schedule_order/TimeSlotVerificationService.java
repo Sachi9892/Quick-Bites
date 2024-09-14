@@ -5,6 +5,7 @@ import com.quick_bites.exceptions.SlotNotAvailableOrExpireException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -16,9 +17,12 @@ public class TimeSlotVerificationService {
     private final TimeSlotService timeSlotService;
 
     // Ensure that the order is placed at least 30 minutes before the scheduled time
-    public boolean verifyOrderTiming(LocalDateTime scheduledTime) {
+    public boolean verifyOrderTiming(LocalTime selectedTime) {
 
-        LocalTime selectedTime = scheduledTime.toLocalTime();
+        // Combine the current date with the selected time
+        LocalDate today = LocalDate.now();
+
+        LocalDateTime scheduledTime = LocalDateTime.of(today, selectedTime);
 
         // Ensure the scheduled time is at least 30 minutes in the future
         LocalDateTime now = LocalDateTime.now();
@@ -31,16 +35,18 @@ public class TimeSlotVerificationService {
 
         // Check if the selected time matches one of the defined slots
         return availableSlots.stream().anyMatch(slot -> slot.equals(selectedTime));
+
     }
 
 
 
     // Method to throw an exception if verification fails
-    public void validateOrderTiming(LocalDateTime scheduledTime) {
+    public void validateOrderTiming(LocalTime scheduledTime) {
 
         if (!verifyOrderTiming(scheduledTime)) {
             throw new SlotNotAvailableOrExpireException("Scheduled time is either expired or invalid. Please choose a valid time slot!");
         }
+
     }
 
 

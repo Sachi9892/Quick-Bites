@@ -7,6 +7,8 @@ google:
     path: https://maps.googleapis.com/maps/api
     key: AIzaSyAaJgPAemtEPuzIq22YSvv_PaMcjIHwgUI
 
+
+
 spring:
   application:
     name: restaurant-ms
@@ -24,6 +26,15 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+
+
+logging:
+  level:
+    io.netty: DEBUG
+    reactor.netty: DEBUG
+  pattern:
+    console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
 
 
 

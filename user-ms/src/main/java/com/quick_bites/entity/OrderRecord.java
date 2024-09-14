@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @AllArgsConstructor
@@ -43,7 +44,7 @@ public class OrderRecord {
 
 
     // For storing the scheduled time
-    private LocalDateTime scheduledTime;
+    private LocalTime scheduledTime;
 
 
     @ManyToOne
