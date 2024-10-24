@@ -11,6 +11,7 @@
         <module name="user-ms" />
         <module name="restaurant-ms" />
         <module name="eureka-server" />
+        <module name="rider-ms" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,6 +26,7 @@
       <module name="otp-manager" options="-parameters" />
       <module name="otp-ms" options="-parameters" />
       <module name="restaurant-ms" options="-parameters" />
+      <module name="rider-ms" options="-parameters" />
       <module name="user-ms" options="-parameters" />
     </option>
   </component>
