@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/add")
@@ -19,12 +16,8 @@ public class AddDishController {
     private final AddDishService addDishService;
 
     @PostMapping("/dish/{id}")
-    public ResponseEntity<String> addDish(@PathVariable Long id , @RequestBody AddDishDto dishDto) {
-
-        addDishService.addDish(id , dishDto);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("Dish added successfully !");
-
+    public ResponseEntity<String> addDish(@PathVariable Long id, @ModelAttribute AddDishDto dishDto) {
+        addDishService.addDish(id, dishDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Dish added successfully!");
     }
-
 }

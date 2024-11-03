@@ -7,6 +7,10 @@ google:
     path: https://maps.googleapis.com/maps/api
     key: AIzaSyAaJgPAemtEPuzIq22YSvv_PaMcjIHwgUI
 
+cloudinary:
+  cloud_name: "dxjpbraxt"
+  api_key: "457646547321669"
+  api_secret: "u_jLcawfzKSqD305ftNBkPD6iX8"
 
 
 spring:

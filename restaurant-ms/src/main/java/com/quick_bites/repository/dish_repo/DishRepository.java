@@ -17,9 +17,9 @@ import java.util.Optional;
 public interface DishRepository extends JpaRepository<Dish, Long> {
 
 
-    //Will be used when restaurant tries to add new dish ( prevent listing of same dish )
+    //Will be used when a restaurant tries to add a new dish (prevent listing of the same dish)
     @Query("SELECT COUNT(d) > 0 FROM Dish d WHERE d.dishName = :dishName AND d.restaurant = :restaurant AND d.category = :category")
-    Boolean existsByDishNameAndRestaurantAndCategory(
+    boolean existsByDishNameAndRestaurantAndCategory(
             @Param("dishName") String dishName,
             @Param("restaurant") Restaurant restaurant,
             @Param("category") Category category

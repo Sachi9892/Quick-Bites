@@ -2,7 +2,6 @@ package com.quick_bites.exceptions;
 
 
 import com.quick_bites.dto.error_response.ErrorResponseMsg;
-import com.quick_bites.mapper.AddressesMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -21,6 +20,7 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid (

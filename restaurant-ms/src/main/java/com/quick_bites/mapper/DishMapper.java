@@ -27,6 +27,7 @@ public class DishMapper {
 
                 dish.getDishId(),
                 dish.getDishName(),
+                dish.getRestaurant().getRestaurantName(),
                 dish.getCategory().getCategoryName(),
                 dish.getDescription(),
                 dish.getPrice(),
@@ -38,6 +39,7 @@ public class DishMapper {
                 dish.getDishReviews().stream()
                         .map(review -> new ResponseReviewDto(dish.getDishId(), review.getRating(), review.getComment()))
                         .toList()
+
         );
     }
 }

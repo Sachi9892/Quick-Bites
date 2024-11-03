@@ -17,6 +17,8 @@ public class ResponseDishDto {
 
     private String dishName;
 
+    private String restName;
+
     private String category;
 
     private String description;

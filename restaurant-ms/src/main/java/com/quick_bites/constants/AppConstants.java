@@ -6,9 +6,20 @@ public class AppConstants {
 
     }
 
-    public static final String RESOURCE_PRESENT = "RESOURCE ALREADY PRESENT";
+    public static final int IMAGE_HEIGHT = 500;
 
-    public static final String GOOGLE_API_PATH = "https://maps.googleapis.com/maps/api";
+    public static final int IMAGE_WIDTH = 500;
+
+    public static final String IMAGE_CROP = "fill";
+
+    public static final String IMAGE_QUALITY= "auto:best";
+
+    public static final String FETCH_FORMAT= "auto";
+
+
+
+
+
 
 }
 
