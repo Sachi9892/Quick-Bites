@@ -17,16 +17,22 @@ public class Rider {
 
     private String name;
 
+    private String mobileNumber;
+
+    private String email;
+
     @Enumerated(value = EnumType.STRING)
     private RiderStatus status;
 
-    private Double latitude;
 
-    private Double longitude;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "current_address_id", referencedColumnName = "id")
+    private CurrentAddress currentAddress;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "last_location_id", referencedColumnName = "id")
+    private LastLocationAddress lastLocation;
 
     private String currentOrderId;
-
-    private Double lastLocation;
-
 
 }

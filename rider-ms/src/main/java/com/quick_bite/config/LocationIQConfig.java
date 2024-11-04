@@ -12,4 +12,5 @@ public class LocationIQConfig {
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder();
     }
+
 }
