@@ -29,8 +29,7 @@ public class GeoCodingService {
 
     private final WebClient webClient;
 
-    public GeoCodingService(WebClient.Builder webClientBuilder,
-                            @Value("${google.api.path}") String baseUrl) {
+    public GeoCodingService(WebClient.Builder webClientBuilder, @Value("${google.api.path}") String baseUrl) {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 

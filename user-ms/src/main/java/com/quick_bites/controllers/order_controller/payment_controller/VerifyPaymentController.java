@@ -1,16 +1,25 @@
 package com.quick_bites.controllers.order_controller.payment_controller;
 
+import com.quick_bites.constants.AppConstants;
 import com.quick_bites.dto.paymentdto.PaymentVerificationDto;
+import com.quick_bites.entity.OrderRecord;
+import com.quick_bites.entity.OrderStatus;
 import com.quick_bites.entity.PaymentDetails;
+import com.quick_bites.exceptions.Orde;
+import com.quick_bites.exceptions.OrderNotFoundException;
+import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
 import lombok.AllArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import static com.quick_bites.mapper.OrderDetailsMapper.mapToOrderPlacedEventDto;
 
 
 @Controller
@@ -19,6 +28,8 @@ public class VerifyPaymentController {
 
     private final IVerifyPayment verifyPayment;
     private final PaymentDetailsRepository paymentDetailsRepository;
+    private final StreamBridge streamBridge;
+    private final OrderRepository orderRepository;
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/user/order/verify-payment")
@@ -30,13 +41,24 @@ public class VerifyPaymentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Payment details not found");
         }
 
-        paymentDetailsRepository.save(paymentDetails);
-
         // Call the verification service
         try {
+
             boolean isVerified = verifyPayment.verifyPaymentSignature(request.getPaymentId(), request.getSignature());
+
             if (isVerified) {
-                return ResponseEntity.ok("Payment verified successfully");
+
+                // Update order status
+                OrderRecord order = orderRepository.findById(paymentDetails.getOrderRecord().getOrderId())
+                        .orElseThrow(() -> new OrderNotFoundException("Order not found"));
+
+                order.setOrderStatus(OrderStatus.PLACED);
+                orderRepository.save(order);
+
+                //Send the event to the Restaurant-ms , Rider-ms
+                streamBridge.send(AppConstants.ORDER_PLACED_TOPIC , mapToOrderPlacedEventDto(order));
+                return ResponseEntity.ok("Payment verified and order placed successfully");
+
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid payment signature");
             }

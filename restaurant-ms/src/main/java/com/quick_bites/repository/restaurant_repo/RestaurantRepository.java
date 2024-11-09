@@ -2,15 +2,12 @@ package com.quick_bites.repository.restaurant_repo;
 
 import com.quick_bites.entity.Dish;
 import com.quick_bites.entity.Restaurant;
-import com.quick_bites.entity.DishReview;
 import com.quick_bites.entity.RestaurantReview;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-
 
 import java.util.Optional;
 

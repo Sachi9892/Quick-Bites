@@ -8,9 +8,11 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity(name = "CurrentAddress")
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 public class CurrentAddress {
@@ -21,8 +23,9 @@ public class CurrentAddress {
 
     private Double latitude;
     private Double longitude;
-    private String name;      
+    private String name;
     private String landmark;
     private String pinCode;
+
 
 }

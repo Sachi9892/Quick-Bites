@@ -27,7 +27,6 @@ public class PlaceOrderServiceFactory {
     }
 
     public IPlaceOrderFactory placeOrder(OrderType orderType) {
-
         return switch (orderType) {
             case COD -> codOrderNowService;
             case ONLINE -> onlineOrderNowService;

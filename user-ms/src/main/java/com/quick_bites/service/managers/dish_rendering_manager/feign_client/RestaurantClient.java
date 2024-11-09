@@ -63,6 +63,7 @@ public interface RestaurantClient {
     @GetMapping("/dish/price")
     ResponseEntity<Double> findPrice(@RequestParam Long dishId);
 
+
     @GetMapping("/dish")
     ResponseEntity<SingleDishResponseDto> getSingleDishMethod(@RequestParam Long dishId);
 }

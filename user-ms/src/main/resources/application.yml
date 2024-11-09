@@ -12,6 +12,19 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        orderPlaced-out-0:
+          destination: order_placed   #Kafka Topic
+          content-type: application/json
+
+
+
+
 
 logging:
   level:
@@ -26,7 +39,15 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+#Actuators
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
+
+#Razor pay configuration
 razorpay:
   api:
     key: rzp_test_cWfbuLENrweRjB

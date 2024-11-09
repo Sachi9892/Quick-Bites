@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class RiderSignUpDto {
+public class RiderSignUpDTO {
 
     private String name;
     private String mobileNumber;
     private String email;
-    private String currentAddress;
+    private String address;
 
 }
