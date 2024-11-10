@@ -5,6 +5,7 @@ import com.quick_bites.entity.Cart;
 import com.quick_bites.entity.OrderRecord;
 import com.quick_bites.entity.OrderType;
 import com.quick_bites.exceptions.PlaceOrderException;
+import com.quick_bites.events.OrderPlaceEvent;
 import com.quick_bites.service.managers.order_manager.order_service.IPlaceOrderFactory;
 import com.quick_bites.service.managers.order_manager.order_service.PlaceOrderServiceFactory;
 import com.quick_bites.service.managers.order_manager.payment_manager.IOnlinePaymentService;
@@ -24,6 +25,7 @@ public class OrderNowController {
 
     private final PlaceOrderServiceFactory orderNowServiceFactory;
     private final IOnlinePaymentService onlinePaymentService;
+    private final OrderPlaceEvent orderPlaceEvent;
 
     @PostMapping("/order-now")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -40,6 +42,8 @@ public class OrderNowController {
                 return ResponseEntity.ok("Online payment order created successfully");
 
             } else {
+                //Send Event to the Restaurant-Ms and Rider-Ms
+                orderPlaceEvent.sendOrderPlacedEvent(order);
                 return  ResponseEntity.ok("Order placed with Cash on Delivery.");
             }
 

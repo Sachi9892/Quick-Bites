@@ -11,10 +11,11 @@ public class OrderDetailsMapper {
 
     public static OrderDetails mapToOrderPlacedEventDto(OrderRecord order) {
 
-        return new
-                OrderDetails(order.getOrderId() ,
+        return new OrderDetails(
+                order.getOrderId() ,
                 order.getCustomerId() ,
-                order.getPaymentDetails().getPaymentId());
+                order.getPaymentDetails().getPaymentId()
+        );
     }
 
 }

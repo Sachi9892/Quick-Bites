@@ -14,15 +14,16 @@ spring:
       ddl-auto: update
   cloud:
     stream:
-      kafka:
-        binder:
-          brokers: localhost:9092
+      function:
+        definition: sendOrderPlacedEvent  # Name of the function to send events
       bindings:
-        orderPlaced-out-0:
-          destination: order_placed   #Kafka Topic
+        orderPlacedEvent-out-0:
+          destination: order_placed   # Kafka Topic to which the order placed event is sent
           content-type: application/json
-
-
+        orderAcknowledged-in-0:
+          destination: order_acknowledged  # Kafka Topic to receive order acknowledgment
+          group: userGroup  # Consumer group for acknowledgment
+          content-type: application/json
 
 
 

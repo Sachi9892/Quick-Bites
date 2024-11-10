@@ -16,6 +16,8 @@ public class AppConstants {
 
     public static final String FETCH_FORMAT= "auto";
 
+    public static final String ACK_TOPIC = "order_acknowledged";
+
 
 
 
