@@ -6,8 +6,8 @@ import com.quik_bites.dto.OtpResponseDto;
 import com.quik_bites.dto.OtpStatus;
 import com.quik_bites.entity.OtpRecord;
 import com.quik_bites.repository.OtpRepository;
-import com.quik_bites.service.otp_manager.GenerateOtp;
-import com.quik_bites.service.otp_manager.SendOtp;
+import com.quik_bites.service.otp_manager.IGenerateOtp;
+import com.quik_bites.service.otp_manager.ISendOtp;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import lombok.AllArgsConstructor;
@@ -22,9 +22,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class ISendOtp implements SendOtp {
+public class SendOtpImpl implements ISendOtp {
 
-    private final GenerateOtp generateOtp;
+    private final IGenerateOtp generateOtp;
     private final TwilioConfig twilioConfig;
     private final OtpRepository otpRepository;
 

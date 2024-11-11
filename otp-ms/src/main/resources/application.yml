@@ -10,10 +10,26 @@ spring:
     hibernate:
       ddl-auto: update
 
+twilio:
+  account:
+    sid: AC8c962edc2a58b6a197d1d65fe30587f8
+  auth:
+    token: 88b4f3fbd5753fb694624ef670120b53
+  phone:
+    number: +15736976297
 
 #eureka client config
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+
+logging:
+  level:
+    io.netty: DEBUG
+    reactor.netty: DEBUG
+  pattern:
+    console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+
 

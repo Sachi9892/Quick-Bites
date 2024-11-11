@@ -5,7 +5,7 @@ import com.quik_bites.dto.OtpStatus;
 import com.quik_bites.dto.OtpResponseDto;
 import com.quik_bites.entity.OtpRecord;
 import com.quik_bites.repository.OtpRepository;
-import com.quik_bites.service.otp_manager.impl.IVerifyOtp;
+import com.quik_bites.service.otp_manager.impl.VerifyOtpImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -25,7 +25,7 @@ class IVerifyOtpTest {
     private OtpRepository otpRepository;
 
     @InjectMocks
-    private IVerifyOtp verifyOtpService;
+    private VerifyOtpImpl verifyOtpService;
 
     @BeforeEach
     void setUp() {

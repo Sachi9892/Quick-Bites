@@ -2,7 +2,7 @@ package com.quik_bites.controller;
 
 
 import com.quik_bites.dto.*;
-import com.quik_bites.service.otp_manager.SendOtp;
+import com.quik_bites.service.otp_manager.ISendOtp;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class SendOtpController {
 
-    private final SendOtp sendOtpService;
+    private final ISendOtp sendOtpService;
 
     @PostMapping("/send")
 

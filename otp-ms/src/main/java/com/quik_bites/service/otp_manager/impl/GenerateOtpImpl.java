@@ -1,13 +1,13 @@
 package com.quik_bites.service.otp_manager.impl;
 
-import com.quik_bites.service.otp_manager.GenerateOtp;
+import com.quik_bites.service.otp_manager.IGenerateOtp;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 
 
 @Service
-public class IGenerateOtp implements GenerateOtp {
+public class GenerateOtpImpl implements IGenerateOtp {
 
     @Override
     public String generateOtp() {

@@ -1,6 +1,6 @@
 package com.quik_bites.service.otp_manager;
 
-public interface GenerateOtp {
+public interface IGenerateOtp {
 
     String generateOtp();
 

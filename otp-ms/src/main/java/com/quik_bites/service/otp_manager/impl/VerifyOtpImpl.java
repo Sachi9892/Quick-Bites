@@ -4,19 +4,17 @@ import com.quik_bites.dto.OtpResponseDto;
 import com.quik_bites.dto.OtpStatus;
 import com.quik_bites.entity.OtpRecord;
 import com.quik_bites.repository.OtpRepository;
-import com.quik_bites.service.otp_manager.SendOtp;
-import com.quik_bites.service.otp_manager.VerifyOtp;
+import com.quik_bites.service.otp_manager.IVerifyOtp;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 @Slf4j
-public class IVerifyOtp implements VerifyOtp {
+public class VerifyOtpImpl implements IVerifyOtp {
 
     private final OtpRepository otpRepository;
 
