@@ -3,7 +3,7 @@ package com.quick_bites.controller.restaurant_controller.sort;
 
 import com.quick_bites.dto.dish_dto.ResponseDishDto;
 import com.quick_bites.entity.DishType;
-import com.quick_bites.services.dishservice_public.DishSortingAndFilterService;
+import com.quick_bites.services.dishservice_public.IDishFilterService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DishSortingController {
 
-    private final DishSortingAndFilterService filterService;
+    private final IDishFilterService filterService;
 
     @GetMapping("/sort")
     public ResponseEntity<List<ResponseDishDto>> sortDishes(

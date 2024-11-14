@@ -7,6 +7,7 @@ import com.quick_bites.mapper.DishMapper;
 import com.quick_bites.repository.dish_repo.DishRepository;
 import com.quick_bites.services.dishservice_public.DishesByDishTypeService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class IDishesByDishServiceType implements DishesByDishTypeService {
+public class IDishesByDishTypeService implements DishesByDishTypeService {
 
     private final DishRepository dishRepository;
 
     @Override
+    @Cacheable(value = "dishes" , key = "dishType")
     public List<ResponseDishDto> dishesByDishType(DishType dishType) {
 
         List<Dish> dishes = dishRepository.findAllByDishType(dishType);

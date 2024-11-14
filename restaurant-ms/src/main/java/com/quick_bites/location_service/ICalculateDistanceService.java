@@ -4,7 +4,7 @@ import com.quick_bites.entity.Dish;
 
 import java.util.List;
 
-public interface DistanceService {
+public interface IDistanceService {
 
     double calculateDistance(double lat1, double lon1, double lat2, double lon2);
 

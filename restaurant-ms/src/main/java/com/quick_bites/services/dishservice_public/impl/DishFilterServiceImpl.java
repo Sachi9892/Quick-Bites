@@ -4,13 +4,14 @@ import com.quick_bites.dto.dish_dto.ResponseDishDto;
 import com.quick_bites.entity.Dish;
 import com.quick_bites.entity.DishReview;
 import com.quick_bites.entity.DishType;
-import com.quick_bites.location_service.DistanceService;
+import com.quick_bites.location_service.ICalculateDistanceService;
+import com.quick_bites.location_service.IDishesByDistanceService;
 import com.quick_bites.mapper.DishMapper;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
-import com.quick_bites.services.dishservice_public.DishSortingAndFilterService;
+import com.quick_bites.services.dishservice_public.IDishSortingAndFilterService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +20,17 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class IDishSortingAndFilterService implements DishSortingAndFilterService {
+public class DishSortingAndFilterServiceImpl implements IDishSortingAndFilterService {
 
     private final RestaurantRepository restaurantRepository;
-    private final DistanceService distanceService;
+    private final IDishesByDistanceService dishesByDistanceService;
+    private final ICalculateDistanceService  distanceService;
+
 
     @Override
+    @Cacheable(value = "dishes", key = "{#query, #minPrice, #maxPrice, #minRating, #minDistance, #maxDistance, #userLatitude, #userLongitude, #dishType, #sortBy, #ascending}")
     public List<ResponseDishDto> getFilteredAndSortedDishes(
+
             String query,
             Double minPrice,
             Double maxPrice,
@@ -40,11 +45,14 @@ public class IDishSortingAndFilterService implements DishSortingAndFilterService
 
 
 
-        List<Dish> dishes = restaurantRepository.findAllDishesByDishName(query, Pageable.unpaged()).getContent();
+        List<Dish> dishes = restaurantRepository.findAllDishesByDishName(query);
 
         if (dishes.isEmpty()) {
-            dishes = restaurantRepository.findAllDishesByRestaurantName(query, Pageable.unpaged()).getContent();
+            dishes = restaurantRepository.findAllDishesByRestaurantName(query);
         }
+
+
+        log.info("Inside rest-ms search and sort service");
 
         // Apply all filters
         dishes = dishes.stream()
@@ -79,7 +87,7 @@ public class IDishSortingAndFilterService implements DishSortingAndFilterService
 
                     return matches;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         // Sort the filtered dishes
         if (sortBy != null) {
@@ -98,11 +106,10 @@ public class IDishSortingAndFilterService implements DishSortingAndFilterService
                     break;
                 case "distance":
                     if (userLatitude != null && userLongitude != null) {
-                        dishes = distanceService.sortDishesByDistance(dishes, userLatitude, userLongitude);
+                        dishes = dishesByDistanceService.getDishesByDistance(dishes ,userLatitude, userLongitude, minDistance, maxDistance);
                     }
                     break;
                 default:
-
                     break;
             }
         }

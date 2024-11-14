@@ -7,6 +7,7 @@ import com.quick_bites.mapper.DishMapper;
 import com.quick_bites.repository.dish_repo.DishRepository;
 import com.quick_bites.services.dishservice_public.DishesByRatingService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class IDishesByRatingService implements DishesByRatingService {
     private final DishRepository dishRepository;
 
     @Override
+    @Cacheable(value = "dishes" , key = "rating")
     public List<ResponseDishDto> dishesByReview(Double rating) {
 
         List<Dish> dishes = dishRepository.findAllByDishReviewsRatingGreaterThanEqual(rating);
