@@ -14,6 +14,8 @@ cloudinary:
 
 
 spring:
+  cache:
+    type: redis
   cloud:
     stream:
       function:
@@ -26,6 +28,9 @@ spring:
         orderAcknowledged-out-0:
           destination: order_acknowledged
           content-type: application/json
+      kafka:
+        binder:
+          brokers: localhost:9092
   application:
     name: restaurant-ms
   datasource:

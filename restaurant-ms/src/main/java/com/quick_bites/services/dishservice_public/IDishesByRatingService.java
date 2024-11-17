@@ -5,7 +5,7 @@ import com.quick_bites.dto.dish_dto.ResponseDishDto;
 
 import java.util.List;
 
-public interface DishesByRatingService {
+public interface IDishesByRatingService {
 
     List<ResponseDishDto> dishesByReview(Double rating );
 }

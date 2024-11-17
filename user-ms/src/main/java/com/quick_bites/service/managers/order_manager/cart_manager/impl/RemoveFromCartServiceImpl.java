@@ -10,6 +10,7 @@ import com.quick_bites.repository.CartItemRepository;
 import com.quick_bites.repository.CartRepository;
 import com.quick_bites.service.managers.order_manager.cart_manager.IRemoveFromCart;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 
@@ -22,6 +23,7 @@ public class RemoveFromCartServiceImpl implements IRemoveFromCart {
 
 
     @Override
+    @CacheEvict(value = "user_cart" , key = "{#removeFromCartDto.userId}")
     public Cart removeFromCart(RemoveFromCartDto removeFromCartDto) {
 
         // Find the cart for the user

@@ -14,30 +14,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/dishes")
 @AllArgsConstructor
-public class FetchDishesByRestName {
+public class AllDishesByRestNameController {
 
     private final IFindAllDishesByRestName allDishesByRestName;
 
     @GetMapping("/restaurant-name")
-    public ResponseEntity<Page<ResponseDishDto>> allDishes(
-            @RequestParam String name ,
-            @RequestParam(defaultValue = "0") int page ,
-            @RequestParam(defaultValue = "10") int size
-    ) {
-
-        Pageable res = PageRequest.of(page, size);
-
-        Page<ResponseDishDto> dishes = allDishesByRestName.findAllDishesByRestaurantName(name, res);
-
+    public ResponseEntity<List<ResponseDishDto>> allDishes(@RequestParam String name) {
+        List<ResponseDishDto> dishes = allDishesByRestName.findAllDishesByRestaurantName(name);
         return ResponseEntity.status(HttpStatus.OK).body(dishes);
-
     }
-
-
-
-
-
 }

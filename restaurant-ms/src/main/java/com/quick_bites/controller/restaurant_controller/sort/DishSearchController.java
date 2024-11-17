@@ -18,14 +18,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/dishes")
 @AllArgsConstructor
-public class DishSortingController {
+public class DishSearchController {
 
     private final IDishFilterService filterService;
 
-    @GetMapping("/sort")
+    @GetMapping("/search")
     public ResponseEntity<List<ResponseDishDto>> sortDishes(
-            @RequestParam(value = "query", required = false) String query,
-            @RequestParam(value = "minPrice", required = false) Double minPrice,
+            @RequestParam(value = "query") String query,
+            @RequestParam(value = "minPrice", required = false , defaultValue = "0") Double minPrice,
             @RequestParam(value = "maxPrice", required = false) Double maxPrice,
             @RequestParam(value = "minRating", required = false) Double minRating,
             @RequestParam(value = "minDistance", required = false , defaultValue = "0") Double minDistance,

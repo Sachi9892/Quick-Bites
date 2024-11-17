@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 public class OrderAcknowledgment {
 
+    private String eventId;
     private Long orderId;
     private String service;
     private String status;

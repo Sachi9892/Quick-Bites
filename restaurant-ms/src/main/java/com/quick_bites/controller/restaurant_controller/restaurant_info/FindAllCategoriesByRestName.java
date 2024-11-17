@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -20,12 +21,9 @@ public class FindAllCategoriesByRestName {
     private final IFindAllCategories findAllCategories;
 
     @GetMapping("/categories")
-    public ResponseEntity<Set<ResponseCategoryDto>> findCategories(@RequestParam String name) {
-
-        Set<ResponseCategoryDto> categories = findAllCategories.allCategories(name);
-
+    public ResponseEntity<List<ResponseCategoryDto>> findCategories(@RequestParam String name) {
+        List<ResponseCategoryDto> categories = findAllCategories.allCategories(name);
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
-
 
 }

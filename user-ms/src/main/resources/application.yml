@@ -2,6 +2,8 @@ server:
   port: 8081
 
 spring:
+  cache:
+    type: redis
   application:
     name: "user-ms"
   datasource:
@@ -12,6 +14,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  kafka:
+    listener:
+      ack-mode: MANUAL
   cloud:
     stream:
       function:
@@ -24,6 +29,9 @@ spring:
           destination: order_acknowledged  # Kafka Topic to receive order acknowledgment
           group: userGroup  # Consumer group for acknowledgment
           content-type: application/json
+      kafka:
+        binder:
+          brokers: localhost:9092
 
 
 

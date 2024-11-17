@@ -6,9 +6,10 @@ import com.quick_bites.mapper.DishMapper;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
 import com.quick_bites.services.restaurant_service.IFindAllDishesByCategoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -18,13 +19,10 @@ public class FindAllDishesByCategoryServiceImpl implements IFindAllDishesByCateg
 
 
     @Override
-    public Page<ResponseDishDto> allDishesByCategory(String name , Pageable pageable) {
-
-        Page<Dish> dishes = restaurantRepository.findAllDishesByCategoryName(name , pageable);
-
-        return  dishes.map(DishMapper::mapToDto);
-
+    @Cacheable(value = "dishes_by_category", key = "#name")
+    public List<ResponseDishDto> allDishesByCategory(String name) {
+        List<Dish> dishes = restaurantRepository.findAllDishesByCategoryName(name);
+        return  dishes.stream().map(DishMapper::mapToDto).toList();
     }
-
 
 }

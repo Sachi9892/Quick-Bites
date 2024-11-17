@@ -29,8 +29,14 @@ public class OrderPlacedEvent {
             log.info("Order received in restaurant-ms service:  {} " , orderDetails);
 
             // Send acknowledgment
-            OrderAcknowledgment acknowledgment = new OrderAcknowledgment(orderDetails.getOrderId(), "restaurant", "received");
+            OrderAcknowledgment acknowledgment = new OrderAcknowledgment(
+                    orderDetails.getEventId(),
+                    orderDetails.getOrderId(),
+                    "restaurant",
+                    "received");
+
             boolean send = streamBridge.send(AppConstants.ACK_TOPIC, MessageBuilder.withPayload(acknowledgment).build());
+
             log.info("Acknowledgment Sent ? , {} " , send);
 
         };

@@ -5,16 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor
-public class ResponseDishDto {
+public class ResponseDishDto implements Serializable  {
 
 
     private Long dishId;
 
     private String dishName;
+
+    private String restName;
 
     private String category;
 

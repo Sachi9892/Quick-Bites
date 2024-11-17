@@ -2,9 +2,8 @@ package com.quick_bites.controller.restaurant_controller.sort;
 
 
 import com.quick_bites.dto.dish_dto.ResponseDishDto;
-import com.quick_bites.services.dishservice_public.DishesByRatingService;
+import com.quick_bites.services.dishservice_public.IDishesByRatingService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DishesByRatingController {
 
-    private final DishesByRatingService ratingService;
+    private final IDishesByRatingService ratingService;
 
     @GetMapping("/by-rating")
     public ResponseEntity<List<ResponseDishDto>> dishesByRating(@RequestParam Double minRating) {

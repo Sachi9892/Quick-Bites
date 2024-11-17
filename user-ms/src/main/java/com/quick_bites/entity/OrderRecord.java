@@ -2,6 +2,8 @@ package com.quick_bites.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -17,8 +20,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Data
 @Builder
-public class OrderRecord {
-
+public class OrderRecord implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +34,7 @@ public class OrderRecord {
 
 
     @CreationTimestamp
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime orderDate;
 
 
@@ -44,6 +47,7 @@ public class OrderRecord {
 
 
     // For storing the scheduled time
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalTime scheduledTime;
 
 

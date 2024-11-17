@@ -8,11 +8,12 @@ import com.quick_bites.repository.UserRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 
 import java.util.List;
-;
+
 
 @Service
 @AllArgsConstructor
@@ -29,7 +30,7 @@ public class DishesByDistance {
      * once the user will render on the home page
      */
 
-
+    @Cacheable(value = "dishesByDistance", key = "{#userId, #minDistance, #maxDistance}")
     public List<ResponseDishDto> getDishesByDistance(Long userId , Double minDistance ,Double maxDistance) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new NoResourceFoundException("No resource found : " + userId));

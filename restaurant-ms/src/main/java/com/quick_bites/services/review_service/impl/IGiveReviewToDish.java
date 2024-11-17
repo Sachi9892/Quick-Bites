@@ -34,6 +34,7 @@ public class IGiveReviewToDish implements GiveReviewToDish {
         DishReview dishReview = new DishReview();
 
         dishReview.setReviewTime(LocalDateTime.now());
+
         dishReview.setDish(dish);
         dishReview.setRating(reviewDto.getRating());
         dishReview.setComment(reviewDto.getComment());

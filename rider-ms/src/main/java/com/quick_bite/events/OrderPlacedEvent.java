@@ -30,7 +30,12 @@ public class OrderPlacedEvent {
             log.info("Order received in rider-ms service:  {} " , orderDetails);
             
             // Send acknowledgment
-            OrderAcknowledgment acknowledgment = new OrderAcknowledgment(orderDetails.getOrderId(), "rider-ms", "received");
+            OrderAcknowledgment acknowledgment = new OrderAcknowledgment(
+                    orderDetails.getEventId(),
+                    orderDetails.getOrderId(),
+                    "rider-ms",
+                    "received");
+
             boolean send = streamBridge.send(AppConstants.ACK_TOPIC, MessageBuilder.withPayload(acknowledgment).build());
             log.info("Ack Sent ? {} " , send);
         };

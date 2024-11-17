@@ -5,7 +5,7 @@ import com.quick_bites.entity.DishType;
 
 import java.util.List;
 
-public interface IDishSortingAndFilterService {
+public interface IDishFilterService {
 
     List<ResponseDishDto> getFilteredAndSortedDishes(
 

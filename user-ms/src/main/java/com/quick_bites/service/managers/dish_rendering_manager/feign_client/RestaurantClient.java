@@ -17,7 +17,7 @@ import java.util.List;
 @FeignClient(name = "RESTAURANT-MS")
 public interface RestaurantClient {
 
-    @GetMapping("/dishes/sort")
+    @GetMapping("/dishes/search")
     List<ResponseDishDto> getFilteredAndSortedDishes(
             @RequestParam("query") String query,
             @RequestParam(value = "minPrice", required = false) Double minPrice,

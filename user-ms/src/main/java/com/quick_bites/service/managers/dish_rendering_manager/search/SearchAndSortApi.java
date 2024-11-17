@@ -5,6 +5,7 @@ import com.quick_bites.dto.dishdto.ResponseDishDto;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class SearchAndSortApi {
 
     private final RestaurantClient restaurantClient;
 
+    @Cacheable(value = "dishesSearch", key = "{#query, #minPrice, #maxPrice, #minRating, #minDistance, " +
+            "#maxDistance, #userLatitude, #userLongitude, #dishType, #sortBy, #ascending}")
     public List<ResponseDishDto> searchAndSortDishes(
 
             String query,

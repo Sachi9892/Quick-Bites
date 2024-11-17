@@ -6,6 +6,7 @@ import com.quick_bites.exceptions.CartNotFoundException;
 import com.quick_bites.repository.CartRepository;
 import com.quick_bites.service.managers.order_manager.cart_manager.IViewCart;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 

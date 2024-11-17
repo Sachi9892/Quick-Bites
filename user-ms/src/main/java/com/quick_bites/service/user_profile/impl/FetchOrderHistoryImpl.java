@@ -10,6 +10,7 @@ import com.quick_bites.repository.CartItemRepository;
 import com.quick_bites.repository.CartRepository;
 import com.quick_bites.service.user_profile.IFetchOrderHistory;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class FetchOrderHistoryImpl implements IFetchOrderHistory {
     private final CartItemRepository cartItemRepository;
 
     @Override
+    @Cacheable(value = "order_history" , key = "{#userId}")
     public List<OrderDetailsDto> getUserOrders(Long userId) {
 
         List<Cart> orderedCarts = cartRepository.findAllByUserIdAndStatus(userId, CartStatus.ORDERED);

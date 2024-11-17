@@ -30,7 +30,7 @@ public class IImageUploadService implements ImageUploadService {
                     dishName.replaceAll("\\s+", "_"));
 
             // Set the desired image transformations, including resizing
-            Map uploadParams = ObjectUtils.asMap(
+            Map<?,?> uploadParams = ObjectUtils.asMap(
                     "public_id", publicId,
                     "overwrite", true,
                     "transformation",

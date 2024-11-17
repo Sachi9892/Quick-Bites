@@ -19,7 +19,6 @@ import java.util.List;
 @Builder
 public class DeliveryAddresses {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deliveryAddressId;

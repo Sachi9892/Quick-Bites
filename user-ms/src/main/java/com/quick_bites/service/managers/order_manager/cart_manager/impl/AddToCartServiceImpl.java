@@ -13,11 +13,11 @@ import com.quick_bites.repository.CartRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
 import com.quick_bites.service.managers.order_manager.cart_manager.IAddToCart;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,7 @@ public class AddToCartServiceImpl implements IAddToCart {
     private final CartItemRepository cartItemRepository;
 
     @Override
+    @CacheEvict(value = "user_cart", key = "{#addToCartDto.userId}")
     public Cart addDishesToCart(AddToCartDto addToCartDto) {
 
         // Fetch dish details from the restaurant client

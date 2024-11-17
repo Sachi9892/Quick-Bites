@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OrderDetails {
 
+
+    private String eventId;
     private Long orderId;
     private Long userId;
     private Long restId;

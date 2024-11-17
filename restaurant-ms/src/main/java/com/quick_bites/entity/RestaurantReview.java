@@ -1,6 +1,9 @@
 package com.quick_bites.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @AllArgsConstructor @NoArgsConstructor @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantReview {
 
     @Id
@@ -23,6 +27,8 @@ public class RestaurantReview {
     private double rating;
 
     private String comment;
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime reviewTime;
 
     //userId to map review with user

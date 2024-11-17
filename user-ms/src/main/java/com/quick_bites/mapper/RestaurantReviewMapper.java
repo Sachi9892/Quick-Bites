@@ -15,8 +15,7 @@ public class RestaurantReviewMapper {
         return new ResponseReviewDto(
                 review.getRestaurantId(),
                 review.getRating(),
-                review.getComment(),
-                review.getReviewTime()
+                review.getComment()
         );
     }
 }

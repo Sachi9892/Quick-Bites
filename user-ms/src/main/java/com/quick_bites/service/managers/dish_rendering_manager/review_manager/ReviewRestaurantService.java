@@ -1,10 +1,8 @@
 package com.quick_bites.service.managers.dish_rendering_manager.review_manager;
 
 import com.quick_bites.dto.reviewdto.GiveReviewDto;
-import com.quick_bites.entity.UserDishReview;
 import com.quick_bites.entity.User;
 import com.quick_bites.entity.UserRestaurantReview;
-import com.quick_bites.repository.DishReviewRepository;
 import com.quick_bites.repository.RestaurantReviewRepository;
 import com.quick_bites.repository.UserRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;

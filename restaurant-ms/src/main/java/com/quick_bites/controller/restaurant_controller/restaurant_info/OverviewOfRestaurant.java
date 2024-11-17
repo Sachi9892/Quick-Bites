@@ -20,17 +20,9 @@ public class OverviewOfRestaurant {
     private final IRestaurantOverview overview;
 
     @GetMapping("/overview")
-    public ResponseEntity<RestaurantOverViewDto> getOverview(
-            @RequestParam String name ,
-            @RequestParam(defaultValue = "0") int page ,
-            @RequestParam(defaultValue = "10") int size) {
-
-        Pageable res = PageRequest.of(page, size);
-
-        RestaurantOverViewDto overView = overview.getOverView(name , res);
-
+    public ResponseEntity<RestaurantOverViewDto> getOverview(@RequestParam String name ) {
+        RestaurantOverViewDto overView = overview.getOverView(name );
         return ResponseEntity.status(HttpStatus.OK).body(overView);
-
     }
 
 }

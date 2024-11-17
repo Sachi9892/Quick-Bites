@@ -4,10 +4,8 @@ import com.quick_bites.entity.Dish;
 
 import java.util.List;
 
-public interface IDistanceService {
+public interface ICalculateDistanceService {
 
-    double calculateDistance(double lat1, double lon1, double lat2, double lon2);
-
-    List<Dish> sortDishesByDistance(List<Dish> dishes, double userLat, double userLon);
+    Double calculateDistance(Double lat1, Double lon1, Double lat2, Double lon2);
 
 }

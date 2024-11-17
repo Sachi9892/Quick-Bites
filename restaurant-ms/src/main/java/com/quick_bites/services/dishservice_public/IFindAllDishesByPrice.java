@@ -5,7 +5,7 @@ import com.quick_bites.dto.dish_dto.ResponseDishDto;
 
 import java.util.List;
 
-public interface FindAllDishesByPrice {
+public interface IFindAllDishesByPrice {
 
     List<ResponseDishDto> dishesByPrice(Double minPrice, Double maxPrice);
 

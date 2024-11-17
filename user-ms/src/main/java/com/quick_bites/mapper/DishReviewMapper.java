@@ -13,8 +13,7 @@ public class DishReviewMapper {
         return new ResponseReviewDto(
                 review.getDishId(),
                 review.getRating(),
-                review.getComment(),
-                review.getReviewTime()
+                review.getComment()
         );
     }
 }

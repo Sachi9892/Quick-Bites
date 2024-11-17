@@ -8,16 +8,21 @@ import com.quick_bites.exceptions.UserNotFoundException;
 import com.quick_bites.repository.UserRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.OtpClient;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class NotificationManager {
 
     private final OtpClient otpClient;
     private final UserRepository userRepository;
 
+
     public void sendOrderConfirmation(OrderRecord order) {
+
+        log.debug("Notification service - user ms  , Notification Processing !");
 
         StringBuilder messageBody = new StringBuilder();
 
@@ -51,6 +56,9 @@ public class NotificationManager {
 
         // Send message through OtpClient
         otpClient.sendMessage(sendMessageDto);
+
+        log.info("Notification service - user ms  , Notification Sent !");
+
 
     }
 
