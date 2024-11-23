@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/otp-manager/pom.xml" />
         <option value="$PROJECT_DIR$/otp-ms/pom.xml" />
         <option value="$PROJECT_DIR$/rider-ms/pom.xml" />
+        <option value="$PROJECT_DIR$/edge-server/pom.xml" />
       </list>
     </option>
   </component>
