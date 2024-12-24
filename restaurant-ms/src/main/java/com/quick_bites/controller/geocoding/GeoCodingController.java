@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/geocoding")
+@RequestMapping("/restaurant/geocoding")
 @AllArgsConstructor
 @Slf4j
 public class GeoCodingController {

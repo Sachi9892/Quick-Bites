@@ -17,7 +17,7 @@ import java.util.List;
 @FeignClient(name = "RESTAURANT-MS")
 public interface RestaurantClient {
 
-    @GetMapping("/dishes/search")
+    @GetMapping("restaurant/dishes/search")
     List<ResponseDishDto> getFilteredAndSortedDishes(
             @RequestParam("query") String query,
             @RequestParam(value = "minPrice", required = false) Double minPrice,
@@ -34,24 +34,24 @@ public interface RestaurantClient {
 
 
     //For latitude and longitude
-    @GetMapping("/api/geocoding/coordinates")
+    @GetMapping("restaurant/api/geocoding/coordinates")
     LocationDto getCoordinates(@RequestParam("address") String address);
 
 
     //Review dish
-    @PostMapping("/review/dish")
+    @PostMapping("restaurant/review/dish")
     String giveReview(@RequestBody GiveReviewDto reviewDto);
 
 
 
     //Review restaurant
-    @PostMapping("/review/rest")
+    @PostMapping("restaurant/review/rest")
     String reviewRest(@RequestBody GiveReviewDto reviewDto);
 
 
 
     //Get dishes by distance
-    @GetMapping("/dishes/by-distance")
+    @GetMapping("restaurant/dishes/by-distance")
      List<ResponseDishDto> getDishesByDistance(
             @RequestParam Double userLatitude,
             @RequestParam Double userLongitude,
@@ -60,10 +60,10 @@ public interface RestaurantClient {
 
 
     //Get the price of dish
-    @GetMapping("/dish/price")
+    @GetMapping("restaurant/dish/price")
     ResponseEntity<Double> findPrice(@RequestParam Long dishId);
 
 
-    @GetMapping("/dish")
+    @GetMapping("restaurant/dish")
     ResponseEntity<SingleDishResponseDto> getSingleDishMethod(@RequestParam Long dishId);
 }

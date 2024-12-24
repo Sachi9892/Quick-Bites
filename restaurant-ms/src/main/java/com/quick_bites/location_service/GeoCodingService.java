@@ -1,10 +1,14 @@
 package com.quick_bites.location_service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quick_bites.dto.location_dto.LocationDto; // Import your LocationDto
+import com.quick_bites.exception.CoordinatesNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,9 +21,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
+@Slf4j
 public class GeoCodingService {
-
-    private static final Logger logger = LoggerFactory.getLogger(GeoCodingService.class);
 
     @Value("${google.api.key}")
     private String apiKey;
@@ -34,35 +37,39 @@ public class GeoCodingService {
     }
 
     public LocationDto getCoordinates(String address) {
-        try {
-            // Encode the address
-            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
 
-            // Construct the URL
+        try {
+            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
             String url = String.format("/geocode/json?address=%s&key=%s", encodedAddress, apiKey);
 
-            // Log the request URL
-            logger.info("Request URL: {}", baseUrl + url);
+            log.info("Request URL: {}", baseUrl + url);
 
-            // Make the request
-            GeocodingResponse response = webClient.get()
+            String rawResponse = webClient.get()
                     .uri(URI.create(baseUrl + url))
                     .retrieve()
-                    .bodyToMono(GeocodingResponse.class)
+                    .bodyToMono(String.class)
                     .block();
 
-            // Log the response
-            logger.info("API Response: {}", response);
+            log.info("Raw API Response: {}", rawResponse);
 
-            // Process the response
-            if (response != null && response.getResults() != null && !response.getResults().isEmpty()) {
-                LatLng location = response.getResults().get(0).getGeometry().getLocation();
-                return new LocationDto(location.getLat(), location.getLng(), address);
+            GeocodingResponse response = new ObjectMapper().readValue(rawResponse, GeocodingResponse.class);
+
+            if (response == null || !"OK".equalsIgnoreCase(response.getStatus())) {
+                log.error("Geocoding API returned error status: {}", response != null ? response.getStatus() : "null");
+                throw new CoordinatesNotFoundException("Unable to get coordinates for address: " + address);
             }
-            throw new RuntimeException("Unable to get coordinates for address: " + address);
+
+            if (response.getResults() == null || response.getResults().isEmpty()) {
+                log.error("No results found for address: {}", address);
+                throw new CoordinatesNotFoundException("No results found for address: " + address);
+            }
+
+            LatLng location = response.getResults().get(0).getGeometry().getLocation();
+            return new LocationDto(location.getLat(), location.getLng(), address);
+
         } catch (Exception e) {
-            logger.error("Error occurred while fetching coordinates", e);
-            throw new RuntimeException("Error occurred while fetching coordinates", e);
+            log.error("Error occurred while fetching coordinates", e);
+            throw new CoordinatesNotFoundException("Error occurred while fetching coordinates ");
         }
     }
 
@@ -70,16 +77,9 @@ public class GeoCodingService {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class LatLng {
-        private double lat;
-        private double lng;
-    }
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class GeocodingResponse {
+        private String status;
         private List<Result> results;
 
         @Getter
@@ -93,5 +93,14 @@ public class GeoCodingService {
                 private LatLng location;
             }
         }
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class LatLng {
+        private double lat;
+        private double lng;
     }
 }

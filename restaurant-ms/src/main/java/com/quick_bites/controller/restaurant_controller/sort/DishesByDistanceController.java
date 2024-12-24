@@ -9,16 +9,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/dishes")
+@RequestMapping("restaurant/dishes")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:8081")
 public class DishesByDistanceController {
 
     private final IDishesByDistanceService dishesByDistanceService;
@@ -26,7 +24,6 @@ public class DishesByDistanceController {
 
     @GetMapping(value = "/by-distance" , produces = "application/json")
     @Cacheable(value = "dishes_by_distance", key = "#userLatitude + '_' + #userLongitude + '_' + #minDistance + '_' + #maxDistance")
-
     public ResponseEntity<List<ResponseDishDto>> getDishesByDistance(
             @RequestParam Double userLatitude,
             @RequestParam Double userLongitude,

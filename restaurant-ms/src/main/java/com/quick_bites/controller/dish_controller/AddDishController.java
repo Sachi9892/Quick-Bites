@@ -9,13 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/add")
+@RequestMapping("/restaurant")
 @AllArgsConstructor
 public class AddDishController {
 
     private final AddDishService addDishService;
 
-    @PostMapping("/dish/{id}")
+    @PostMapping("/add-dish/{id}")
     public ResponseEntity<String> addDish(@PathVariable Long id, @ModelAttribute AddDishDto dishDto) {
         addDishService.addDish(id, dishDto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Dish added successfully!");

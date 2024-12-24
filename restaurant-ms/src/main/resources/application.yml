@@ -5,7 +5,7 @@ server:
 google:
   api:
     path: https://maps.googleapis.com/maps/api
-    key: AIzaSyC5ZZSYNBk1j9eyay9UHmtVbqUsL5b0rvs
+    key: AIzaSyAaJgPAemtEPuzIq22YSvv_PaMcjIHwgUI
 
 cloudinary:
   cloud_name: "dxjpbraxt"

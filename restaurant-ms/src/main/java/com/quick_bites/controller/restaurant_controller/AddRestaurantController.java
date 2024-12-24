@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/rest")
+@RequestMapping("/restaurant")
 @AllArgsConstructor
 public class AddRestaurantController {
 
     private final IAddRestaurant addRestaurantService;
 
-    @PostMapping("/add")
+    @PostMapping("/signup")
     public ResponseEntity<Restaurant> addRest(@RequestBody AddRestaurantDto addRestaurantDto) {
         Restaurant restaurant = addRestaurantService.addRestaurant(addRestaurantDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);

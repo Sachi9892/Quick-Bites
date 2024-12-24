@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/review")
+@RequestMapping("restaurant/review")
 public class DishReviewController {
 
     private final GiveReviewToDish reviewToDish;

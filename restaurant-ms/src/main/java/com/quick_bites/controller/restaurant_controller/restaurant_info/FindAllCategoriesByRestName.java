@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/rest")
+@RequestMapping("/restaurant")
 @AllArgsConstructor
 public class FindAllCategoriesByRestName {
 

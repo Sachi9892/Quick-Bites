@@ -5,25 +5,28 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalTime;
-
 @Component
 public class RouteConfig {
 
     @Bean
     public RouteLocator quickBitesRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
-
         return routeLocatorBuilder.routes()
-                .route(p ->
-                        p.path("/quickbites/user/**")
-                                .filters(f -> f.rewritePath("/quickbites/user/(?<remaining>.*)", "/${remaining}")
-                                        .addResponseHeader("X-Response-Time" , LocalTime.now().toString()))
-                                .uri("lb://USER-MS"))
-                .route(p ->
-                        p.path("/quickbites/restaurant/**")
-                                .filters(f -> f.rewritePath("/quickbites/restaurant/(?<remaining>.*)", "/${remaining}"))
-                                .uri("lb://RESTAURANT-MS"))
+                // Restaurant routes
+                .route("restaurant-route", r -> r.path("/restaurant/**")
+                        .filters(f -> f.rewritePath("/(?<remaining>.*)", "/${remaining}"))
+                        .uri("lb://RESTAURANT-MS"))
+
+                // User routes
+                .route("user-route", r -> r.path("/user/**")
+                        .filters(f -> f.rewritePath("/(?<remaining>.*)", "/${remaining}"))
+                        .uri("lb://USER-MS"))
+
+                // Rider routes
+                .route("rider-route", r -> r.path("/rider/**")
+                        .filters(f -> f.rewritePath("/rider/(?<remaining>.*)", "/${remaining}"))
+                        .uri("lb://RIDER-MS"))
                 .build();
     }
+
 
 }

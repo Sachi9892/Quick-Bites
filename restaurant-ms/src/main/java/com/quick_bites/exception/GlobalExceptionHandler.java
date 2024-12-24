@@ -33,7 +33,7 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
         List<ObjectError> validationErrorList = ex.getBindingResult().getAllErrors();
 
         //Extracting each error key , value
-        validationErrorList.forEach((error) -> {
+        validationErrorList.forEach(error -> {
             String fieldName = ((FieldError) error).getField();
             String validationMsg = error.getDefaultMessage();
             validationErrors.put(fieldName, validationMsg);
@@ -95,6 +95,17 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
 
     }
 
+    // Handle Coordinates not found
+    @ExceptionHandler(CoordinatesNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleCoordinatesNotFound(CoordinatesNotFoundException ex , WebRequest req ) {
+
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                req.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+
+    }
 
 
 

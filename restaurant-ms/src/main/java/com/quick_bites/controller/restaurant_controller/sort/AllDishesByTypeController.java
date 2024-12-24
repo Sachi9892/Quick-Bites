@@ -17,7 +17,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/dishes")
+@RequestMapping("restaurant/dishes")
 public class AllDishesByTypeController {
 
     private final IDishesByDishTypeService typeService;

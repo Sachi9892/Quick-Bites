@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/dishes")
+@RequestMapping("restaurant/dishes")
 @AllArgsConstructor
 public class AllDishesByNameController {
 

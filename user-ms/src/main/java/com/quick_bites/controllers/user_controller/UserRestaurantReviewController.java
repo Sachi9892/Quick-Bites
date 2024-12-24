@@ -20,7 +20,7 @@ public class UserRestaurantReviewController {
 
     private final IFetchRestaurantReviews restaurantReviews;
 
-    @GetMapping("/profile/rest/reviews")
+    @GetMapping("/profile/restaurant/reviews")
     public ResponseEntity<List<ResponseReviewDto>> fetchAllDishReviews(@RequestParam Long userId) {
 
         List<ResponseReviewDto> restReviews = restaurantReviews.fetchRestReviewByUserId(userId);

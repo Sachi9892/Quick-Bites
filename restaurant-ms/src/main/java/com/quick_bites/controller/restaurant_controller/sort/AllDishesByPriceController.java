@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/dishes")
+@RequestMapping("restaurant/dishes")
 @AllArgsConstructor
 public class AllDishesByPriceController {
 

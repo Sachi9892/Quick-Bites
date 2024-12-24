@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/image")
+@RequestMapping("restaurant/image")
 public class ImageUploaderController {
 
     private final GenericImageUploader imageUploader;

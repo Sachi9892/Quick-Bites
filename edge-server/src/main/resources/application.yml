@@ -8,7 +8,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false    #fetches only the required information from eureka server
+          enabled: true    #fetches only the required information from eureka server
           lower-case-service-id: true
 
 #eureka client config
@@ -29,7 +29,7 @@ management:
           - "*"
   endpoint:
     gateway:
-      access: UNRESTRICTED
+      enabled: true
   info:
     env:
       enabled: true
