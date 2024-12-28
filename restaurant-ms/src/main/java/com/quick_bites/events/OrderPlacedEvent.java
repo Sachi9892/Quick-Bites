@@ -20,7 +20,7 @@ public class OrderPlacedEvent {
     private final StreamBridge streamBridge;
 
     @Bean
-    public Consumer<Message<OrderDetails>> orderPlaced() {
+    public Consumer<Message<OrderDetails>> listenOrderPlaced() {
 
         return message -> {
 

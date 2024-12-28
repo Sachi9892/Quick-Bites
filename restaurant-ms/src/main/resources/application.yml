@@ -19,13 +19,13 @@ spring:
   cloud:
     stream:
       function:
-        definition: orderPlaced,orderAcknowledged  # Name of the function
+        definition: listenOrderPlaced  # Name of the function
       bindings:
-        orderPlaced-in-0:
+        listenOrderPlaced-in-0:
           destination: order_placed
           group: restaurantGroup
           content-type: application/json
-        orderAcknowledged-out-0:
+        orderAcknowledged-out-0:    #we don't require orderAcknowledged method to send msg , as listenOrderPlaced is doing of this work
           destination: order_acknowledged
           content-type: application/json
       kafka:
@@ -71,9 +71,6 @@ info:
     version: "1.0.0"
 
 logging:
-  level:
-    io.netty: DEBUG
-    reactor.netty: DEBUG
   pattern:
     console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
 

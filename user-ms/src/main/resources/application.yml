@@ -20,12 +20,12 @@ spring:
   cloud:
     stream:
       function:
-        definition: sendOrderPlacedEvent,pickOrderDetails,orderAcknowledged # Name of the function to send events
+        definition: publishPickOrderDetails,sendOrderPlacedEvent,orderAcknowledged # Name of the function to send events
       bindings:
-        pickOrderDetails-out-0:
+        publishPickOrderDetails-out-0:
           destination: pick_order_details
           content-type: application/json
-        orderPlacedEvent-out-0:
+        sendOrderPlacedEvent-out-1:
           destination: order_placed   # Kafka Topic, to which the order placed event is sent
           content-type: application/json
         orderAcknowledged-in-0:
@@ -39,8 +39,6 @@ spring:
 
 logging:
   level:
-    io.netty: DEBUG
-    reactor.netty: DEBUG
   pattern:
     console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
 

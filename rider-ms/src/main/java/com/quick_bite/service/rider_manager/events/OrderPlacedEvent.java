@@ -1,4 +1,4 @@
-package com.quick_bite.events;
+package com.quick_bite.service.rider_manager.events;
 
 
 import com.quick_bite.constants.AppConstants;
@@ -20,7 +20,7 @@ public class OrderPlacedEvent {
     private final StreamBridge streamBridge;
 
     @Bean
-    public Consumer<Message<OrderDetails>> orderPlaced() {
+    public Consumer<Message<OrderDetails>> listenOrderPlacedEvent() {
 
         return message -> {
 

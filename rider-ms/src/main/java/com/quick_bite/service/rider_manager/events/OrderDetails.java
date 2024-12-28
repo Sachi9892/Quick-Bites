@@ -1,4 +1,4 @@
-package com.quick_bite.events;
+package com.quick_bite.service.rider_manager.events;
 
 
 import lombok.AllArgsConstructor;

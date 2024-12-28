@@ -22,7 +22,7 @@ public class PickOrderDetailsEventListener {
      */
 
     @Bean
-    public Consumer<PickOrderDetailsDto> pickOrderDetails() {
+    public Consumer<PickOrderDetailsDto> listenPickOrderDetails() {
 
         return pickOrderDetailsDto -> {
 

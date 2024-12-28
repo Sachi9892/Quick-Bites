@@ -3,27 +3,27 @@ server:
 
 
 spring:
-  cache:
-    type: redis
   cloud:
     stream:
       function:
-        definition: orderPlaced,orderAcknowledged,pickOrderDetails  # Name of the function
+        definition: listenOrderPlacedEvent  # Name of the function
       bindings:
-        orderPlaced-in-0:
+        listenOrderPlacedEvent-in-0:
           destination: order_placed
-          group: riderMs
+          group: riderGroup
           content-type: application/json
         orderAcknowledged-out-0:
           destination: order_acknowledged
           content-type: application/json
-        pickOrderDetails-in-0:
+        listenPickOrderDetails-in-1:
           destination: pick_order_details  # The Kafka topic this service listens to
           group: pickOrderGroup
           content-type: application/json
       kafka:
         binder:
           brokers: localhost:9092
+  cache:
+    type: redis
   application:
     name: rider-ms
   datasource:
@@ -37,8 +37,6 @@ spring:
 
 logging:
   level:
-    io.netty: DEBUG
-    reactor.netty: DEBUG
   pattern:
     console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
 

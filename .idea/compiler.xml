@@ -15,17 +15,11 @@
         <module name="edge-server" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="eureka-ms" target="17" />
-      <module name="otp-manager" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="edge-server" options="-parameters" />
-      <module name="eureka-ms" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
-      <module name="otp-manager" options="-parameters" />
       <module name="otp-ms" options="-parameters" />
       <module name="restaurant-ms" options="-parameters" />
       <module name="rider-ms" options="-parameters" />
