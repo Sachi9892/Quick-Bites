@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class NotificationManager {
+public class SendMobileSMSService {
 
     private final OtpClient otpClient;
     private final UserRepository userRepository;
 
 
-    public void sendOrderConfirmation(OrderRecord order) {
+    public void sendSMSOnMobileNumber(OrderRecord order) {
 
         log.debug("Notification service - user ms  , Notification Processing !");
 
@@ -55,7 +55,11 @@ public class NotificationManager {
         SendMessageDto sendMessageDto = new SendMessageDto(customer.getUserMobileNumber(), messageBody.toString());
 
         // Send message through OtpClient
-        otpClient.sendMessage(sendMessageDto);
+        try {
+            otpClient.sendMessage(sendMessageDto);
+        } catch (Exception e) {
+            log.info("Mobile text message failed");
+        }
 
         log.info("Notification service - user ms  , Notification Sent !");
 

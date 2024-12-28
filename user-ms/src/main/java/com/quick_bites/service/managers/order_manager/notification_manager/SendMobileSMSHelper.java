@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class OrderProcessingService {
+public class SendMobileSMSHelper {
 
     private final OrderRepository orderRepository;
-    private final NotificationManager notificationManager;
+    private final SendMobileSMSService sendMobileSMSService;
 
-    public void processOrderAcknowledgment(Long orderId) {
+    public void initializeMessageService(Long orderId) {
 
         OrderRecord order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("No Order found with id" + orderId));
 
-        notificationManager.sendOrderConfirmation(order);
+        sendMobileSMSService.sendSMSOnMobileNumber(order);
     }
 
 }

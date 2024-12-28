@@ -1,4 +1,4 @@
-package com.quick_bites.events;
+package com.quick_bites.service.managers.order_manager.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

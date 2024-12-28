@@ -7,7 +7,7 @@ import com.quick_bites.entity.PaymentDetails;
 import com.quick_bites.exceptions.OrderNotFoundException;
 import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.repository.PaymentDetailsRepository;
-import com.quick_bites.events.OrderPlaceEvent;
+import com.quick_bites.service.managers.order_manager.events.OrderPlaceEvent;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -4,7 +4,7 @@ import com.quick_bites.dto.orderdto.PlaceOrderRequestDto;
 import com.quick_bites.entity.Cart;
 import com.quick_bites.entity.OrderRecord;
 import com.quick_bites.entity.OrderType;
-import com.quick_bites.events.OrderPlaceEvent;
+import com.quick_bites.service.managers.order_manager.events.OrderPlaceEvent;
 import com.quick_bites.exceptions.PlaceOrderException;
 import com.quick_bites.service.managers.order_manager.order_service.IPlaceOrderFactory;
 import com.quick_bites.service.managers.order_manager.order_service.PlaceOrderServiceFactory;

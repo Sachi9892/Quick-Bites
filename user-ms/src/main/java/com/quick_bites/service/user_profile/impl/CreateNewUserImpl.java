@@ -1,7 +1,7 @@
 package com.quick_bites.service.user_profile.impl;
 
 import com.quick_bites.dto.AddUserDto;
-import com.quick_bites.dto.LocationDto;
+import com.quick_bites.dto.location_dto.LocationDto;
 import com.quick_bites.entity.DeliveryAddresses;
 import com.quick_bites.entity.User;
 import com.quick_bites.repository.UserRepository;

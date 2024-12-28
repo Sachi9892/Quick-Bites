@@ -19,7 +19,7 @@ public class AddressesController {
 
     private final IFetchUserAddresses userAddressesService;
 
-    @GetMapping("/addresses")
+    @GetMapping("/profile/addresses")
     public ResponseEntity<List<AddressResponseDto>> getAddressesByUserId(@RequestParam Long userId) {
 
         List<AddressResponseDto> addresses = userAddressesService.findAllAddress(userId);

@@ -1,7 +1,9 @@
 package com.quick_bites.service.managers.dish_rendering_manager.feign_client;
 
 
-import com.quick_bites.dto.LocationDto;
+import com.quick_bites.dto.location_dto.CalculateDistanceDto;
+import com.quick_bites.dto.location_dto.LocationDto;
+import com.quick_bites.dto.confirm_order_dto.RestaurantPickOrderDetailsDto;
 import com.quick_bites.dto.dishdto.ResponseDishDto;
 import com.quick_bites.dto.dishdto.SingleDishResponseDto;
 import com.quick_bites.dto.reviewdto.GiveReviewDto;
@@ -43,16 +45,14 @@ public interface RestaurantClient {
     String giveReview(@RequestBody GiveReviewDto reviewDto);
 
 
-
     //Review restaurant
     @PostMapping("restaurant/review/rest")
     String reviewRest(@RequestBody GiveReviewDto reviewDto);
 
 
-
     //Get dishes by distance
     @GetMapping("restaurant/dishes/by-distance")
-     List<ResponseDishDto> getDishesByDistance(
+    List<ResponseDishDto> getDishesByDistance(
             @RequestParam Double userLatitude,
             @RequestParam Double userLongitude,
             @RequestParam(required = false, defaultValue = "0") Double minDistance,
@@ -66,4 +66,13 @@ public interface RestaurantClient {
 
     @GetMapping("restaurant/dish")
     ResponseEntity<SingleDishResponseDto> getSingleDishMethod(@RequestParam Long dishId);
+
+
+    @GetMapping("restaurant/pickup/details")
+    ResponseEntity<RestaurantPickOrderDetailsDto> sendRestDetails(@RequestParam Long restId);
+
+    @GetMapping("restaurant/calculate/distance")
+    ResponseEntity<Double> calculateDistance(@RequestBody CalculateDistanceDto calculateDistanceDto);
+
+
 }

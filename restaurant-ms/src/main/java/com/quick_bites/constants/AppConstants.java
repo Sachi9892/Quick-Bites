@@ -18,10 +18,5 @@ public class AppConstants {
 
     public static final String ACK_TOPIC = "order_acknowledged";
 
-
-
-
-
-
 }
 

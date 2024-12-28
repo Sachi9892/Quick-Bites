@@ -19,7 +19,7 @@ spring:
   cloud:
     stream:
       function:
-        definition: orderPlaced  # Name of the function
+        definition: orderPlaced,orderAcknowledged  # Name of the function
       bindings:
         orderPlaced-in-0:
           destination: order_placed

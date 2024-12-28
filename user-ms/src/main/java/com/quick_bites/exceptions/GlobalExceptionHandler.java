@@ -192,6 +192,18 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
     }
 
 
+    @ExceptionHandler(KafkaMessageFailedError.class)
+    public ResponseEntity<ErrorResponseMsg> handleKafkaFailed(KafkaMessageFailedError ex, WebRequest request) {
+
+        ErrorResponseMsg errorResponse = new ErrorResponseMsg(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+
 
 
 
