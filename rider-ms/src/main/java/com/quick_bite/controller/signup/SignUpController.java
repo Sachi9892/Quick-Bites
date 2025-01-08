@@ -1,7 +1,7 @@
 package com.quick_bite.controller.signup;
 
 
-import com.quick_bite.dto.RiderSignUpDTO;
+import com.quick_bite.dto.rider_dto.RiderSignUpDTO;
 import com.quick_bite.entity.Rider;
 import com.quick_bite.service.signup.RiderSignUpService;
 import lombok.AllArgsConstructor;

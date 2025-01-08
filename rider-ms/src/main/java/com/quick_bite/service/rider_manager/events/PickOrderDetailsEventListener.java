@@ -1,10 +1,14 @@
 package com.quick_bite.service.rider_manager.events;
 
 
-import com.quick_bite.dto.PickOrderDetailsDto;
+import com.quick_bite.dto.order_dto.PickOrderDetailsDto;
+import com.quick_bite.dto.order_dto.PickUpOrderFullDetails;
+import com.quick_bite.service.rider_manager.rider_assignment.AssignOrderToRiderService;
+import com.quick_bite.service.rider_manager.rider_assignment.NotifyRiderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Consumer;
@@ -14,38 +18,40 @@ import java.util.function.Consumer;
 @Slf4j
 public class PickOrderDetailsEventListener {
 
-
-    /**
-     * Consumer bean to listen to `pick_order_details` Kafka topic and process the message.
-     *
-     * @return Consumer that processes PickOrderDetailsDto messages.
-     */
+    private final AssignOrderToRiderService assignOrderToRiderService;
+    private final NotifyRiderService riderNotificationService;
 
     @Bean
-    public Consumer<PickOrderDetailsDto> listenPickOrderDetails() {
-
+    public Consumer<Message<PickOrderDetailsDto>> processPickOrderDetails() {
         return pickOrderDetailsDto -> {
-
-            log.info("Received message from topic `pick_order_details`: {}", pickOrderDetailsDto);
-
             try {
-                // Validate incoming data
-                if (pickOrderDetailsDto == null || pickOrderDetailsDto.getOrderId() ==  null ) {
-                    log.error("Invalid PickOrderDetailsDto received: {}", pickOrderDetailsDto);
+                PickOrderDetailsDto orderDetails = pickOrderDetailsDto.getPayload();
+
+                if (orderDetails.getOrderId() == null) {
+                    log.error("Invalid pick order details: {}", pickOrderDetailsDto);
                     return;
                 }
 
-                // Process the pick order details (e.g., store in database, update rider tasks, etc.)
-                log.info("Processing pick order details for Order ID: {}", pickOrderDetailsDto.getOrderId());
+                log.info("Assigning Rider for Order ID: {}", orderDetails.getOrderId());
 
-                log.info("Successfully processed pick order details: {}", pickOrderDetailsDto);
+                // Assign the order to a rider
+                PickUpOrderFullDetails fullDetails = assignOrderToRiderService.assignOrderToRider(orderDetails);
+
+                if (fullDetails == null) {
+                    log.warn("No rider available for Order ID: {}", orderDetails.getOrderId());
+                    return;
+                }
+
+                log.info("Successfully assigned order to rider. Details: {}", fullDetails);
+
+                // Notify the rider via the RiderNotificationService
+                riderNotificationService.notifyRider(fullDetails);
 
             } catch (Exception e) {
-                log.error("Error processing message from topic `pick_order_details`: {}", pickOrderDetailsDto, e);
-
+                log.error("Error processing pick order details: {}", pickOrderDetailsDto, e);
             }
         };
-    }
 
+    }
 
 }

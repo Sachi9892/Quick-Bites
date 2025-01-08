@@ -2,7 +2,7 @@ package com.quick_bite.service.signup;
 
 
 import com.quick_bite.client.RestaurantClient;
-import com.quick_bite.dto.RiderSignUpDTO;
+import com.quick_bite.dto.rider_dto.RiderSignUpDTO;
 import com.quick_bite.entity.CurrentAddress;
 import com.quick_bite.dto.LocationDto;
 import com.quick_bite.entity.Rider;

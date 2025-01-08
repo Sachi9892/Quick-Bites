@@ -11,6 +11,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
@@ -20,7 +21,7 @@ public class OrderPlacedEvent {
     private final StreamBridge streamBridge;
 
     @Bean
-    public Consumer<Message<OrderDetails>> listenOrderPlaced() {
+    public Consumer<Message<OrderDetails>> listenOrderPlacedEvent() {
 
         return message -> {
 
@@ -29,18 +30,14 @@ public class OrderPlacedEvent {
             log.info("Order received in restaurant-ms service:  {} " , orderDetails);
 
             // Send acknowledgment
-            OrderAcknowledgment acknowledgment = new OrderAcknowledgment(
-                    orderDetails.getEventId(),
-                    orderDetails.getOrderId(),
-                    "restaurant",
-                    "received");
+            OrderAcknowledgment acknowledgment = new OrderAcknowledgment
+                    (orderDetails.getEventId() , orderDetails.getOrderId(), "restaurant-ms", "received");
 
-            boolean send = streamBridge.send(AppConstants.ACK_TOPIC, MessageBuilder.withPayload(acknowledgment).build());
+            boolean send = streamBridge.send("listenOrderPlacedEvent-out-0", MessageBuilder.withPayload(acknowledgment).build());
 
             log.info("Acknowledgment Sent ? , {} " , send);
 
         };
     }
-
 
 }

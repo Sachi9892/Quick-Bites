@@ -1,4 +1,4 @@
-package com.quick_bite.dto;
+package com.quick_bite.dto.rider_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

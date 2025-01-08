@@ -1,16 +1,14 @@
 package com.quick_bite.service.rider_manager.events;
 
 
-import com.quick_bite.constants.AppConstants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
-import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
@@ -20,26 +18,24 @@ public class OrderPlacedEvent {
     private final StreamBridge streamBridge;
 
     @Bean
-    public Consumer<Message<OrderDetails>> listenOrderPlacedEvent() {
-
-        return message -> {
-
-            //Received the message
-            OrderDetails orderDetails = message.getPayload();
-
-            log.info("Order received in rider-ms service:  {} " , orderDetails);
-            
-            // Send acknowledgment
+    public Function<OrderDetails, OrderAcknowledgment> processOrderPlacedEvent() {
+        return orderDetails -> {
+            // Process order details and create acknowledgment
             OrderAcknowledgment acknowledgment = new OrderAcknowledgment(
                     orderDetails.getEventId(),
                     orderDetails.getOrderId(),
                     "rider-ms",
                     "received");
 
-            boolean send = streamBridge.send(AppConstants.ACK_TOPIC, MessageBuilder.withPayload(acknowledgment).build());
-            log.info("Ack Sent ? {} " , send);
+            log.info("Received ack from user-ms for event : {} " , orderDetails.getOrderId());
+
+            streamBridge.send("processOrderPlacedEvent-out-0", MessageBuilder.withPayload(acknowledgment).build());
+
+            log.info("From Rider-MS Ack Sent For Placed Order Event ");
+
+            return acknowledgment; // Assuming a return value is needed
+
         };
     }
-
 
 }

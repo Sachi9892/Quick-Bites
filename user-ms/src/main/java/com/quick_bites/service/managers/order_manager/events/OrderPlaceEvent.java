@@ -3,6 +3,7 @@ package com.quick_bites.service.managers.order_manager.events;
 
 import com.quick_bites.constants.AppConstants;
 import com.quick_bites.entity.OrderRecord;
+import com.quick_bites.service.managers.order_manager.events.dto.OrderDetails;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.function.StreamBridge;
@@ -20,9 +21,8 @@ public class OrderPlaceEvent {
     public void sendOrderPlacedEvent(OrderRecord order) {
 
         OrderDetails eventDto = mapToOrderPlacedEventDto(order);
-        boolean send = streamBridge.send(AppConstants.ORDER_PLACED_TOPIC, eventDto);
+        boolean send = streamBridge.send("sendOrderPlacedEvent-out-0", eventDto);
         log.info("Event Sent ? {} , Event : {} " , send , eventDto);
-
 
     }
 }

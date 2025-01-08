@@ -18,23 +18,25 @@ spring:
 #    listener:
 #      ack-mode: MANUAL
   cloud:
+    function:
+      definition: processAcknowledgment
     stream:
-      function:
-        definition: publishPickOrderDetails,sendOrderPlacedEvent,orderAcknowledged # Name of the function to send events
       bindings:
+        sendOrderPlacedEvent-out-0:
+          destination: order_placed    #topic name
+          content-type: application/json
         publishPickOrderDetails-out-0:
-          destination: pick_order_details
+          destination: pick_order_details    #topic name
           content-type: application/json
-        sendOrderPlacedEvent-out-1:
-          destination: order_placed   # Kafka Topic, to which the order placed event is sent
-          content-type: application/json
-        orderAcknowledged-in-0:
-          destination: order_acknowledged  # Kafka Topic to receive order acknowledgment
-          group: userGroup  # Consumer group for acknowledgment
+        processAcknowledgment-in-0:
+          destination: order_acknowledged     #topic name
+          group: userGroup
           content-type: application/json
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers:
+          - localhost:9092
+
 
 
 logging:

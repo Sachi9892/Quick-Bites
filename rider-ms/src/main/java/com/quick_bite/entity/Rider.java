@@ -29,6 +29,7 @@ public class Rider {
     @JoinColumn(name = "current_address_id", referencedColumnName = "id")
     private CurrentAddress currentAddress;
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "last_location_id", referencedColumnName = "id")
     private LastLocationAddress lastLocation;

@@ -5,30 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d10e119f-6258-4545-8e65-b9f6597505e3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Quick-Bites.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_blame.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/QUCK-BITES.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/config/WebSocketConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/order_dto/PickUpOrderFullDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/rider_dto/RiderDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/rider_dto/RiderLocationUpdate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/rider_assignment/AssignOrderToRiderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/rider_assignment/FindNearestRiderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/rider_assignment/NotifyRiderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/websocket/RiderWebSocketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/utility/DistanceCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/constants/AppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/constants/AppConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/events/OrderPlacedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/events/OrderPlacedEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rider-ms/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/events/OrderAcknowledgment.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/OrderAcknowledgment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/events/OrderDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/OrderDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/events/OrderPlacedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/OrderPlacedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/controller/signup/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/controller/signup/SignUpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/CurrentAddressDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/PickOrderDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/order_dto/PickOrderDetailsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/RiderSignUpDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/rider_dto/RiderSignUpDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/entity/Rider.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/entity/Rider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/RiderLocationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/OrderPlacedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/OrderPlacedEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/PickOrderDetailsEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/PickOrderDetailsEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/signup/RiderSignUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/signup/RiderSignUpService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rider-ms/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/mapper/OrderDetailsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/mapper/OrderDetailsMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/AcknowledgmentProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/PostAcknowledgmentProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderAcknowledgment.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/dto/OrderAcknowledgment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderAcknowledgmentListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderAcknowledgmentListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/dto/OrderDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderPlaceEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderPlaceEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/PickUpOrderDetailsPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/PickUpOrderDetailsPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/rider_manager/impl/PickOrderDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/rider_manager/impl/PickOrderDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-ms/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,24 +73,28 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2qpjuAgIyfRg8yBmwAbqd0dIgK4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.EurekaServerApplication.executor": "Run",
-    "Application.RestaurantMsApplication.executor": "Run",
-    "Application.RiderMsApplication.executor": "Run",
-    "Application.UserMsApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "H:/FINAL-YEAR-PROJECT/Backend Part/Quick-Bites",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.EdgeServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EurekaServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RestaurantMsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RiderMsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UserMsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;H:/FINAL-YEAR-PROJECT/Backend Part/Quick-Bites&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

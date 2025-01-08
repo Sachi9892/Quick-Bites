@@ -8,7 +8,7 @@ import com.quick_bites.exceptions.NoResourceFoundException;
 import com.quick_bites.mapper.PickOrderDetailsToDto;
 import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.service.managers.dish_rendering_manager.feign_client.RestaurantClient;
-import com.quick_bites.service.managers.order_manager.notification_manager.SendMobileSMSHelper;
+import com.quick_bites.service.managers.order_manager.events.dto.OrderAcknowledgment;
 import com.quick_bites.service.managers.order_manager.rider_manager.ISavePickOrderDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class AcknowledgmentProcessor {
+public class PostAcknowledgmentProcessor {
 
     private final OrderRepository orderRepository;
     private final RestaurantClient restaurantService;
@@ -30,19 +30,19 @@ public class AcknowledgmentProcessor {
     //private final Map<Long, Boolean> processedOrders = new ConcurrentHashMap<>();
     private final PickUpOrderDetailsPublisher pickUpOrderDetailsPublisher;
 
-    public void processAcknowledgment(OrderAcknowledgment acknowledgment) {
+    public void processPostAcknowledgment(OrderAcknowledgment acknowledgment) {
 
         Long orderId = acknowledgment.getOrderId();
 
-        // Prevent duplicate processing
+//        // Prevent duplicate processing
 //        boolean isFirstAcknowledgment = processedOrders.putIfAbsent(orderId, true) == null;
 //
 //        if (!isFirstAcknowledgment) {
 //            log.info("Acknowledgment for orderId: {} has already been processed.", orderId);
 //            return;
 //        }
-
-        log.info("Processing acknowledgment for the first time for orderId: {}", orderId);
+//
+//        log.info("Processing acknowledgment for the first time for orderId: {}", orderId);
 
         // Retrieve order details
         OrderRecord order = orderRepository.findById(orderId)
@@ -70,14 +70,14 @@ public class AcknowledgmentProcessor {
         log.info("About to send the pick up details");
         pickUpOrderDetailsPublisher.publishPickOrderDetails(detailsToSend);
 
-// As am out of the twillio free plan , am skipping this sending sms service
+// As am out of the twillio free plan, I am skipping this sending sms service
 //        try {
 //            sendMobileSMSHelper.initializeMessageService(orderId);
 //        } catch (Exception e) {
 //            log.error("Failed to send SMS notification for orderId: {}. Proceeding with Kafka publishing.", orderId, e);
 //        }
 
-        log.info("Acknowledgment processed for orderId: {}", orderId);
+        log.info("Mobile sms is sent to the user for orderId: {}", orderId);
 
     }
 }

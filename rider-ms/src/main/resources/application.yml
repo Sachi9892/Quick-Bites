@@ -4,22 +4,22 @@ server:
 
 spring:
   cloud:
-    stream:
       function:
-        definition: listenOrderPlacedEvent  # Name of the function
-      bindings:
-        listenOrderPlacedEvent-in-0:
+        definition: processOrderPlacedEvent;processPickOrderDetails
+      stream:
+       bindings:
+        processOrderPlacedEvent-in-0:
           destination: order_placed
           group: riderGroup
           content-type: application/json
-        orderAcknowledged-out-0:
+        processOrderPlacedEvent-out-0:
           destination: order_acknowledged
           content-type: application/json
-        listenPickOrderDetails-in-1:
-          destination: pick_order_details  # The Kafka topic this service listens to
+        processPickOrderDetails-in-0:
+          destination: pick_order_details
           group: pickOrderGroup
           content-type: application/json
-      kafka:
+       kafka:
         binder:
           brokers: localhost:9092
   cache:

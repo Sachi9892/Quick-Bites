@@ -20,9 +20,8 @@ public class PickUpOrderDetailsPublisher {
     public void publishPickOrderDetails(PickOrderDetailsDto pickOrderDetailsDto) {
 
         try {
-
             log.info("Publishing PickOrderDetails to Kafka: {}", pickOrderDetailsDto);
-            boolean success = streamBridge.send(PICK_ORDER_DETAILS, pickOrderDetailsDto);
+            boolean success = streamBridge.send("publishPickOrderDetails-out-0", pickOrderDetailsDto);
             if (!success) {
                 throw new KafkaMessageFailedError("Failed to send message to Kafka.");
             }
