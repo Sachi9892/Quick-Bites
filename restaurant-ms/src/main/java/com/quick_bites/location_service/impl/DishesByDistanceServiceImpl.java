@@ -21,18 +21,18 @@ public class DishesByDistanceServiceImpl implements IDishesByDistanceService {
     @Override
     public List<Dish> getDishesByDistance(List<Dish> dishes ,Double userLatitude, Double userLongitude, Double minDistance, Double maxDistance) {
 
+        if (userLatitude == null || userLongitude == null) return dishes; // No distance filter applied
+
         // Filter dishes by distance
         return dishes.stream()
                 .filter(dish -> {
                     double restaurantLatitude = dish.getRestaurant().getLocation().getLatitude();
                     double restaurantLongitude = dish.getRestaurant().getLocation().getLongitude();
                     double distance = calculateDistanceService.calculateDistance(userLatitude, userLongitude, restaurantLatitude, restaurantLongitude);
-                    log.info("Inside dishes by distance service with distance {} " , distance);
-                    // Apply min and max distance filters
+                    log.info("Inside dishes by distance service with distance {} ", distance);
                     return (minDistance == null || distance >= minDistance) && (maxDistance == null || distance <= maxDistance);
                 })
                 .toList();
-
     }
 
 }

@@ -1,5 +1,6 @@
 package com.quick_bites.dto.dishdto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.quick_bites.dto.reviewdto.ResponseReviewDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseDishDto implements Serializable  {
 
     private Long dishId;

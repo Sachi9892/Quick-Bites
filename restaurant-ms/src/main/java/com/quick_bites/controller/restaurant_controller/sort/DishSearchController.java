@@ -28,7 +28,7 @@ public class DishSearchController {
     public ResponseEntity<List<ResponseDishDto>> sortDishes(
             @RequestParam(value = "query") String query,
             @RequestParam(value = "minPrice", required = false , defaultValue = "0") Double minPrice,
-            @RequestParam(value = "maxPrice", required = false) Double maxPrice,
+            @RequestParam(value = "maxPrice", required = false , defaultValue = "5000") Double maxPrice,
             @RequestParam(value = "minRating", required = false) Double minRating,
             @RequestParam(value = "minDistance", required = false , defaultValue = "0") Double minDistance,
             @RequestParam(value = "maxDistance", required = false , defaultValue = "5") Double maxDistance,
@@ -36,7 +36,7 @@ public class DishSearchController {
             @RequestParam(value = "userLongitude" , required = false) Double userLongitude,
             @RequestParam(value = "sortBy", required = false) String sortBy,
             @RequestParam(value = "dishType" , required = false) DishType dishType,
-            @RequestParam(value = "ascending", defaultValue = "true") boolean ascending)
+            @RequestParam(value = "ascending", defaultValue = "true" , required = false) boolean ascending)
     {
 
 

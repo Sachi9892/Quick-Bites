@@ -205,6 +205,19 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
 
 
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseMsg> userAlready(UserAlreadyExistsException ex , WebRequest request) {
+
+        ErrorResponseMsg errorResponse = new ErrorResponseMsg(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+
+
 
 
 }

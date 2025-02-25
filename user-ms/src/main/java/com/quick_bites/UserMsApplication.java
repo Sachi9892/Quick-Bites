@@ -13,8 +13,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableCaching
 public class UserMsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(UserMsApplication.class, args);
-	}
+	public static void main(String[] args) {SpringApplication.run(UserMsApplication.class, args);}
 
 }

@@ -62,6 +62,9 @@ management:
       exposure:
         include: "*"
 
+jwt:
+  secret:
+    sachinSonarSpring!@#ABCxyz989&23211!14tSpring
 
 #Razor pay configuration
 razorpay:

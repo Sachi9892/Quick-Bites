@@ -1,4 +1,4 @@
-package com.quick_bites.dto;
+package com.quick_bites.dto.user_dto;
 
 
 
@@ -13,6 +13,8 @@ public class AddUserDto {
 
     private String userName;
     private String userEmail;
+    private String password;
+    private String confirmPassword;
     private String userMobileNumber;
     private String address;
 

@@ -4,6 +4,7 @@ package com.quick_bites.controllers.fetch_dishes;
 import com.quick_bites.dto.dishdto.ResponseDishDto;
 import com.quick_bites.service.managers.dish_rendering_manager.search.SearchAndSortApi;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 @AllArgsConstructor
+@Slf4j
 public class SearchDishesController {
 
     private final SearchAndSortApi searchAndSortApi;
@@ -45,6 +47,8 @@ public class SearchDishesController {
                 query, minPrice, maxPrice, minRating, minDistance,
                 maxDistance, userLatitude, userLongitude, dishType,sortBy, ascending
         );
+
+        log.info("No of dishes from controller : {} " , responseDishDtos.size());
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDishDtos);
 

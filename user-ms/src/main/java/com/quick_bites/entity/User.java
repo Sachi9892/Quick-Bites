@@ -1,5 +1,6 @@
 package com.quick_bites.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -8,12 +9,14 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity @Getter @Setter @Builder
+@Entity @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-public class User {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +27,8 @@ public class User {
     private String userEmail;
 
     private String userMobileNumber;
+
+    private String password;
 
     @CreationTimestamp
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -36,24 +41,24 @@ public class User {
     private LocalDateTime updatedAt;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST , orphanRemoval = true)
     @JsonManagedReference
     private List<UserDishReview> dishReviews;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST , orphanRemoval = true)
     @JsonManagedReference
     private List<UserRestaurantReview> restaurantReviews;
 
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST })
     @JsonManagedReference
     private List<OrderRecord> orders;
 
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JsonManagedReference
     private List<DeliveryAddresses> deliveryAddresses;
 

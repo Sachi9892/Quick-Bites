@@ -1,4 +1,4 @@
-package com.quick_bites.services.dishservice_public.impl;
+package com.quick_bites.services.dishservice_public.raw_dishes;
 
 
 import com.quick_bites.dto.dish_dto.ResponseDishDto;

@@ -10,6 +10,7 @@ public class RouteConfig {
 
     @Bean
     public RouteLocator quickBitesRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
+
         return routeLocatorBuilder.routes()
                 // Restaurant routes
                 .route("restaurant-route", r -> r.path("/restaurant/**")
@@ -26,6 +27,7 @@ public class RouteConfig {
                         .filters(f -> f.rewritePath("/rider/(?<remaining>.*)", "/${remaining}"))
                         .uri("lb://RIDER-MS"))
                 .build();
+
     }
 
 

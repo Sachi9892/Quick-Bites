@@ -1,5 +1,6 @@
 package com.quick_bites.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -22,6 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Cart implements Serializable {
 
     @Id
@@ -32,7 +34,11 @@ public class Cart implements Serializable {
 
     private Long restId;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER , cascade = CascadeType.ALL ,orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "cart",
+            fetch = FetchType.EAGER ,
+            cascade = { CascadeType.PERSIST , CascadeType.REFRESH , CascadeType.MERGE }
+            ,orphanRemoval = true)
     @JsonManagedReference
     private List<CartItem> cartItems = new ArrayList<>();
 

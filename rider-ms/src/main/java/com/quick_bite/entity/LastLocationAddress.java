@@ -1,5 +1,6 @@
 package com.quick_bite.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,11 +8,14 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
+import java.io.Serializable;
+
 
 @Entity(name = "LastAddress")
 @AllArgsConstructor
 @Builder
-public class LastLocationAddress {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class LastLocationAddress implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -7,15 +7,12 @@ import com.quick_bites.entity.UserRestaurantReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository <User, Long> {
 
-    User findByUserMobileNumber(String mobileNumber);
+    User findByUserMobileNumber(String userMobileNumber);
 
-    List<UserDishReview> findAllDishReviewsByUserId(Long userId);
-
-    List<UserRestaurantReview> findAllRestaurantReviewsByUserId(Long userId);
-
-    List<DeliveryAddresses> findAllDeliveryAddressesByUserId(Long userId);
+    Optional<User> findByUserMobileNumberAndPassword(String userMobileNumber , String password);
 
 }

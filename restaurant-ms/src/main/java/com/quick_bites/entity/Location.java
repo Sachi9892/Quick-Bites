@@ -6,11 +6,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Location {
+public class Location implements Serializable {
 
     public Location(double latitude , double longitude , String address) {
         this.latitude = latitude;

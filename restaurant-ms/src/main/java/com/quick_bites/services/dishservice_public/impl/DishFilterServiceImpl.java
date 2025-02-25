@@ -2,14 +2,10 @@ package com.quick_bites.services.dishservice_public.impl;
 
 import com.quick_bites.dto.dish_dto.ResponseDishDto;
 import com.quick_bites.entity.Dish;
-import com.quick_bites.entity.DishReview;
 import com.quick_bites.entity.DishType;
-import com.quick_bites.location_service.ICalculateDistanceService;
-import com.quick_bites.location_service.IDishesByDistanceService;
 import com.quick_bites.mapper.DishMapper;
 import com.quick_bites.repository.restaurant_repo.RestaurantRepository;
 import com.quick_bites.services.dishservice_public.IDishFilterService;
-import com.quick_bites.services.dishservice_public.IDishSortingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,9 +19,12 @@ import java.util.List;
 public class DishFilterServiceImpl implements IDishFilterService {
 
     private final RestaurantRepository restaurantRepository;
-    private final IDishSortingService dishSortingService;
-    private final ICalculateDistanceService  distanceService;
 
+    private final PriceFilterService priceFilterService;
+    private final RatingFilterService ratingFilterService;
+    private final DishTypeFilterService dishTypeFilterService;
+    private final DistanceFilterService distanceFilterService;
+    private final DishSorter dishSortingService;
 
     @Override
     @Cacheable(value = "dishes", key = "{#query, #minPrice, #maxPrice, #minRating, #minDistance, #maxDistance, #userLatitude, #userLongitude, #dishType, #sortBy, #ascending}")
@@ -43,67 +42,45 @@ public class DishFilterServiceImpl implements IDishFilterService {
             String sortBy,
             boolean ascending) {
 
-
-
+        // Fetch dishes by dish name or restaurant name
         List<Dish> dishes = restaurantRepository.findAllDishesByDishName(query);
-
-
         if (dishes.isEmpty()) {
             dishes = restaurantRepository.findAllDishesByRestaurantName(query);
-            log.info("Fetching dishes from restaurant repo");
+
         }
 
+        if (minPrice != null || maxPrice != null) {
+            dishes = priceFilterService.filterByPrice(dishes, minPrice, maxPrice);
+            log.info("After price filter no of dishes : {} " , dishes.size());
+        }
 
-        log.info("Inside rest-ms search and sort service");
+        if (minRating != null) {
+            dishes = ratingFilterService.filterByRating(dishes, minRating);
+            log.info("After rating filter no of dishes : {} " , dishes.size());
+        }
 
-        // Apply all filters
-        dishes = dishes.stream()
-                .filter(dish -> {
-                    boolean matches = true;
+        if (dishType != null) {
+            dishes = dishTypeFilterService.filterByType(dishes, dishType);
+            log.info("After type filter no of dishes : {} " , dishes.size());
+        }
 
-                    // Filter by price range
-                    if (minPrice != null && maxPrice != null) {
-                        matches = dish.getPrice() >= minPrice && dish.getPrice() <= maxPrice;
-                        log.info("Inside MinPrice And MaxPrice filter");
-                    }
+        if (userLatitude != null && userLongitude != null) {
+            dishes = distanceFilterService.filterByDistance(dishes, userLatitude, userLongitude, minDistance, maxDistance);
+            log.info("After distance filter no of dishes : {} " , dishes.size());
+        }
 
-                    // Filter by rating
-                    if (minRating != null) {
-                        double avgRating = dish.getDishReviews().stream().mapToDouble(DishReview::getRating).average().orElse(0.0);
-                        matches = matches && avgRating >= minRating;
-                        log.info("Inside MinRating filter");
-                    }
-
-                    // Filter by dish type
-                    if (dishType != null) {
-                        matches = matches && dish.getDishType().equals(dishType);
-                        log.info("Inside DishType filter");
-                    }
-
-                    // Filter by distance
-                    if (userLatitude != null && userLongitude != null && (minDistance != null || maxDistance != null)) {
-
-                        double distance = distanceService.calculateDistance(
-                                userLatitude, userLongitude,
-                                dish.getRestaurant().getLocation().getLatitude(),
-                                dish.getRestaurant().getLocation().getLongitude());
-                        matches = matches && (minDistance == null || distance >= minDistance) &&
-                                (maxDistance == null || distance <= maxDistance);
-                        log.info("Inside filter by distance  :  {} " , distance);
-                    }
-
-                    return matches;
-                })
-                .toList();
-
-        // Now sort the filtered dishes
+        // Sort dishes if sorting is applied
         if (sortBy != null) {
-            log.info("Entering sorting service ");
-            dishes = dishSortingService.sortDishes(dishes, sortBy, ascending, userLatitude, userLongitude , minDistance , maxDistance);
+            dishes = dishSortingService.sortDishes(dishes, sortBy, ascending, userLatitude, userLongitude);
         }
 
-        log.info("Result returned from FILTER SERVICE ONLY");
+        log.info("Final no of dishes {} " , dishes.size());
 
+        return mapToDtoList(dishes);
+    }
+
+
+    private List<ResponseDishDto> mapToDtoList(List<Dish> dishes) {
         return dishes.stream().map(DishMapper::mapToDto).toList();
     }
 

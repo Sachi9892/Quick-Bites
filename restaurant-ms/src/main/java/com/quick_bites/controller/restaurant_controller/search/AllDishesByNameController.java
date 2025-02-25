@@ -24,7 +24,7 @@ public class AllDishesByNameController {
     @GetMapping("/dish-name")
     public ResponseEntity<List<ResponseDishDto>> allDishes(@RequestParam String name ) {
 
-        List<ResponseDishDto> responseDishDtos = dishNameService.allDishesByDishName(name );
+        List<ResponseDishDto> responseDishDtos = dishNameService.allDishesByDishName(name);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDishDtos);
     }

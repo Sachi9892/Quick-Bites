@@ -1,5 +1,6 @@
 package com.quick_bites.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -11,13 +12,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
 @AllArgsConstructor @NoArgsConstructor @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RestaurantReview {
+public class RestaurantReview implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,18 +39,8 @@ public class RestaurantReview {
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
-    @JsonIgnore
+    @JsonBackReference
     private Restaurant restaurant;
 
-    @Override
-    public String toString() {
-        return "DishReview{" +
-                "reviewId=" + reviewId +
-                ", rating=" + rating +
-                ", comment='" + comment + '\'' +
-                ", reviewTime=" + reviewTime +
-                ", userId=" + userId +
-                '}';
-    }
 
 }

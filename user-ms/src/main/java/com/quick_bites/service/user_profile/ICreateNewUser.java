@@ -1,9 +1,10 @@
 package com.quick_bites.service.user_profile;
 
-import com.quick_bites.dto.AddUserDto;
+import com.quick_bites.dto.user_dto.AddUserDto;
+import com.quick_bites.entity.User;
 
 public interface ICreateNewUser {
 
-    String newUser(AddUserDto addUserDto);
+    User newUser(AddUserDto addUserDto);
 
 }

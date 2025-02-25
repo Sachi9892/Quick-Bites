@@ -9,13 +9,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,7 @@ public class Category {
     private Restaurant restaurant;
 
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Dish> dishes;
 

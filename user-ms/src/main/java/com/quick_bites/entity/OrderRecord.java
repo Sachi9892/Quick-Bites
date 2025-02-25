@@ -2,6 +2,7 @@ package com.quick_bites.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
@@ -20,6 +21,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Data
 @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderRecord implements Serializable {
 
     @Id
@@ -76,14 +78,5 @@ public class OrderRecord implements Serializable {
     private PaymentDetails paymentDetails;
 
 
-
-    @Override
-    public String toString() {
-        return "OrderRecord{" +
-                "orderDate=" + orderDate +
-                ", orderId=" + orderId +
-                ", cartId=" + cart.getCartId() +
-                '}';
-    }
 
 }

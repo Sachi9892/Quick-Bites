@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Restaurant {
+public class Restaurant implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,22 +25,22 @@ public class Restaurant {
     private String mobileNumber;
     private String restPic;
 
-    @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.PERSIST , orphanRemoval = true)
     @JoinColumn(name = "address_id")
     private Location location;
 
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Dish> dishes;
 
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Category> categories;
 
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private List<RestaurantReview> restReviews;
 

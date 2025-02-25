@@ -1,6 +1,7 @@
 package com.quick_bites.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,12 +11,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity(name = "Pick Order Details")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PickOrderDetails {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class PickOrderDetails implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +38,5 @@ public class PickOrderDetails {
     private Double userLatitude;
     private Double userLongitude;
 
-
-/** I will these details from the rider - ms
- *
-    private Double pickUpDistance;
-    private Double dropDistance;
-    private Double totalDistance;
-
-    private Double expectedEarnings;
- */
 
 }

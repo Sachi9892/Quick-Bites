@@ -5,40 +5,93 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d10e119f-6258-4545-8e65-b9f6597505e3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/config/WebSocketConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/order_dto/PickUpOrderFullDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/rider_dto/RiderDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/rider_dto/RiderLocationUpdate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/rider_assignment/AssignOrderToRiderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/rider_assignment/FindNearestRiderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/rider_assignment/NotifyRiderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/websocket/RiderWebSocketHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/utility/DistanceCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishSorter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishTypeFilterService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DistanceFilterService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/PriceFilterService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/RatingFilterService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/user_controller/LogInUserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/user_dto/LoginUserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/exceptions/UserAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/jwt/JwtUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/user_profile/ILogInUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/user_profile/impl/LogInServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edge-server/src/main/java/com/quick_bites/config/RouteConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/edge-server/src/main/java/com/quick_bites/config/RouteConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/restaurant-ms/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/constants/AppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/constants/AppConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/events/OrderPlacedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/events/OrderPlacedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/controller/signup/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/controller/signup/SignUpController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/CurrentAddressDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/PickOrderDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/order_dto/PickOrderDetailsDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/RiderSignUpDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/rider_dto/RiderSignUpDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/controller/restaurant_controller/search/AllDishesByNameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/controller/restaurant_controller/search/AllDishesByNameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/controller/restaurant_controller/sort/DishSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/controller/restaurant_controller/sort/DishSearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/dto/confirm_order_dto/RestaurantPickOrderDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/dto/confirm_order_dto/RestaurantPickOrderDetailsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/dto/dish_dto/ResponseDishDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/dto/dish_dto/ResponseDishDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/dto/location_dto/CalculateDistanceDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/dto/location_dto/CalculateDistanceDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/dto/review_dto/GiveReviewDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/dto/review_dto/GiveReviewDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/Dish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/DishReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/DishReview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/Restaurant.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/Restaurant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/RestaurantReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/entity/RestaurantReview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/location_service/impl/DishesByDistanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/location_service/impl/DishesByDistanceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/mapper/DishMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/mapper/DishMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishFilterServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishFilterServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishSortingServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishesByDishTypeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/raw_dishes/DishesByDishTypeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishesByRatingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/raw_dishes/DishesByRatingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/FindAllDishesByPriceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/raw_dishes/FindAllDishesByPriceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/LocationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/LocationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/order_dto/PickOrderDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/order_dto/PickOrderDetailsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/order_dto/PickUpOrderFullDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/order_dto/PickUpOrderFullDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/rider_dto/RiderDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/dto/rider_dto/RiderDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/entity/CurrentAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/entity/CurrentAddress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/entity/LastLocationAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/entity/LastLocationAddress.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/entity/Rider.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/entity/Rider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/RiderLocationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/OrderPlacedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/OrderPlacedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/PickOrderDetailsEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/rider_manager/events/PickOrderDetailsEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/signup/RiderSignUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/java/com/quick_bite/service/signup/RiderSignUpService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rider-ms/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/rider-ms/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-ms/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/mapper/OrderDetailsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/mapper/OrderDetailsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/AcknowledgmentProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/PostAcknowledgmentProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderAcknowledgment.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/dto/OrderAcknowledgment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderAcknowledgmentListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderAcknowledgmentListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/dto/OrderDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderPlaceEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/OrderPlaceEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/PickUpOrderDetailsPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/events/PickUpOrderDetailsPublisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/rider_manager/impl/PickOrderDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/rider_manager/impl/PickOrderDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/UserMsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/UserMsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/config/JacksonConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/config/JacksonConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/cart_controller/AddToCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/cart_controller/AddToCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/cart_controller/ClearCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/cart_controller/ClearCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/cart_controller/RemoveFromCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/cart_controller/RemoveFromCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/cart_controller/ViewCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/cart_controller/ViewCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/fetch_dishes/SearchDishesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/fetch_dishes/SearchDishesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/user_controller/AddressesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/user_controller/AddressesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/user_controller/CreateUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/user_controller/CreateUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/AddUserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/user_dto/AddUserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/addressdto/AddressResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/addressdto/AddressResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/cartdto/AddToCartDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/cartdto/AddToCartDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/cartdto/RemoveFromCartDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/cartdto/RemoveFromCartDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/confirm_order_dto/PickOrderDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/confirm_order_dto/PickOrderDetailsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/confirm_order_dto/RestaurantPickOrderDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/confirm_order_dto/RestaurantPickOrderDetailsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/dishdto/ResponseDishDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/dishdto/ResponseDishDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/dishdto/SingleDishResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/dishdto/SingleDishResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/location_dto/CalculateDistanceDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/location_dto/CalculateDistanceDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/location_dto/LocationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/location_dto/LocationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/orderdto/OrderDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/orderdto/OrderDetailsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/orderdto/PlaceOrderRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/orderdto/PlaceOrderRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/orderdto/TimeSlotDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/orderdto/TimeSlotDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/otpdto/OtpResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/otpdto/OtpResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/otpdto/RequestOtpDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/otpdto/RequestOtpDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/otpdto/VerifyOtpDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/otpdto/VerifyOtpDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/paymentdto/CartPaymentDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/paymentdto/GenerateSignatureDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/paymentdto/GenerateSignatureDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/paymentdto/PaymentRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/paymentdto/PaymentRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/paymentdto/PaymentVerificationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/paymentdto/PaymentVerificationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/reviewdto/GiveReviewDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/reviewdto/GiveReviewDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/reviewdto/ResponseReviewDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/dto/reviewdto/ResponseReviewDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/DeliveryAddresses.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/DeliveryAddresses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/OrderRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/OrderRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/OrderType.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/OrderType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/PickOrderDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/PickOrderDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/UserDishReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/UserDishReview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/UserRestaurantReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/entity/UserRestaurantReview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/exceptions/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/exceptions/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/payment_manager/ICreateRazorOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/managers/order_manager/payment_manager/ICreateRazorOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/user_profile/ICreateNewUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/user_profile/ICreateNewUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/user_profile/impl/CreateNewUserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/service/user_profile/impl/CreateNewUserImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-ms/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-ms/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +102,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -68,6 +122,12 @@
     &quot;accountId&quot;: &quot;357b1693-abc1-4dba-9cca-eb5afd62de2b&quot;
   }
 }</component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 4
@@ -95,6 +155,12 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.quick_bites.exceptions" />
+      <recent name="com.quick_bites.dto.user_dto" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -105,5 +171,34 @@
       <updated>1735366634039</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishFilterServiceImpl.java</url>
+          <line>30</line>
+          <properties class="com.quick_bites.services.dishservice_public.impl.DishFilterServiceImpl" method="getFilteredAndSortedDishes">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/user-ms/src/main/java/com/quick_bites/controllers/user_controller/LogInUserController.java</url>
+          <line>29</line>
+          <properties class="com.quick_bites.controllers.user_controller.LogInUserController" method="logInController">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/restaurant-ms/src/main/java/com/quick_bites/services/dishservice_public/impl/DishFilterServiceImpl.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
