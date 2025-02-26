@@ -4,6 +4,6 @@ import com.razorpay.RazorpayException;
 
 public interface ICreateRazorOrder {
 
-    String createRazorpayOrder(Long cartId)  throws RazorpayException;
+    String createRazorpayOrder(Long cartId , Long userId)  throws RazorpayException;
 
 }

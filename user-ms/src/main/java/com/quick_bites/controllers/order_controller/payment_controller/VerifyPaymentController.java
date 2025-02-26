@@ -1,67 +1,74 @@
 package com.quick_bites.controllers.order_controller.payment_controller;
 
 import com.quick_bites.dto.paymentdto.PaymentVerificationDto;
+import com.quick_bites.dto.paymentdto.VerificationApiResponse;
 import com.quick_bites.entity.OrderRecord;
 import com.quick_bites.entity.OrderStatus;
-import com.quick_bites.entity.PaymentDetails;
 import com.quick_bites.exceptions.OrderNotFoundException;
 import com.quick_bites.repository.OrderRepository;
-import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.events.OrderPlaceEvent;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/user/checkout")
+@CrossOrigin("*")
 public class VerifyPaymentController {
 
-    private final IVerifyPayment verifyPayment;
-    private final PaymentDetailsRepository paymentDetailsRepository;
+    private final IVerifyPayment paymentVerificationService;
     private final OrderPlaceEvent orderPlaceEvent;
     private final OrderRepository orderRepository;
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/user/order/verify-payment")
-    public ResponseEntity<String> verifyPayment(@RequestBody PaymentVerificationDto request) {
+    @Value("${razorpay.secret.key}")
+    private String secretKey;
 
-        PaymentDetails paymentDetails = paymentDetailsRepository.findByRazorpayOrderId(request.getOrderId());
+    @PostMapping("/verify-payment")
+    public ResponseEntity<VerificationApiResponse> verifyPayment(
+            @RequestBody PaymentVerificationDto request ,
+            @RequestHeader("X-API-Key") String apiKey) {
 
-        if (paymentDetails == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Payment details not found");
+        // Internal security check
+        if (!validateApiKey(apiKey)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new VerificationApiResponse("Invalid API key", false));
         }
 
         // Call the verification service
         try {
 
-            boolean isVerified = verifyPayment.verifyPaymentSignature(request.getPaymentId(), request.getSignature());
+            boolean isVerified = paymentVerificationService.verifyPaymentSignature(request.getOrderId(), request.getPaymentId(), request.getSignature());
 
             if (isVerified) {
 
                 // Update order status
-                OrderRecord order = orderRepository.findById(paymentDetails.getOrderRecord().getOrderId())
-                        .orElseThrow(() -> new OrderNotFoundException("Order not found"));
+                OrderRecord order = orderRepository.findByRazorpayOrderId(request.getOrderId()).orElseThrow(() -> new OrderNotFoundException("Order Not Found"));
 
                 order.setOrderStatus(OrderStatus.PLACED);
                 orderRepository.save(order);
 
-                //Send the event to the Restaurant-Ms , Rider-Ms
+                //Send the event to the Restaurant- ms, Rider-Ms
                 orderPlaceEvent.sendOrderPlacedEvent(order);
-                return ResponseEntity.ok("Payment verified and order placed successfully");
+                return ResponseEntity.ok(new VerificationApiResponse("Payment verified and order placed successfully" , true));
 
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid payment signature");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new VerificationApiResponse("Payment failed and order placed " , false));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error verifying payment");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new VerificationApiResponse("Error occurred while placing an order" , false));
         }
 
     }
+
+    private boolean validateApiKey(String apiKey) {
+        return secretKey.equals(apiKey);
+    }
+
 
 }

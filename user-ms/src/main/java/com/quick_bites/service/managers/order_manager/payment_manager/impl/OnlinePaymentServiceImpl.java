@@ -19,15 +19,16 @@ public class OnlinePaymentServiceImpl implements IOnlinePaymentService {
     private final ICreateRazorOrder createRazorOrder;
 
     @Override
-    public Cart initiateOnlinePayment(Long cartId) throws RazorpayException {
+    public String initiateOnlinePayment(Long cartId , Long userId) throws RazorpayException {
 
-        createRazorOrder.createRazorpayOrder(cartId);
+        String razorpayOrderId = createRazorOrder.createRazorpayOrder(cartId, userId);
 
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new CartNotFoundException("No cart update" + cartId));
 
         cart.setStatus(CartStatus.ORDERED);
+        cartRepository.save(cart);
 
-        return cartRepository.save(cart);
+        return razorpayOrderId;
     }
 }

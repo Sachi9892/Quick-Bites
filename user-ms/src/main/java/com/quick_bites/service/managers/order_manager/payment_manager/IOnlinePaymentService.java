@@ -5,6 +5,6 @@ import com.razorpay.RazorpayException;
 
 public interface IOnlinePaymentService {
 
-    Cart initiateOnlinePayment(Long cartId) throws RazorpayException;
+    String initiateOnlinePayment(Long cartId , Long userId) throws RazorpayException;
 
 }

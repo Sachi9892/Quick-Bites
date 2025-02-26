@@ -6,10 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
@@ -19,7 +16,8 @@ import java.time.LocalTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderRecord implements Serializable {
@@ -76,6 +74,15 @@ public class OrderRecord implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "paymentId")
     private PaymentDetails paymentDetails;
+
+
+    // Helper method to get the Razorpay order ID from linked PaymentDetails
+    public String getRazorpayOrderId() {
+        if (this.paymentDetails != null) {
+            return this.paymentDetails.getRazorpayOrderId();
+        }
+        return null;
+    }
 
 
 

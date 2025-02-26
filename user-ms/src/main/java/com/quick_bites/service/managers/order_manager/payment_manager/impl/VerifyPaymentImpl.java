@@ -6,15 +6,21 @@ import com.quick_bites.entity.OrderRecord;
 import com.quick_bites.entity.OrderStatus;
 import com.quick_bites.entity.PaymentDetails;
 import com.quick_bites.entity.PaymentStatus;
+import com.quick_bites.exceptions.OrderNotFoundException;
 import com.quick_bites.exceptions.RazorPayException;
 import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.repository.PaymentDetailsRepository;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
 import com.quick_bites.exceptions.NoPaymentFoundException;
+import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+import com.razorpay.Utils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 
 @Service
@@ -23,65 +29,55 @@ import org.springframework.stereotype.Service;
 public class VerifyPaymentImpl implements IVerifyPayment {
 
     private final PaymentDetailsRepository paymentDetailsRepository;
-    private final GenerateSignatureServiceImpl generateSignatureService;
     private final OrderRepository orderRepository;
 
+
     @Override
-    public boolean verifyPaymentSignature(String paymentId, String signature) throws RazorpayException {
+    public boolean verifyPaymentSignature(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature) throws RazorpayException {
 
-        PaymentDetails paymentDetails = paymentDetailsRepository.findByRazorpayPaymentId(paymentId);
+        try {
+            // Razorpay's official verification method
+            boolean isValid = Utils.verifyPaymentSignature(
+                    (JSONObject) Map.of(
+                            "razorpay_order_id", razorpayOrderId,
+                            "razorpay_payment_id", razorpayPaymentId,
+                            "razorpay_signature", razorpaySignature
+                    ),
+                    AppConstants.RAZORPAY_SECRET_KEY
+            );
 
-        if ( paymentDetails == null ) {
-            throw new NoPaymentFoundException("Payment details not found for paymentId: " + paymentId);
-        }
-
-        String orderId = paymentDetails.getRazorpayOrderId();
-        String secret = AppConstants.RAZORPAY_SECRET_KEY;
-
-        // Generate the signature
-        String generatedSignature = generateSignatureService.generateSignature(orderId, paymentId, secret);
-
-
-        // Compare the generated signature with the received signature
-        if (generatedSignature != null && generatedSignature.equals(signature)) {
-            // Update the payment details only after successful verification
-            paymentDetails.setRazorpayPaymentId(paymentId);
-            paymentDetails.setRazorpayOrderId(orderId);
-            paymentDetails.setRazorpaySignature(generatedSignature);
-            paymentDetails.setPaymentStatus(PaymentStatus.PAID);
-
-            String ans = paymentDetails.toString();
-            log.info("Payment info: {}", ans);
-
-            // Save the updated payment details
-            paymentDetailsRepository.save(paymentDetails);
-
-            // Fetch the order associated with this payment
-            OrderRecord orderRecord = orderRepository.findByPaymentDetails(paymentDetails);
-
-            log.info("Is order record fetching ? {} " , orderRecord);
-
-            if (orderRecord != null) {
-
-                // Update order status to PLACED after successful payment
-                orderRecord.setOrderStatus(OrderStatus.PLACED);
-                orderRepository.save(orderRecord);
-
-            } else {
-                log.error("Order not found for paymentId: {}", paymentId);
+            if (!isValid) {
+                log.error("Invalid Razorpay signature for payment: {}", razorpayPaymentId);
                 return false;
             }
 
-            log.info("Payment and order status updated successfully for paymentId: {}", paymentId);
+            // Fetch payment details (optional, depends on your flow)
+            PaymentDetails paymentDetails = paymentDetailsRepository.findByRazorpayOrderId(razorpayOrderId);
+            if (paymentDetails == null) {
+                throw new NoPaymentFoundException("Payment not found for order: " + razorpayOrderId);
+            }
+
+            // Update payment status
+            paymentDetails.setPaymentStatus(PaymentStatus.PAID);
+
+            paymentDetailsRepository.save(paymentDetails);
+
+            // Update order status
+            OrderRecord order = orderRepository.findByRazorpayOrderId(razorpayOrderId)
+                    .orElseThrow(() -> new OrderNotFoundException("Order not found"));
+
+            order.setOrderStatus(OrderStatus.PLACED);
+
+            orderRepository.save(order);
 
             return true;
 
-        } else {
-            log.error("Payment signature verification failed for paymentId: {}", paymentId);
-            throw new RazorPayException("Razor Pay Is Down !");
+        } catch (RazorpayException e) {
+            log.error("Razorpay verification failed: {}", e.getMessage());
+            return false;
         }
-
     }
+
 
 }
 
