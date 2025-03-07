@@ -12,6 +12,7 @@ import com.quick_bites.service.managers.order_manager.order_service.IPlaceOrderF
 import com.quick_bites.service.managers.order_manager.order_service.PlaceOrderServiceFactory;
 import com.quick_bites.service.managers.order_manager.payment_manager.IOnlinePaymentService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user/checkout")
 @AllArgsConstructor
 @CrossOrigin("*")
+@Slf4j
 public class OrderNowController {
 
     private final PlaceOrderServiceFactory orderNowServiceFactory;
@@ -36,7 +38,13 @@ public class OrderNowController {
 
         try {
 
-            Long userId = jwtUtils.extractUserId(token);
+            log.info("Order Request: {}", orderRequest);
+
+            log.info("Token : {} " , token);
+
+            Long userId = jwtUtils.extractUserId(token.replace("Bearer ", ""));
+
+            log.info("User ID Extracted : {} " ,  userId );
 
             IPlaceOrderFactory onlineOrderNow = orderNowServiceFactory.placeOrder(orderRequest.getOrderType());
             OrderRecord order = onlineOrderNow.placeOrder(orderRequest);
@@ -44,6 +52,7 @@ public class OrderNowController {
             if (orderRequest.getOrderType() == OrderType.ONLINE) {
 
                 String razorpayOrderId = onlinePaymentService.initiateOnlinePayment(orderRequest.getCartId() , userId);
+                log.info("Order received for user : {}  and cart : {} " , userId , orderRequest.getCartId());
 
                 return ResponseEntity.ok(
                         new OrderResponse("Online payment initialized", razorpayOrderId)
@@ -56,7 +65,7 @@ public class OrderNowController {
             }
 
         } catch (Exception e) {
-            throw new PlaceOrderException("Failed to place scheduled order: " + e.getMessage());
+            throw new PlaceOrderException("(Order-now-online) Failed to place order: " + e.getMessage());
         }
 
     }

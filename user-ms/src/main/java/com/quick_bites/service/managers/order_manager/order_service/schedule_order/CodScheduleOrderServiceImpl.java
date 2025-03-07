@@ -3,7 +3,6 @@ package com.quick_bites.service.managers.order_manager.order_service.schedule_or
 import com.quick_bites.dto.orderdto.PlaceOrderRequestDto;
 import com.quick_bites.entity.*;
 import com.quick_bites.exceptions.CartNotFoundException;
-import com.quick_bites.exceptions.SlotNotAvailableOrExpireException;
 import com.quick_bites.repository.*;
 import com.quick_bites.service.managers.order_manager.order_service.IPlaceOrderFactory;
 import com.quick_bites.service.managers.order_manager.order_service.OrderBaseService;

@@ -6,14 +6,12 @@ import com.quick_bites.service.managers.order_manager.cart_manager.IClearCart;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user/cart")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class ClearCartController {
 
     private final IClearCart clearCartService;

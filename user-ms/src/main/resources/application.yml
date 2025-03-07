@@ -69,6 +69,6 @@ jwt:
 #Razor pay configuration
 razorpay:
   api:
-    key: rzp_test_cWfbuLENrweRjB
+    key: rzp_test_NqiZAZv7vcqJe4
   secret:
-    key: TFT6Y0u3M619bQ1UOztqngsR
+    key: EVGUJQO3YpUID6CM6DRHpGQb

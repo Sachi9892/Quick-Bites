@@ -10,14 +10,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user/cart")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class AddToCartController {
 
     private final IAddToCart addToCartService;
@@ -28,7 +26,7 @@ public class AddToCartController {
             @RequestHeader("Authorization") String token,
             @RequestBody AddToCartDto addToCartDto) {
 
-        Long userId = jwtUtils.extractUserId(token.replace("Bearer ", "")); // Extract userId from JWT
+        Long userId = jwtUtils.extractUserId(token.replace("Bearer ", " ")); // Extract userId from JWT
         addToCartDto.setUserId(userId); // Set userId in the DTO
         Cart cart = addToCartService.addDishesToCart(addToCartDto);
         return ResponseEntity.ok(cart);

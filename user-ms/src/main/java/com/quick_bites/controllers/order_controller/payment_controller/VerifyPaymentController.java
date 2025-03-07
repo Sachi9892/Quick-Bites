@@ -8,7 +8,6 @@ import com.quick_bites.exceptions.OrderNotFoundException;
 import com.quick_bites.repository.OrderRepository;
 import com.quick_bites.service.managers.order_manager.events.OrderPlaceEvent;
 import com.quick_bites.service.managers.order_manager.payment_manager.IVerifyPayment;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/user/checkout")
 @CrossOrigin("*")
 public class VerifyPaymentController {
@@ -25,6 +23,12 @@ public class VerifyPaymentController {
     private final IVerifyPayment paymentVerificationService;
     private final OrderPlaceEvent orderPlaceEvent;
     private final OrderRepository orderRepository;
+
+    public VerifyPaymentController(IVerifyPayment paymentVerificationService, OrderPlaceEvent orderPlaceEvent, OrderRepository orderRepository) {
+        this.paymentVerificationService = paymentVerificationService;
+        this.orderPlaceEvent = orderPlaceEvent;
+        this.orderRepository = orderRepository;
+    }
 
     @Value("${razorpay.secret.key}")
     private String secretKey;

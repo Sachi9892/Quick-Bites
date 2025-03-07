@@ -9,6 +9,8 @@ import com.quick_bites.service.managers.order_manager.order_service.OrderBaseSer
 import com.quick_bites.service.managers.order_manager.payment_manager.ICreateRazorOrder;
 import com.razorpay.RazorpayException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ import java.util.UUID;
 @Qualifier("onlineOrderNowService")
 public class OnlineOrderNowServiceImpl extends OrderBaseService implements IPlaceOrderFactory {
 
+    private static final Logger log = LoggerFactory.getLogger(OnlineOrderNowServiceImpl.class);
     private final ICreateRazorOrder createRazorpayOrder;
 
 
@@ -41,7 +44,8 @@ public class OnlineOrderNowServiceImpl extends OrderBaseService implements IPlac
         // Create Razorpay order
         try {
 
-            String razorpayOrderResponse = createRazorpayOrder.createRazorpayOrder(requestDto.getCartId());
+            String razorpayOrderResponse = createRazorpayOrder.createRazorpayOrder(requestDto.getCartId() , savedOrder.getCustomerId()) ;
+
             PaymentDetails payment = new PaymentDetails();
             payment.setTransactionId(UUID.randomUUID().toString());
             payment.setPaymentStatus(PaymentStatus.CREATED);
@@ -57,6 +61,7 @@ public class OnlineOrderNowServiceImpl extends OrderBaseService implements IPlac
             return orderRepository.save(savedOrder);
 
         } catch (Exception e) {
+            log.info("Exp at service of order-now : {} ", e.getMessage());
             throw new RazorPayException("Razorpay is down currently!");
         }
     }
